@@ -1,0 +1,12 @@
+div {
+    text-align: center;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+
+button {
+    margin-top: 20px;
+}
