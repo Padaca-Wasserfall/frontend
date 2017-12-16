@@ -6,13 +6,22 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
+import { AgmTestComponent } from './agm-test/agm-test.component';
+import { HomeComponent } from './home/home.component';
 
 const routConfig: Routes = [
   {
     path: '',
-    redirectTo: '/orderView',
+    redirectTo: '/home',
     pathMatch: 'full'
+  }, {
+    path: 'home',
+    component: HomeComponent
   },
+  {
+    path: 'agm',
+    component: AgmTestComponent
+  }
   // {
   //   path: 'login',
   //   component: LoginComponent
@@ -31,7 +40,9 @@ const routConfig: Routes = [
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AgmTestComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
