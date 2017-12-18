@@ -39,6 +39,8 @@ export interface User {
 
 export interface Mitfahrer extends User {
     umweg: number;
+    start: any;
+    ziel: any;
 }
 
 export interface Rating {
@@ -52,6 +54,7 @@ export interface Rating {
 
 //#region Reise
 export interface Reise {
+    reiseID: number;
     fahrer: User;
     mitfahrer: Mitfahrer[];
     start: any;
@@ -63,6 +66,12 @@ export interface Reise {
     preis: number;
     beschreibung: string;
     umwegMax: number; // SOLL --> angeben, KANN --> berechnen, überprüfen
+}
+
+export interface Route {
+    start: string;
+    ziel: string;
+    datum: any;
 }
 //#endregion
 
@@ -76,6 +85,6 @@ export interface Chat {
 export interface Message {
     nachricht: string;
     zeit: any;
-    sender: boolean;
+    reveiverID: number;
 }
 //#endregion
