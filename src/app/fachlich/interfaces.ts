@@ -43,7 +43,7 @@ export interface Mitfahrer extends User {
     ziel: any;
 }
 
-export interface Rating {
+export interface Bewertung {
     ratingID: number;
     fahrer: User;
     mitfahrer: User;
@@ -83,7 +83,7 @@ export interface Chat {
 }
 
 export interface Message {
-    nachricht: string;
+    message: string;
     zeit: any;
     reveiverID: number;
 }

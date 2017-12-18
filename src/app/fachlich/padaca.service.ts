@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { Response, Reise, User, Route, LoginDTO, ChangePasswordDTO, RegisterDTO, Message } from './interfaces';
+import { Response, Reise, User, Route, LoginDTO, ChangePasswordDTO, RegisterDTO, Message, Bewertung } from './interfaces';
 import { RestService } from '../technisch/rest.service';
 
 @Injectable()
@@ -18,29 +18,29 @@ export class PadacaService {
   /**
    * Liefert die Session des Users zurück.
    */
-  public postLogin(dto: LoginDTO): Observable<Response> {
-    return this.restService.postRequest('/login', dto);
+  public getLogin(dto: LoginDTO): Observable<Response> {
+    return this.restService.getRequest('/login?username=' + dto.username + '&password=' + dto.password);
   }
 
   /**
    * Verwirft die Session.
    */
-  public logout(): Observable<Response> {
-    return this.restService.postRequest('/logout', {});
+  public getLogout(): Observable<Response> {
+    return this.restService.getRequest('/logout');
   }
 
   /**
    * Führt den Registrierungsprozess für einen User aus.
    */
-  public register(dto: RegisterDTO): Observable<Response> {
+  public getRegister(dto: RegisterDTO): Observable<Response> {
     return this.restService.postRequest('/register', dto);
   }
 
   /**
    * Ändert das Passwort eines Users.
    */
-  public changePassword(dto: ChangePasswordDTO): Observable<Response> {
-    return this.restService.postRequest('/changePassword', dto);
+  public getChangePassword(dto: ChangePasswordDTO): Observable<Response> {
+    return this.restService.getRequest('/password?old=' + dto.old + '&new=' + dto.new);
   }
   //#endregion
 
@@ -49,41 +49,34 @@ export class PadacaService {
    * Liefert alle Chatpartner eines Users zurück.
    */
   public getChatPartner(): Observable<Response> {
-    return this.restService.getRequest('/chat/partner');
+    return this.restService.getRequest('/inbox');
   }
 
   /**
    * Liefert das Chat-Objekt zu einem Chatpartner zurück, dass alle Nachrichten enthält.
    */
   public getChat(chatPartner: User): Observable<Response> {
-    return this.restService.getRequest('/chat?userID=' + chatPartner.userID);
+    return this.restService.getRequest('/inbox?userID=' + chatPartner.userID);
   }
 
-  public sendMessage(message: Message): Observable<Response> {
-    return this.restService.postRequest('/chat/message', message);
+  public putSendMessage(message: Message): Observable<Response> {
+    return this.restService.putRequest('/inbox', message);
   }
   //#endregion
 
-  //#region Reise
+  //#region Reise als Fahrer
+  /**
+   * Erstellt eine Reise.
+   */
+  public postReiseErstellen(reise: Reise): Observable<Response> {
+    return this.restService.postRequest('/reise/erstellen', reise);
+  }
+
   /**
    * Liefert alle Reisen eines Users als Fahrer zurück.
    */
   public getReisenAlsFahrer(user: User): Observable<Response> {
-    return this.restService.getRequest('/reisen/fahrer?userID=' + user.userID);
-  }
-
-  /**
-   * Liefert alle Reisen eines Users als Mitfahrer zurück.
-   */
-  public getReisenAlsMitfahrer(user: User): Observable<Response> {
-    return this.restService.getRequest('/reisen/mitfahrer?userID=' + user.userID);
-  }
-
-  /**
-   * Liefert alle möglichen Mitfahrgelegenheiten für die geplante Route.
-   */
-  public postSucheReise(route: Route): Observable<Response> {
-    return this.restService.postRequest('/reisen/suchen', route);
+    return this.restService.getRequest('/reise/fahrer?userID=' + user.userID);
   }
 
   /**
@@ -94,41 +87,63 @@ export class PadacaService {
   }
 
   /**
-   * Erstellt eine Reise.
+   * Bestätigt oder verweigert die Anfrage eines Mitfahrers.
    */
-  public postReiseErstellen(reise: Reise): Observable<Response> {
-    return this.restService.postRequest('/reise/erstellen', reise);
-  }
-
-  /**
-   * Fragt bei dem Fahrer an, ob man mitfahren darf.
-   */
-  public postMitfahrtAnfragen(reise: Reise): Observable<Response> {
-    return this.restService.postRequest('/reise/mitfahren', reise);
-  }
-
-  /**
-   * Bestätigt die Anfrage des Users.
-   */
-  public postMitfahrtBestätigen(reise: Reise, user: User): Observable<Response> {
-    return this.restService.postRequest('/reise/mitfahren/submit', {
-      reise: reise,
-      user: user
-    });
+  public postMitfahrtBestätigen(reise: Reise, user: User, antwort: boolean): Observable<Response> {
+    return this.restService.postRequest('/reise/antwort?reiseID=' + reise.reiseID + '&userID=' + user.userID + '&antwort=' + antwort, {});
   }
 
   /**
    * Sagt die Reise ab & benachrichtigt die betroffenen Personen.
    */
-  public postReiseAbsagen(reise: Reise) {
-    return this.restService.postRequest('/reise/absagen', reise);
+  public postReiseAbsagen(reise: Reise, message: Message) {
+    return this.restService.postRequest('/reise/absagen', message);
+  }
+  //#endregion
+
+  //#region Reise als Mitfahrer
+  /**
+   * Liefert alle möglichen Mitfahrgelegenheiten für die geplante Route.
+   */
+  public getSucheReise(route: Route): Observable<Response> {
+    return this.restService.getRequest('/reise/search?start=' + route.start + '&ziel=' + route.ziel + '&datum=' + route.datum);
+  }
+
+  /**
+   * Liefert alle Reisen eines Users als Mitfahrer zurück.
+   */
+  public getReisenAlsMitfahrer(user: User): Observable<Response> {
+    return this.restService.getRequest('/reise/mitfahrer?userID=' + user.userID);
+  }
+
+  /**
+   * Fragt bei dem Fahrer an, ob man mitfahren darf.
+   */
+  public putReiseAnfragen(reise: Reise): Observable<Response> {
+    return this.restService.putRequest('/reise/anfragen?reiseID=' + reise.reiseID, {});
+  }
+
+  /**
+   * Sagt die Reise ab & benachrichtigt die betroffenen Personen.
+   */
+  public postReiseAbmelden(reise: Reise, message: Message) {
+    return this.restService.postRequest('/reise/abmelden?reiseID=' + reise.reiseID, message);
+  }
+  //#endregion
+
+  //#region Pinned
+  /**
+   * Speichert die Reise unter den angepinnten Reisen.
+   */
+  public getPinned(reise: Reise): Observable<Response> {
+    return this.restService.getRequest('/pinned?reiseID=' + reise.reiseID);
   }
 
   /**
    * Speichert die Reise unter den angepinnten Reisen.
    */
   public putPinned(reise: Reise): Observable<Response> {
-    return this.restService.putRequest('/pinned', reise);
+    return this.restService.putRequest('/pinned?reiseID=' + reise.reiseID, {});
   }
 
   /**
@@ -144,28 +159,43 @@ export class PadacaService {
    * Liefert den entsprechenden User mit allen Infos zurück.
    */
   public getUser(user: User): Observable<Response> {
-    return this.restService.getRequest('/profil/user?userID=' + user.userID);
+    return this.restService.getRequest('/profil?userID=' + user.userID);
   }
 
   /**
    * Ändert das Profil.
    */
   public postChangeProfile(user: User): Observable<Response> {
-    return this.restService.postRequest('/profil/change', user);
+    return this.restService.postRequest('/profil', user);
   }
 
   /**
    * Liefert alle von anderen Usern erhaltene Ratings zurück.
    */
-  public getErhalteneErhalten(user: User): Observable<Response> {
-    return this.restService.getRequest('/rating/erhalten?userID=' + user.userID);
+  public getBewertungen(user: User): Observable<Response> {
+    return this.restService.getRequest('/bewertungen?userID=' + user.userID);
   }
 
   /**
-   * Liefert alle für andere User abgegebenen Ratings zurück.
+   * Erstellt eine Bewertung von einem Fahrer für einen Mitfahrer.
    */
-  public getRatingAbgegeben(user: User): Observable<Response> {
-    return this.restService.getRequest('/rating/abgegeben?userID=' + user.userID);
+  public putBewertenAlsFahrer(bewertung: Bewertung): Observable<Response> {
+    return this.restService.putRequest('/bewertungen', {
+      userID: bewertung.mitfahrer ? bewertung.mitfahrer.userID : null,
+      rating: bewertung.rating,
+      ratingText: bewertung.ratingText
+    });
+  }
+
+  /**
+   * Erstellt eine Bewertung von einem Mitfahrer für einen Fahrer.
+   */
+  public putBewertenAlsMitfahrer(bewertung: Bewertung): Observable<Response> {
+    return this.restService.putRequest('/bewertungen', {
+      userID: bewertung.fahrer ? bewertung.fahrer.userID : null,
+      rating: bewertung.rating,
+      ratingText: bewertung.ratingText
+    });
   }
   //#endregion
 }

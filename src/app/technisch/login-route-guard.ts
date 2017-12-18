@@ -7,13 +7,13 @@ export class LoginRouteGuard implements CanActivate {
     constructor(private router: Router) { }
 
     public canActivate() {
-        let session = {};
+        let session = true;
         if (session) {
             // eingeloggt
             return true;
         } else {
             // nicht eingeloggt
-            this.router.navigate(['/login']);
+            this.router.navigate(['/home']);
             return false;
         }
     }
