@@ -1,0 +1,15 @@
+table, tbody {
+    width: 100%;
+    height: 100%;
+}
+
+td {
+    width: 50%;
+    height: 100%;
+}
+tr {
+    width: 100%;
+}
+mat-card  {
+    height: 100%;
+}

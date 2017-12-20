@@ -110,7 +110,7 @@ export class PadacaService {
    */
   public getSucheReise(route: Route): Observable<Response> {
     return this.restService.getRequest('/reise/search?sessionkey=' + this.sessionkey
-      + '&start=' + route.start + '&ziel=' + route.ziel + '&datum=' + route.datum);
+      + '&start=' + route.start + '&ziel=' + route.ziel + '&datum=' + route.zeitstempel);
   }
 
   /**
