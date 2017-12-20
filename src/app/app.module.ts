@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReiseAnzeigenComponent } from './fachlich/reise-anzeigen/reise-anzeigen.component';
 import { InboxComponent } from './fachlich/inbox/inbox.component';
 import { ProfilComponent } from './fachlich/profil/profil.component';
@@ -10,10 +11,12 @@ import { HttpModule } from '@angular/http';
 import { HeaderComponent } from './technisch/header/header.component';
 import { FooterComponent } from './technisch/footer/footer.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatToolbarModule } from '@angular/material';
+import { MatToolbarModule, MatCardModule, MatIconModule, MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule } from '@angular/material';
 import { LoginRouteGuard } from './technisch/login-route-guard';
 import { ReiseAnlegenComponent } from './fachlich/reise-anlegen/reise-anlegen.component';
 import { HomeComponent } from './fachlich/home/home.component';
+import { LoginComponent } from './technisch/login/login.component';
+import { PadacaService } from './fachlich/padaca.service';
 
 const routConfig: Routes = [
   {
@@ -56,19 +59,32 @@ const routConfig: Routes = [
     ProfilComponent,
     InboxComponent,
     ReiseAnlegenComponent,
-    ReiseAnzeigenComponent
+    ReiseAnzeigenComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(routConfig, { useHash: true }),
-    MatToolbarModule
+    MatToolbarModule,
+    MatIconModule,
+    MatCardModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatMenuModule
   ],
   providers: [
     RestService,
+    PadacaService,
     LoginRouteGuard
+  ],
+  entryComponents: [
+    LoginComponent
   ],
   bootstrap: [AppComponent]
 })

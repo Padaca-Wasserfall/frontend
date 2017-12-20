@@ -1,0 +1,16 @@
+.fill-remaining-space {
+    /* this fills the remaining space, by using flexbox. 
+    / every toolbar row uses a flexbox row layout.*/
+    flex: 1 1 auto;
+}
+
+mat-icon, img, span {
+    font-size: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.navIcon {
+    margin-right: 50px!important;
+}

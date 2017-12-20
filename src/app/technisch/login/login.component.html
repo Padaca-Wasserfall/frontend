@@ -1,0 +1,30 @@
+<h2> Login </h2>
+<br>
+<table>
+  <tr>
+    <td>
+      <mat-input-container>
+        <input matInput placeholder="Username" [(ngModel)]="username" (keypress)="keypress($event.keyCode)">
+      </mat-input-container>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <mat-input-container>
+        <input matInput type="password" placeholder="Passwort" [(ngModel)]="password" (keypress)="keypress($event.keyCode)">
+      </mat-input-container>
+    </td>
+  </tr>
+  <ng-container *ngIf="passwordFalse">
+    <tr>
+      <td>
+        <span class="error-message">{{ msgFailed }}</span>
+      </td>
+    </tr>
+  </ng-container>
+</table>
+<br>
+<div>
+  <button mat-raised-button color="primary" (click)="login()">Login</button>
+  <button mat-raised-button color="primary" (click)="cancel()">Abbrechen</button>
+</div>

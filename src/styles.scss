@@ -77,8 +77,8 @@ $mat-secondery: (
 );
 //#endregion
 
-$materialbeschaffung-app-primary: mat-palette($mat-atiw-blue);
-$materialbeschaffung-app-accent:  mat-palette($mat-green);
+$materialbeschaffung-app-primary: mat-palette($mat-green);
+$materialbeschaffung-app-accent:  mat-palette($mat-atiw-blue);
 
 // The warn palette is optional (defaults to red).
 $materialbeschaffung-app-warn:    mat-palette($mat-red);
