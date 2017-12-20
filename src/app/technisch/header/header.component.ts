@@ -15,7 +15,7 @@ import { Response } from '../../fachlich/interfaces';
 })
 export class HeaderComponent implements OnInit {
 
-  public username = 'Test';
+  public username = 'Username';
 
   constructor(private dialog: MatDialog, private router: Router, private padacaService: PadacaService) { }
 
@@ -32,17 +32,18 @@ export class HeaderComponent implements OnInit {
   public login() {
     this.dialog.open(LoginComponent, {
 
-    }).afterClosed().subscribe(data => {
+    }).afterClosed().subscribe(res => {
 
     });
   }
 
   public logout() {
-    this.padacaService.getLogout().subscribe((res: Response) => {
-      if (res.success) {
-        this.navigateToHome();
-      }
-    });
+    this.username = null;
+    // this.padacaService.getLogout().subscribe((res: Response) => {
+    //   if (res.success) {
+    //     this.navigateToHome();
+    //   }
+    // });
   }
 
   public navigateToHome() {
@@ -64,7 +65,7 @@ export class HeaderComponent implements OnInit {
   public openPinned() {
     this.dialog.open(PinnedComponent, {
 
-    }).afterClosed().subscribe(data => {
+    }).afterClosed().subscribe((res: Response) => {
 
     });
   }
@@ -72,7 +73,7 @@ export class HeaderComponent implements OnInit {
   public openSearch() {
     this.dialog.open(SearchComponent, {
 
-    }).afterClosed().subscribe(data => {
+    }).afterClosed().subscribe((res: Response) => {
 
     });
   }
@@ -80,7 +81,7 @@ export class HeaderComponent implements OnInit {
   public openChangePassword() {
     this.dialog.open(ChangePasswordComponent, {
 
-    }).afterClosed().subscribe(data => {
+    }).afterClosed().subscribe((res: Response) => {
 
     });
   }

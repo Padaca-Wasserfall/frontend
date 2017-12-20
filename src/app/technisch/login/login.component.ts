@@ -1,7 +1,7 @@
 import { PadacaService } from './../../fachlich/padaca.service';
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { LoginDTO, Response } from '../../fachlich/interfaces';
+import { LoginDTO, Response, RegisterDTO } from '../../fachlich/interfaces';
 
 @Component({
   selector: 'app-login',
@@ -12,8 +12,9 @@ export class LoginComponent {
 
   public username: string;
   public password: string;
-  public passwordFalse: boolean;
-  public msgFailed = 'Das eingegebene Passwort ist falsch.';
+  public passwordSubmit: string;
+
+  public msgFailed: string;
 
   constructor(public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) data: any, private padacaService: PadacaService) { }
 
@@ -21,22 +22,57 @@ export class LoginComponent {
     this.dialogRef.close(false);
   }
 
+  //#region Login
   public login() {
-    let dto: LoginDTO = {
-      username: this.username,
-      password: this.password
-    };
-    this.padacaService.getLogin(dto).subscribe((data: Response) => {
-      console.log(data);
-    }, (err) => {
-      console.log(err);
-    });
+    if (this.username && this.password) {
+      let dto: LoginDTO = {
+        username: this.username,
+        password: this.password
+      };
+      this.padacaService.getLogin(dto).subscribe((res: Response) => {
+        console.log(res);
+      }, (err: Response) => {
+        this.msgFailed = err.message;
+      });
+    } else {
+      this.msgFailed = 'Eingaben unvollständig.';
+    }
   }
 
-  public keypress(keycode) {
+  public keypressLogin(keycode) {
     if (keycode == 13) {
       // Falls Enter gedrückt
       this.login();
     }
   }
+  //#endregion
+
+  //#region Registrieren
+  public register() {
+    if (this.username && this.password && this.passwordSubmit) {
+      if (this.password === this.passwordSubmit) {
+        let dto: RegisterDTO = {
+          username: this.username,
+          password: this.password
+        };
+        this.padacaService.getRegister(dto).subscribe((data: Response) => {
+          console.log(data);
+        }, (err: Response) => {
+          this.msgFailed = err.message;
+        });
+      } else {
+        this.msgFailed = 'Die Passwörter stimmen nicht überein.';
+      }
+    } else {
+      this.msgFailed = 'Eingaben unvollständig.';
+    }
+  }
+
+  public keypressRegister(keycode) {
+    if (keycode == 13) {
+      // Falls Enter gedrückt
+      this.register();
+    }
+  }
+  //#endregion
 }
