@@ -1,16 +1,18 @@
 <mat-toolbar color="primary">
+    <mat-icon class="navIcon" (click)="navigateToHome()">home</mat-icon>
     <span>Padaca</span>
 
     <span class="fill-remaining-space"></span>
 
     <div *ngIf="isLoggedIn()">
-        <img src="/assets/MapPin.svg" class="navIcon" width="30px" height="30px">
-        <mat-icon class="navIcon">messages</mat-icon>
-        <mat-icon class="navIcon">search</mat-icon>
-        <mat-icon class="navIcon">add_circle_outline</mat-icon>
+        <img src="/assets/MapPin.svg" width="30px" height="30px" class="navIcon" (click)="openPinned()">
+        <mat-icon class="navIcon" (click)="navigateToInbox()">messages</mat-icon>
+        <mat-icon class="navIcon" (click)="openSearch()">search</mat-icon>
+        <mat-icon class="navIcon" (click)="navigateToReiseAnlegen()">add_circle_outline</mat-icon>
         <span class="user">{{ username }}</span>
         <mat-icon [matMenuTriggerFor]="menu3">more_vert</mat-icon>
         <mat-menu #menu3="matMenu">
+            <button mat-menu-item (click)="navigateToProfil()">Profil</button>
             <button mat-menu-item (click)="openChangePassword()">Passwort ändern</button>
             <button mat-menu-item (click)="logout()">Logout</button>
         </mat-menu>

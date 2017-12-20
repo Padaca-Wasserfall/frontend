@@ -45,6 +45,7 @@ export interface Mitfahrer extends User {
 
 export interface Bewertung {
     ratingID?: number;
+    reiseID: number;
     fahrer?: User;
     mitfahrer?: User;
     rating?: number;
@@ -59,11 +60,10 @@ export interface Reise {
     mitfahrer?: Mitfahrer[];
     start?: any;
     ziel?: any;
-    uhrzeit?: any;
-    datum?: any;
+    zeitstempel?: number;
     plaetzeMax?: number;
     platzeFrei?: number;
-    preis?: number;
+    preis?: number; // in Cent
     beschreibung?: string;
     umwegMax?: number; // SOLL --> angeben, KANN --> berechnen, überprüfen
 }
@@ -71,7 +71,7 @@ export interface Reise {
 export interface Route {
     start?: string;
     ziel?: string;
-    datum?: any;
+    zeitstempel?: number;
 }
 //#endregion
 
@@ -84,7 +84,8 @@ export interface Chat {
 
 export interface Message {
     message?: string;
-    zeit?: any;
+    zeitstempel?: number;
     reveiverID?: number;
+    reiseID?: number; // -1 --> normale Nachricht, >= 0 --> Anfrage zu einer Reise
 }
 //#endregion

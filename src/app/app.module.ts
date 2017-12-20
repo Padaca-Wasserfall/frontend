@@ -17,6 +17,9 @@ import { ReiseAnlegenComponent } from './fachlich/reise-anlegen/reise-anlegen.co
 import { HomeComponent } from './fachlich/home/home.component';
 import { LoginComponent } from './technisch/login/login.component';
 import { PadacaService } from './fachlich/padaca.service';
+import { ChangePasswordComponent } from './technisch/change-password/change-password.component';
+import { SearchComponent } from './fachlich/search/search.component';
+import { PinnedComponent } from './fachlich/pinned/pinned.component';
 
 const routConfig: Routes = [
   {
@@ -60,7 +63,10 @@ const routConfig: Routes = [
     InboxComponent,
     ReiseAnlegenComponent,
     ReiseAnzeigenComponent,
-    LoginComponent
+    LoginComponent,
+    ChangePasswordComponent,
+    SearchComponent,
+    PinnedComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +90,11 @@ const routConfig: Routes = [
     LoginRouteGuard
   ],
   entryComponents: [
-    LoginComponent
+    LoginComponent,
+    ChangePasswordComponent,
+    PinnedComponent,
+    SearchComponent,
+    PinnedComponent
   ],
   bootstrap: [AppComponent]
 })

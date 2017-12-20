@@ -15,8 +15,7 @@ export class LoginComponent {
   public passwordFalse: boolean;
   public msgFailed = 'Das eingegebene Passwort ist falsch.';
 
-  constructor(public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) data: any,
-    private padacaService: PadacaService) { }
+  constructor(public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) data: any, private padacaService: PadacaService) { }
 
   public cancel() {
     this.dialogRef.close(false);
