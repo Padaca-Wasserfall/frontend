@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
-import { Response } from '../../fachlich/interfaces';
+import { Response, User } from '../../fachlich/interfaces';
 
 @Component({
   selector: 'app-header',
@@ -15,15 +15,41 @@ import { Response } from '../../fachlich/interfaces';
 })
 export class HeaderComponent implements OnInit {
 
+<<<<<<< HEAD
   public username = 'Username';
   public password = 'test';
+=======
+  user: User;
+>>>>>>> b1feee427533cd3df48c3015511a21155a593f35
 
   constructor(private dialog: MatDialog, private router: Router, private padacaService: PadacaService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    let session = this.padacaService.getSession();
+    if (session) {
+      this.padacaService.getUser(session.userID).subscribe((res: Response) => {
+        this.user = res.data;
+      }, (err) => {
+        // this.user = null;
+        this.user = {
+          'userID': 124,
+          'username': 'michi',
+          'vorname': 'Michael',
+          'nachname': 'Dunsche',
+          'alter': 20,
+          'pkw': 'VW Golf',
+          'beschreibung': 'Kein Essen im Auto'
+        };
+      });
+    }
+  }
 
   public isLoggedIn(): boolean {
+<<<<<<< HEAD
     if (this.username && this.password) {
+=======
+    if (this.user) {
+>>>>>>> b1feee427533cd3df48c3015511a21155a593f35
       return true;
     } else {
       return false;
@@ -32,19 +58,16 @@ export class HeaderComponent implements OnInit {
 
   public login() {
     this.dialog.open(LoginComponent, {
-
-    }).afterClosed().subscribe(res => {
-
+      disableClose: true
     });
   }
 
   public logout() {
-    this.username = null;
-    // this.padacaService.getLogout().subscribe((res: Response) => {
-    //   if (res.success) {
-    //     this.navigateToHome();
-    //   }
-    // });
+    this.user = null;
+    this.padacaService.getLogout().subscribe((res: Response) => {
+      this.user = null;
+      this.padacaService.removeSession();
+    });
   }
 
   public navigateToHome() {
@@ -65,25 +88,19 @@ export class HeaderComponent implements OnInit {
 
   public openPinned() {
     this.dialog.open(PinnedComponent, {
-
-    }).afterClosed().subscribe((res: Response) => {
-
+      // disableClose:  true
     });
   }
 
   public openSearch() {
     this.dialog.open(SearchComponent, {
-
-    }).afterClosed().subscribe((res: Response) => {
-
+      // disableClose:  true
     });
   }
 
   public openChangePassword() {
     this.dialog.open(ChangePasswordComponent, {
-
-    }).afterClosed().subscribe((res: Response) => {
-
+      // disableClose:  true
     });
   }
 }

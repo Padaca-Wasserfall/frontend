@@ -1,14 +1,6 @@
-<table>
-  <tr>
-    <td>
-      <mat-card>
-        <mat-card-header> Inbox: </mat-card-header>
-      </mat-card>
-    </td>
-    <td>
-      <mat-card>
-        <mat-card-header> Test: </mat-card-header>
-      </mat-card>
-    </td>
-  </tr>
-</table>
+<div class="chatPartner">
+  <app-chat-partner [userList]="userList" (userSelected)="showChat($event)"></app-chat-partner>
+</div>
+<div class="chat">
+  <app-chat [messages]="selectedChat.messages"></app-chat>
+</div>

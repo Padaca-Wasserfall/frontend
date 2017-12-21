@@ -11,7 +11,11 @@ import { HttpModule } from '@angular/http';
 import { HeaderComponent } from './technisch/header/header.component';
 import { FooterComponent } from './technisch/footer/footer.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+<<<<<<< HEAD
 import { MatToolbarModule, MatCardModule, MatIconModule, MatNativeDateModule,MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule, MatTabsModule } from '@angular/material';
+=======
+import { MatToolbarModule, MatCardModule, MatIconModule, MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule, MatTabsModule, MatListModule } from '@angular/material';
+>>>>>>> b1feee427533cd3df48c3015511a21155a593f35
 import { LoginRouteGuard } from './technisch/login-route-guard';
 import { ReiseAnlegenComponent } from './fachlich/reise-anlegen/reise-anlegen.component';
 import { HomeComponent } from './fachlich/home/home.component';
@@ -20,6 +24,9 @@ import { PadacaService } from './fachlich/padaca.service';
 import { ChangePasswordComponent } from './technisch/change-password/change-password.component';
 import { SearchComponent } from './fachlich/search/search.component';
 import { PinnedComponent } from './fachlich/pinned/pinned.component';
+import { ChatPartnerComponent } from './fachlich/inbox/chat-partner/chat-partner.component';
+import { ChatComponent } from './fachlich/inbox/chat/chat.component';
+import { UserPipe } from './fachlich/user.pipe';
 
 const routConfig: Routes = [
   {
@@ -47,9 +54,14 @@ const routConfig: Routes = [
     canActivate: [LoginRouteGuard]
   },
   {
+<<<<<<< HEAD
     path: 'reiseAnzeigen/:Start/:Ziel/:Datum',
     component: ReiseAnzeigenComponent,
     canActivate: [LoginRouteGuard]
+=======
+    path: 'reiseAnzeigen',
+    component: ReiseAnzeigenComponent
+>>>>>>> b1feee427533cd3df48c3015511a21155a593f35
   }
 ];
 
@@ -66,7 +78,10 @@ const routConfig: Routes = [
     LoginComponent,
     ChangePasswordComponent,
     SearchComponent,
-    PinnedComponent
+    PinnedComponent,
+    ChatPartnerComponent,
+    ChatComponent,
+    UserPipe
   ],
   imports: [
     BrowserModule,
@@ -84,7 +99,11 @@ const routConfig: Routes = [
     MatInputModule,
     MatMenuModule,
     MatTabsModule,
+<<<<<<< HEAD
     MatNativeDateModule
+=======
+    MatListModule
+>>>>>>> b1feee427533cd3df48c3015511a21155a593f35
   ],
   providers: [
     RestService,
