@@ -11,11 +11,7 @@ import { HttpModule } from '@angular/http';
 import { HeaderComponent } from './technisch/header/header.component';
 import { FooterComponent } from './technisch/footer/footer.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-<<<<<<< HEAD
-import { MatToolbarModule, MatCardModule, MatIconModule, MatNativeDateModule,MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule, MatTabsModule } from '@angular/material';
-=======
-import { MatToolbarModule, MatCardModule, MatIconModule, MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule, MatTabsModule, MatListModule } from '@angular/material';
->>>>>>> b1feee427533cd3df48c3015511a21155a593f35
+import { MatToolbarModule, MatCardModule, MatIconModule, MatNativeDateModule, MatListModule, MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule, MatTabsModule } from '@angular/material';
 import { LoginRouteGuard } from './technisch/login-route-guard';
 import { ReiseAnlegenComponent } from './fachlich/reise-anlegen/reise-anlegen.component';
 import { HomeComponent } from './fachlich/home/home.component';
@@ -54,14 +50,8 @@ const routConfig: Routes = [
     canActivate: [LoginRouteGuard]
   },
   {
-<<<<<<< HEAD
     path: 'reiseAnzeigen/:Start/:Ziel/:Datum',
     component: ReiseAnzeigenComponent,
-    canActivate: [LoginRouteGuard]
-=======
-    path: 'reiseAnzeigen',
-    component: ReiseAnzeigenComponent
->>>>>>> b1feee427533cd3df48c3015511a21155a593f35
   }
 ];
 
@@ -99,11 +89,8 @@ const routConfig: Routes = [
     MatInputModule,
     MatMenuModule,
     MatTabsModule,
-<<<<<<< HEAD
-    MatNativeDateModule
-=======
+    MatNativeDateModule,
     MatListModule
->>>>>>> b1feee427533cd3df48c3015511a21155a593f35
   ],
   providers: [
     RestService,

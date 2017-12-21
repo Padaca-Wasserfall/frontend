@@ -15,12 +15,7 @@ import { Response, User } from '../../fachlich/interfaces';
 })
 export class HeaderComponent implements OnInit {
 
-<<<<<<< HEAD
-  public username = 'Username';
-  public password = 'test';
-=======
   user: User;
->>>>>>> b1feee427533cd3df48c3015511a21155a593f35
 
   constructor(private dialog: MatDialog, private router: Router, private padacaService: PadacaService) { }
 
@@ -45,11 +40,7 @@ export class HeaderComponent implements OnInit {
   }
 
   public isLoggedIn(): boolean {
-<<<<<<< HEAD
-    if (this.username && this.password) {
-=======
     if (this.user) {
->>>>>>> b1feee427533cd3df48c3015511a21155a593f35
       return true;
     } else {
       return false;
