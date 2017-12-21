@@ -1,3 +1,7 @@
 mat-toolbar {
     font-size: 16px;
 }
+
+.gr {
+    background: linear-gradient(#418d0f, #3a7938);
+}

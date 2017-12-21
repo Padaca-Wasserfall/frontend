@@ -15,3 +15,22 @@ mat-icon, img, span {
     margin-right: 50px!important;
     cursor: pointer;
 }
+
+.white {
+    color: white;
+}
+
+.gr {
+    background: linear-gradient(#3a7938, #418d0f);
+}
+
+.menu {
+    padding: 8px;
+    border-radius: 12px;
+    color: white;
+}
+
+.menu:hover{
+    color: #eeeeee;
+    background-color:#1a5e17;
+}
