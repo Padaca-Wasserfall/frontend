@@ -10,5 +10,11 @@ export class SearchComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<SearchComponent>, @Inject(MAT_DIALOG_DATA) data: any) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    
+  }
+
+  Search(){
+    
+  }
 }

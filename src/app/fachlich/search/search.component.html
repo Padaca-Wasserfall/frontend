@@ -1,3 +1,17 @@
-<p>
-  search works!
-</p>
+<form class="txt-form">
+  <mat-form-field class="txt-full-width">
+    <textarea class="txtStart" matInput placeholder=Start></textarea>
+  </mat-form-field>
+  <br>
+  <mat-form-field class="txt-full-width">
+    <textarea class="txtZiel" matInput placeholder=Ziel></textarea>
+  </mat-form-field>
+  <br>
+  <mat-form-field class="txt-full-width">
+    <textarea class="txtDatum" matInput placeholder=Datum></textarea>
+  </mat-form-field>
+</form>
+
+<div class="divSearch">
+  <button class="btnSearch" mat-raised-button color="primary" (click)="Search()">Suchen</button>
+</div>
