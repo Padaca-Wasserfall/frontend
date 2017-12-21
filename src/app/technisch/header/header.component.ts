@@ -20,6 +20,10 @@ export class HeaderComponent implements OnInit {
   constructor(private dialog: MatDialog, private router: Router, private padacaService: PadacaService) { }
 
   ngOnInit() {
+    this.updateSession();
+  }
+
+  private updateSession() {
     let session = this.padacaService.getSession();
     if (session) {
       this.padacaService.getUser(session.userID).subscribe((res: Response) => {
@@ -29,8 +33,8 @@ export class HeaderComponent implements OnInit {
         this.user = {
           'userID': 124,
           'username': 'michi',
-          'vorname': 'Michael',
-          'nachname': 'Dunsche',
+          'vorname': 'Test',
+          'nachname': 'User',
           'alter': 20,
           'pkw': 'VW Golf',
           'beschreibung': 'Kein Essen im Auto'
@@ -50,6 +54,10 @@ export class HeaderComponent implements OnInit {
   public login() {
     this.dialog.open(LoginComponent, {
       disableClose: true
+    }).afterClosed().subscribe((success: boolean) => {
+      if (success) {
+        this.updateSession();
+      }
     });
   }
 
