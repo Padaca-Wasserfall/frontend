@@ -1,9 +1,10 @@
-// Rest-Response
+//#region Rest-Response
 export interface Response {
     success?: boolean;
     message?: string;
     data?: any;
 }
+//#endregion
 
 //#region Account
 export interface RegisterDTO {
@@ -22,7 +23,8 @@ export interface ChangePasswordDTO {
 }
 
 export interface Session {
-    user?: User;
+    sessionkey?: string;
+    userID?: number;
 }
 //#endregion
 
@@ -85,7 +87,7 @@ export interface Chat {
 export interface Message {
     message?: string;
     zeitstempel?: number;
-    reveiverID?: number;
+    receiverID?: number;
     reiseID?: number; // -1 --> normale Nachricht, >= 0 --> Anfrage zu einer Reise
 }
 //#endregion

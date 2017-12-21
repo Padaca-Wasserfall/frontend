@@ -9,7 +9,7 @@
         <mat-icon class="navIcon" (click)="navigateToInbox()">messages</mat-icon>
         <mat-icon class="navIcon" (click)="openSearch()">search</mat-icon>
         <mat-icon class="navIcon" (click)="navigateToReiseAnlegen()">add_circle_outline</mat-icon>
-        <span class="user">{{ username }}</span>
+        <span class="user">{{ user | user }}</span>
         <mat-icon [matMenuTriggerFor]="menu3">more_vert</mat-icon>
         <mat-menu #menu3="matMenu">
             <button mat-menu-item (click)="navigateToProfil()">Profil</button>

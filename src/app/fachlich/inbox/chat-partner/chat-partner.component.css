@@ -1,0 +1,7 @@
+mat-list-item {
+    cursor: pointer;
+}
+
+.selectedUser {
+    background-color: lightblue;
+}

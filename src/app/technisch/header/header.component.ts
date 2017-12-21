@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Router } from '@angular/router';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
-import { Response } from '../../fachlich/interfaces';
+import { Response, User } from '../../fachlich/interfaces';
 
 @Component({
   selector: 'app-header',
@@ -15,14 +15,32 @@ import { Response } from '../../fachlich/interfaces';
 })
 export class HeaderComponent implements OnInit {
 
-  public username = 'Username';
+  user: User;
 
   constructor(private dialog: MatDialog, private router: Router, private padacaService: PadacaService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    let session = this.padacaService.getSession();
+    if (session) {
+      this.padacaService.getUser(session.userID).subscribe((res: Response) => {
+        this.user = res.data;
+      }, (err) => {
+        // this.user = null;
+        this.user = {
+          'userID': 124,
+          'username': 'michi',
+          'vorname': 'Michael',
+          'nachname': 'Dunsche',
+          'alter': 20,
+          'pkw': 'VW Golf',
+          'beschreibung': 'Kein Essen im Auto'
+        };
+      });
+    }
+  }
 
   public isLoggedIn(): boolean {
-    if (this.username) {
+    if (this.user) {
       return true;
     } else {
       return false;
@@ -31,19 +49,14 @@ export class HeaderComponent implements OnInit {
 
   public login() {
     this.dialog.open(LoginComponent, {
-
-    }).afterClosed().subscribe(res => {
-
+      disableClose: true
     });
   }
 
   public logout() {
-    this.username = null;
-    // this.padacaService.getLogout().subscribe((res: Response) => {
-    //   if (res.success) {
-    //     this.navigateToHome();
-    //   }
-    // });
+    this.padacaService.getLogout().subscribe((res: Response) => {
+      this.padacaService.removeSession();
+    });
   }
 
   public navigateToHome() {

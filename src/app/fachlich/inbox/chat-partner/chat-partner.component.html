@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-header><h2> Inbox: </h2></mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <ng-container *ngFor="let user of userList">
+        <mat-list-item (click)="changeUser(user)" [ngClass]="{'selectedUser' : isSelectedUser(user)}">
+          {{ user | user }}
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-list>
+  </mat-card-content>
+</mat-card>

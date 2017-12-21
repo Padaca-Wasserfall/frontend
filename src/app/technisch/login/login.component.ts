@@ -19,7 +19,7 @@ export class LoginComponent {
   constructor(public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) data: any, private padacaService: PadacaService) { }
 
   public cancel() {
-    this.dialogRef.close(false);
+    this.dialogRef.close();
   }
 
   //#region Login
@@ -30,7 +30,8 @@ export class LoginComponent {
         password: this.password
       };
       this.padacaService.getLogin(dto).subscribe((res: Response) => {
-        console.log(res);
+        this.padacaService.setSession(res.data);
+        this.dialogRef.close();
       }, (err: Response) => {
         this.msgFailed = err.message;
       });
