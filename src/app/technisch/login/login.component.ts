@@ -19,7 +19,7 @@ export class LoginComponent {
   constructor(public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) data: any, private padacaService: PadacaService) { }
 
   public cancel() {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 
   //#region Login
@@ -31,11 +31,17 @@ export class LoginComponent {
       };
       this.padacaService.getLogin(dto).subscribe((res: Response) => {
         this.padacaService.setSession(res.data);
-        this.dialogRef.close();
+        this.dialogRef.close(true);
       }, (err: Response) => {
         this.msgFailed = err.message;
       });
     } else {
+      // MOCK
+      this.padacaService.setSession({
+        userID: 123,
+        sessionkey: 'ljdsakfsahf'
+      });
+      this.dialogRef.close(true);
       this.msgFailed = 'Eingaben unvollständig.';
     }
   }
