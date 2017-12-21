@@ -85,7 +85,7 @@ export class PadacaService {
    * Liefert die entsprechende Reise zurück.
    */
   public getReise(reise: Reise): Observable<Response> {
-    return this.restService.getRequest('/reise?sessionkey=' + this.sessionkey + '&reiseID=' + reise.reiseID);
+    return this.restService.getRequest('/reise?reiseID=' + reise.reiseID);
   }
 
   /**
@@ -109,8 +109,7 @@ export class PadacaService {
    * Liefert alle möglichen Mitfahrgelegenheiten für die geplante Route.
    */
   public getSucheReise(route: Route): Observable<Response> {
-    return this.restService.getRequest('/reise/search?sessionkey=' + this.sessionkey
-      + '&start=' + route.start + '&ziel=' + route.ziel + '&datum=' + route.zeitstempel);
+    return this.restService.getRequest('/reise/search?start=' + route.start + '&ziel=' + route.ziel + '&datum=' + route.zeitstempel);
   }
 
   /**
