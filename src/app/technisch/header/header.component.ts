@@ -16,13 +16,14 @@ import { Response } from '../../fachlich/interfaces';
 export class HeaderComponent implements OnInit {
 
   public username = 'Username';
+  public password = 'test';
 
   constructor(private dialog: MatDialog, private router: Router, private padacaService: PadacaService) { }
 
   ngOnInit() { }
 
   public isLoggedIn(): boolean {
-    if (this.username) {
+    if (this.username && this.password) {
       return true;
     } else {
       return false;

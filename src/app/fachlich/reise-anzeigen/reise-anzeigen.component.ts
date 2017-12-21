@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-reise-anzeigen',
   templateUrl: './reise-anzeigen.component.html',
