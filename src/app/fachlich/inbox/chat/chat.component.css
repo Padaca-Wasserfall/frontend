@@ -1,0 +1,20 @@
+mat-form-field {
+    width: 80%;
+    float: left;
+}
+
+button {
+    float: right;
+}
+
+.sendMessage {
+    width: 90%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+/* MOCK */
+mat-card {
+    height: 500px;
+}

@@ -12,7 +12,9 @@ export class ChatComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
+  public sendMessage() {
+    console.log(this.messages);
+  }
 }

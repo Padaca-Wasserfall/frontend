@@ -54,7 +54,9 @@ export class HeaderComponent implements OnInit {
   }
 
   public logout() {
+    this.user = null;
     this.padacaService.getLogout().subscribe((res: Response) => {
+      this.user = null;
       this.padacaService.removeSession();
     });
   }
@@ -77,25 +79,19 @@ export class HeaderComponent implements OnInit {
 
   public openPinned() {
     this.dialog.open(PinnedComponent, {
-
-    }).afterClosed().subscribe((res: Response) => {
-
+      // disableClose:  true
     });
   }
 
   public openSearch() {
     this.dialog.open(SearchComponent, {
-
-    }).afterClosed().subscribe((res: Response) => {
-
+      // disableClose:  true
     });
   }
 
   public openChangePassword() {
     this.dialog.open(ChangePasswordComponent, {
-
-    }).afterClosed().subscribe((res: Response) => {
-
+      // disableClose:  true
     });
   }
 }
