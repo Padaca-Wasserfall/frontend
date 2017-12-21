@@ -1,7 +1,8 @@
 <mat-toolbar color="primary" class="gr">
     <!-- <mat-icon class="navIcon" (click)="navigateToHome()">home</mat-icon> -->
     <!-- <img src="/assets/PaDaCa.png" width="30px" height="30px" > -->
-    <div class="menu">
+    <div class="menu" style="cursor: pointer;">
+        <img src="/assets/car.svg" width="30px" height="30px" style="margin: 0px;">
         <span (click)="navigateToHome()">Padaca</span>
     </div>
 
@@ -12,7 +13,7 @@
         <mat-icon class="navIcon white" (click)="navigateToInbox()">messages</mat-icon>
         <mat-icon class="navIcon white" (click)="openSearch()">search</mat-icon>
         <mat-icon class="navIcon white" (click)="navigateToReiseAnlegen()">add_circle_outline</mat-icon>
-        <span class="user menu" [matMenuTriggerFor]="menu3">{{ user | user }}</span>
+        <span class="user menu" [matMenuTriggerFor]="menu3" style="cursor: pointer;">{{ user | user }}</span>
         <mat-menu #menu3="matMenu">
             <button mat-menu-item (click)="navigateToProfil()">Profil</button>
             <button mat-menu-item (click)="openChangePassword()">Passwort ändern</button>
