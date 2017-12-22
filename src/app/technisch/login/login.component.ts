@@ -29,6 +29,7 @@ export class LoginComponent {
         username: this.username,
         password: this.password
       };
+      console.log(dto);
       this.padacaService.getLogin(dto).subscribe((res: Response) => {
         this.padacaService.setSession(res.data);
         this.dialogRef.close(true);

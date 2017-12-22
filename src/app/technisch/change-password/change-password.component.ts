@@ -11,5 +11,26 @@ export class ChangePasswordComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ChangePasswordComponent>, @Inject(MAT_DIALOG_DATA) data: any, private padacaService: PadacaService) { }
 
+  public password: string;
+  public newpassword: string;
+
+  public msgFailed: String;
+
   ngOnInit() { }
+
+  changePassword() {
+    console.log(this.password);
+  }
+
+  cancel() {
+    this.dialogRef.close(false);
+  }
+
+  keypress(keycode){
+    console.log(keycode);
+    if(keycode == 13){
+
+      
+    }
+  }
 }
