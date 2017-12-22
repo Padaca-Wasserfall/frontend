@@ -3,5 +3,6 @@ mat-list-item {
 }
 
 .selectedUser {
-    background-color: lightblue;
+    background-color: #418d0f;
+    color: white;
 }

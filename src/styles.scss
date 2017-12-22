@@ -11,65 +11,34 @@
 // hue.
 
 //#region Colors
-$mat-atiw-blue: (
-  50: #006EC7,
-  100: #006EC7,
-  200: #006EC7,
-  300: #006EC7,
-  400: #006EC7,
-  500: #006EC7,
-  600: #006EC7,
-  700: #006EC7,
-  800: #006EC7,
-  900: #006EC7,
-  A100: #006EC7,
-  A200: #006EC7,
-  A400: #006EC7,
-  A700: #006EC7,
+
+$mat-padaca-green: (
+  50: #e8f5e9,
+  100: #c8e6c9,
+  200: #a5d6a7,
+  300: #81c784,
+  400: #66bb6a,
+  500: #418d0f,
+  600: #43a047,
+  700: #388e3c,
+  800: #2e7d32,
+  900: #1b5e20,
+  A100: #b9f6ca,
+  A200: #69f0ae,
+  A400: #00e676,
+  A700: #00c853,
   contrast: (
-    50: $black-87-opacity,
-    100: $black-87-opacity,
-    200: $black-87-opacity,
-    300: $black-87-opacity,
-    400: $black-87-opacity,
+    50: black,
+    100: black,
+    200: black,
+    300: black,
+    400: black,
     500: white,
     600: white,
     700: white,
-    800: $white-87-opacity,
-    900: $white-87-opacity,
-    A100: $black-87-opacity,
-    A200: white,
-    A400: white,
-    A700: white,
-  )
-);
-$mat-secondery: (
-  50: #64dd17,
-  100: #64dd17,
-  200: #64dd17,
-  300: #64dd17,
-  400: #64dd17,
-  500: #64dd17,
-  600: #64dd17,
-  700: #64dd17,
-  800: #64dd17,
-  900: #64dd17,
-  A100: #64dd17,
-  A200: #64dd17,
-  A400: #64dd17,
-  A700: #64dd17,
-  contrast: (
-    50: $black-87-opacity,
-    100: $black-87-opacity,
-    200: $black-87-opacity,
-    300: $black-87-opacity,
-    400: $black-87-opacity,
-    500: white,
-    600: white,
-    700: white,
-    800: $white-87-opacity,
-    900: $white-87-opacity,
-    A100: $black-87-opacity,
+    800: white,
+    900: white,
+    A100: white,
     A200: white,
     A400: white,
     A700: white,
@@ -77,16 +46,16 @@ $mat-secondery: (
 );
 //#endregion
 
-$materialbeschaffung-app-primary: mat-palette($mat-green);
-$materialbeschaffung-app-accent:  mat-palette($mat-atiw-blue);
+$padaca-app-primary: mat-palette($mat-padaca-green);
+$padaca-app-accent:  mat-palette($mat-orange);
 
 // The warn palette is optional (defaults to red).
-$materialbeschaffung-app-warn:    mat-palette($mat-red);
+$padaca-app-warn:    mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$materialbeschaffung-app-theme: mat-light-theme($materialbeschaffung-app-primary, $materialbeschaffung-app-accent, $materialbeschaffung-app-warn);
+$padaca-app-theme: mat-light-theme($padaca-app-primary, $padaca-app-accent, $padaca-app-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($materialbeschaffung-app-theme);
+@include angular-material-theme($padaca-app-theme);

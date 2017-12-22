@@ -23,6 +23,7 @@
     </div>
 
     <div class="user" *ngIf="!isLoggedIn()">
-        <button mat-raised-button (click)="login()">Login</button>
+        <mat-icon class="navIcon white" (click)="openSearch()">search</mat-icon>
+        <button mat-raised-button style="color: black;" (click)="login()">Login</button>
     </div>
 </mat-toolbar>
