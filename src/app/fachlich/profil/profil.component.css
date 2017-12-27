@@ -1,0 +1,18 @@
+.profile-pic{
+    font-size: 20vw;
+    color: green; 
+    height: 20vw;
+    width: 20vw;
+    border-radius: 50%;
+}
+
+.star{
+    color:darkgoldenrod;
+    font-size: 4vw;
+    height: 4vw;
+    width: 4vw;
+}
+
+.action{
+    cursor: pointer;
+}
