@@ -26,7 +26,27 @@ export class ProfilComponent implements OnInit {
     this.bewertung = 0;
     this.bewertungen = [];
     this.bewertungen.push({
-      rating: 4.4,
+      rating: 3,
+      reiseID: 1
+    });
+    this.bewertungen.push({
+      rating: 5,
+      reiseID: 2
+    });
+    this.bewertungen.push({
+      rating: 5,
+      reiseID: 3
+    });
+    this.bewertungen.push({
+      rating: 4,
+      reiseID: 4
+    });
+    this.bewertungen.push({
+      rating: 2,
+      reiseID: 5
+    });
+    this.bewertungen.push({
+      rating: 1,
       reiseID: 1
     });
     for (let bew of this.bewertungen) {

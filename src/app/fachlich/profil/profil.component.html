@@ -24,7 +24,7 @@
             <mat-icon *ngIf="bewertung >= 5" class="star">star</mat-icon>
             <br/>
             <p style="margin-left: 10px;">
-                {{bewertung}}/5 - {{bewertungen.length}} Bewertungen
+                {{bewertung | number : '1.2-2' }}/5 - {{bewertungen.length}} Bewertungen
             </p>
         </td>
         <td style="width:40%">
