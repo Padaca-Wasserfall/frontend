@@ -3,7 +3,7 @@ import { PadacaService } from './../../fachlich/padaca.service';
 import { SearchComponent } from './../../fachlich/search/search.component';
 import { LoginComponent } from './../login/login.component';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog, MatDialogConfig, MatDialogClose } from '@angular/material';
 import { Router } from '@angular/router';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { Response, User } from '../../fachlich/interfaces';
@@ -84,8 +84,18 @@ export class HeaderComponent implements OnInit {
   }
 
   public openPinned() {
-    this.dialog.open(PinnedComponent, {
+
+    let dialogRef = this.dialog.open(PinnedComponent, {
+      width: "95%",
+      height: "auto"
       // disableClose:  true
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log(result);
+        this.router.navigate(['/reiseAnzeigen/' + result]);
+      }
     });
   }
 

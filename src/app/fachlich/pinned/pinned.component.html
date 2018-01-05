@@ -1,3 +1,32 @@
-<p>
-  pinned works!
-</p>
+<h1>Mitfahrgelegenheiten :</h1>
+<div *ngIf="gepinnteReisen.length==0">Es wurden keine Reisen angepinnt</div>
+<div *ngIf="gepinnteReisen.length>=1">
+  <table style="width:100%; align-content: center;">
+
+    <tr>
+      <th>Datum</th>
+      <th>Start</th>
+      <th>Ziel</th>
+      <th>Zeit</th>
+      <th>Fahrer</th>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let reise of gepinnteReisen, let i = index">
+      <td>{{reise.datum}}</td>
+      <td>{{reise.start}}</td>
+      <td>{{reise.ziel}}</td>
+      <td>{{reise.reisedauer}}</td>
+      <td>{{reise.fahrer.username}}</td>
+      <td>
+        <button mat-button (click)="clickAnzeigen(reise)">
+          <mat-icon>info</mat-icon>Anzeigen</button>
+      </td>
+      <td>
+        <button mat-button (click)="clickEntfernen(reise,i)">
+          <mat-icon>delete</mat-icon>Entfernen</button>
+      </td>
+    </tr>
+
+  </table>
+</div>
