@@ -23,6 +23,7 @@ import { PinnedComponent } from './fachlich/pinned/pinned.component';
 import { ChatPartnerComponent } from './fachlich/inbox/chat-partner/chat-partner.component';
 import { ChatComponent } from './fachlich/inbox/chat/chat.component';
 import { UserPipe } from './fachlich/user.pipe';
+import { MessageComponent } from './fachlich/inbox/chat/message/message.component';
 
 const routConfig: Routes = [
   {
@@ -71,7 +72,8 @@ const routConfig: Routes = [
     PinnedComponent,
     ChatPartnerComponent,
     ChatComponent,
-    UserPipe
+    UserPipe,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

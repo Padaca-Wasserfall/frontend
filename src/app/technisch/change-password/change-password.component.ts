@@ -26,11 +26,10 @@ export class ChangePasswordComponent implements OnInit {
     this.dialogRef.close(false);
   }
 
-  keypress(keycode){
+  keypress(keycode) {
     console.log(keycode);
-    if(keycode == 13){
-
-      
+    if (keycode == 13) {
+      this.changePassword();
     }
   }
 }

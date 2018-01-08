@@ -1,20 +1,23 @@
+.messages {
+    overflow: auto;
+}
+
 mat-form-field {
     width: 80%;
     float: left;
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
 }
 
 button {
+    margin-top: 25px;
     float: right;
-}
-
-.sendMessage {
-    width: 90%;
     position: absolute;
-    bottom: 0;
-    left: 0;
+    bottom: 20px;
+    right: 20px;
 }
 
-/* MOCK */
 mat-card {
-    height: 500px;
+    height: 70vh;
 }

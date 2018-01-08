@@ -9,12 +9,22 @@ import { Message } from '../../interfaces';
 export class ChatComponent implements OnInit {
 
   @Input() messages: Message[];
+  message: string;
 
   constructor() { }
 
   ngOnInit() { }
 
   public sendMessage() {
-    console.log(this.messages);
+    console.log('Message', this.message);
+    console.log('Chat', this.messages);
+    this.message = null;
+  }
+  
+  keypress(keycode) {
+    console.log(keycode);
+    if (keycode == 13) {
+      this.sendMessage();
+    }
   }
 }

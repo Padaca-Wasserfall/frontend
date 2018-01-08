@@ -7,7 +7,10 @@ import { RestService } from '../technisch/rest.service';
 @Injectable()
 export class PadacaService {
 
-  private session: Session;
+  private session: Session = {
+    userID: 111,
+    sessionkey: 'ljdsakfsahf'
+  }; // private session: Session;
 
   constructor(private restService: RestService, private router: Router) { }
 

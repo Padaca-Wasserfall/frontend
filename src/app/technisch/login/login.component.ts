@@ -39,7 +39,7 @@ export class LoginComponent {
     } else {
       // MOCK
       this.padacaService.setSession({
-        userID: 123,
+        userID: 111,
         sessionkey: 'ljdsakfsahf'
       });
       this.dialogRef.close(true);
