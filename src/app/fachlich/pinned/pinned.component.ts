@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Reise, User } from '../interfaces';
+import { Reise, User, ReiseDatum } from '../interfaces';
 import { PadacaService } from '../padaca.service';
 import { read } from 'fs';
 
@@ -19,41 +19,41 @@ export class PinnedComponent implements OnInit {
 
     this.gepinnteReisen.push({
       reiseID: 123,
-      fahrer: { username: "Jonny Bleifuß" },
-      start: "Paderborn",
-      ziel: "Buxtehude",
+      fahrer: { username: 'Jonny Bleifuß' },
+      start: 'Paderborn',
+      ziel: 'Buxtehude',
       zeitstempel: 123456
     });
 
     this.gepinnteReisen.push({
       reiseID: 456,
-      fahrer: { username: "Renate Rastnicht" },
-      start: "Magdeburg",
-      ziel: "Sonstwo",
+      fahrer: { username: 'Renate Rastnicht' },
+      start: 'Magdeburg',
+      ziel: 'Sonstwo',
       zeitstempel: Date.now()
     });
 
-    //TODO schnittstelle umbauen
-    //this.padaService.getPinned().subscribe(pinnedRes =>{
+    // TODO schnittstelle umbauen
+    // this.padaService.getPinned().subscribe(pinnedRes =>{
     //  this.gepinnteReisen = pinnedRes.data;
-    //});
+    // });
 
     this.gepinnteReisen.forEach(reise => {
       let d = new Date(reise.zeitstempel);
       reise.datum = d.toLocaleDateString();
-      reise.reisedauer=this.berechenFahrzeit(reise);
+      reise.reisedauer = this.berechenFahrzeit(reise);
     });
   }
 
-  berechenFahrzeit(reise: ReiseDatum):string {
-    let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + reise.start + "&destinations=" + reise.ziel + "&key=YOUR_API_KEY";
-    let response = "So und so lange";
+  berechenFahrzeit(reise: ReiseDatum): string {
+    let url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=' + reise.start + '&destinations=' + reise.ziel + '&key=YOUR_API_KEY';
+    let response = 'So und so lange';
     
     return response;
   }
 
   clickAnzeigen(reise: ReiseDatum) {
-    this.dialogRef.close(reise.start + "/" + reise.ziel + "/" + reise.datum);
+    this.dialogRef.close(reise.start + '/' + reise.ziel + '/' + reise.datum);
   }
 
   clickEntfernen(reise: Reise, index: number) {
@@ -62,7 +62,3 @@ export class PinnedComponent implements OnInit {
   }
 }
 
-interface ReiseDatum extends Reise {
-  datum?: string,
-  reisedauer?: string,
-}
