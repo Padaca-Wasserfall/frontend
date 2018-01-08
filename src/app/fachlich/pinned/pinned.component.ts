@@ -21,7 +21,7 @@ export class PinnedComponent implements OnInit {
       fahrer: { username: 'Jonny Bleifuß' },
       start: 'Paderborn',
       ziel: 'Buxtehude',
-      zeitstempel: 123456
+      zeitstempel: 123456789
     });
 
     this.gepinnteReisen.push({

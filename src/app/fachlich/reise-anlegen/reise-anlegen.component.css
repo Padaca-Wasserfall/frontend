@@ -1,0 +1,14 @@
+.mat-success {
+    background-color: green;
+    color: #fff;
+}
+
+th{
+    text-align: left;
+    width: fit-content !important;
+}
+
+td{
+    text-align: left;
+    width: fit-content;
+}
