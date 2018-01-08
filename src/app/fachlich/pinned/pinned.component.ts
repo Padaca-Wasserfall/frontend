@@ -21,7 +21,7 @@ export class PinnedComponent implements OnInit {
       fahrer: { username: 'Jonny Bleifuß' },
       start: 'Paderborn',
       ziel: 'Buxtehude',
-      zeitstempel: 123456
+      zeitstempel: 123456789
     });
 
     this.gepinnteReisen.push({
@@ -52,7 +52,7 @@ export class PinnedComponent implements OnInit {
   }
 
   clickAnzeigen(reise: ReiseDatum) {
-    this.dialogRef.close(reise.start + '/' + reise.ziel + '/' + reise.datum);
+    this.dialogRef.close(reise.reiseID);
   }
 
   clickEntfernen(reise: Reise, index: number) {

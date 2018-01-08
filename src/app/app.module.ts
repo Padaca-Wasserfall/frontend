@@ -11,7 +11,7 @@ import { HttpModule } from '@angular/http';
 import { HeaderComponent } from './technisch/header/header.component';
 import { FooterComponent } from './technisch/footer/footer.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatToolbarModule, MatCardModule, MatIconModule, MatNativeDateModule, MatListModule, MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule, MatTabsModule } from '@angular/material';
+import { MatToolbarModule, MatCardModule, MatIconModule, MatNativeDateModule, MatListModule, MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule, MatTabsModule, MAT_DATE_LOCALE } from '@angular/material';
 import { LoginRouteGuard } from './technisch/login-route-guard';
 import { ReiseAnlegenComponent } from './fachlich/reise-anlegen/reise-anlegen.component';
 import { HomeComponent } from './fachlich/home/home.component';
@@ -93,6 +93,7 @@ const routConfig: Routes = [
     MatListModule
   ],
   providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
     RestService,
     PadacaService,
     LoginRouteGuard
