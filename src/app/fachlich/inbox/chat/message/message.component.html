@@ -1,3 +1,9 @@
-<p [ngClass]="{'sender' : isSender()}">
-  {{ message.message }}
-</p>
+<div [ngClass]="{'sender' : isSender()}">
+  <span> {{ getTimeStamp() }} </span>
+  <br> <p> {{ message.message }} </p>
+  <div *ngIf="message.reiseID >= 0">
+      <button mat-raised-button (click)="reiseAnzeigen()">Reise anzeigen</button>
+      <button mat-raised-button color="primary" (click)="annehmen()">Annehmen</button>
+      <button mat-raised-button color="warn" (click)="ablehnen()">Ablehnen</button>
+  </div>
+</div>

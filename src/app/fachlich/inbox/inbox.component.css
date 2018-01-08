@@ -1,9 +1,11 @@
 .chatPartner {
     width: 30%;
+    margin-top: 10px;
 }
 
 .chat {
     width: 65%;
+    margin-top: 10px;
 }
 
 div {

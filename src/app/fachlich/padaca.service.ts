@@ -107,9 +107,9 @@ export class PadacaService {
   /**
    * Bestätigt oder verweigert die Anfrage eines Mitfahrers.
    */
-  public postMitfahrtBestätigen(reise: Reise, user: User, antwort: boolean): Observable<Response> {
+  public postMitfahrtBestätigen(reiseID: number, userID: number, antwort: boolean): Observable<Response> {
     return this.restService.postRequest('/reise/antwort?sessionkey=' + this.session.sessionkey
-      + '&reiseID=' + reise.reiseID + '&userID=' + user.userID + '&antwort=' + antwort, {});
+      + '&reiseID=' + reiseID + '&userID=' + userID + '&antwort=' + antwort, {});
   }
 
   /**

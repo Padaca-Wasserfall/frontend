@@ -52,7 +52,7 @@ export class PinnedComponent implements OnInit {
   }
 
   clickAnzeigen(reise: ReiseDatum) {
-    this.dialogRef.close(reise.start + '/' + reise.ziel + '/' + reise.datum);
+    this.dialogRef.close(reise.reiseID);
   }
 
   clickEntfernen(reise: Reise, index: number) {

@@ -10,7 +10,7 @@ mat-form-field {
     left: 20px;
 }
 
-button {
+.send {
     margin-top: 25px;
     float: right;
     position: absolute;
@@ -20,4 +20,8 @@ button {
 
 mat-card {
     height: 70vh;
+}
+
+mat-card-content {
+    height: 80%;
 }

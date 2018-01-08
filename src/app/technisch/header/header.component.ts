@@ -84,17 +84,12 @@ export class HeaderComponent implements OnInit {
   }
 
   public openPinned() {
-
     let dialogRef = this.dialog.open(PinnedComponent, {
-      width: "95%",
-      height: "auto"
-      // disableClose:  true
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        console.log(result);
-        this.router.navigate(['/reiseAnzeigen/' + result]);
+      width: '95%',
+      height: 'auto'
+    }).afterClosed().subscribe(reiseID => {
+      if (reiseID) {
+        this.router.navigate(['/reiseAnzeigen/' + reiseID]);
       }
     });
   }

@@ -36,7 +36,12 @@ const routConfig: Routes = [
     component: HomeComponent
   },
   {
-    path: 'profil',
+    path: 'profil', // zeigt das eigene Profil an
+    component: ProfilComponent,
+    canActivate: [LoginRouteGuard]
+  },
+  {
+    path: 'profil/:userID', // zeigt das Profil des übergebenen Users an
     component: ProfilComponent,
     canActivate: [LoginRouteGuard]
   },
@@ -51,7 +56,7 @@ const routConfig: Routes = [
     canActivate: [LoginRouteGuard]
   },
   {
-    path: 'reiseAnzeigen/:Start/:Ziel/:Datum',
+    path: 'reiseAnzeigen/:reiseID',
     component: ReiseAnzeigenComponent,
   }
 ];

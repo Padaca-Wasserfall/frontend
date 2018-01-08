@@ -1,4 +1,4 @@
-import { Response } from './../interfaces';
+import { Response, Message } from './../interfaces';
 import { Component, OnInit } from '@angular/core';
 import { Chat, User } from '../interfaces';
 import { PadacaService } from '../padaca.service';
@@ -11,7 +11,7 @@ import { PadacaService } from '../padaca.service';
 export class InboxComponent implements OnInit {
 
   userList: User[];
-  selectedChat: Chat = {};
+  selectedChat: Chat;
 
   constructor(private padacaService: PadacaService) { }
 
@@ -123,9 +123,9 @@ export class InboxComponent implements OnInit {
       'messages': [
         {
           'message': 'Michi. Hallo, was geht?',
-          'zeitstempel': 17823687123,
+          'zeitstempel': 1218823687123,
           'receiverID': 124,
-          'reiseID': -1 // Anfrage wenn != -1 ansonsten normale Nachricht
+          'reiseID': 1 // Anfrage wenn != -1 ansonsten normale Nachricht
         },
         {
           'message': 'Nix bei dir?',
@@ -187,9 +187,15 @@ export class InboxComponent implements OnInit {
     } else if (selectedUser.userID == 124) {
       this.selectedChat = chatMichi;
     } else if (selectedUser.userID == 126) {
-      this.selectedChat = chatMichi;
+      this.selectedChat = chatJonas;
     } else {
       this.selectedChat = null;
     }
+  }
+
+  public addMessage(message: Message) {
+    // this.padacaService.putSendMessage(message).subscribe(() => {});
+    this.selectedChat.messages.push(message);
+    console.log('event');
   }
 }

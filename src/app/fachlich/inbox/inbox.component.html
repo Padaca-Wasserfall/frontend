@@ -2,5 +2,5 @@
   <app-chat-partner [userList]="userList" (userSelected)="showChat($event)"></app-chat-partner>
 </div>
 <div class="chat">
-  <app-chat [messages]="selectedChat.messages"></app-chat>
+  <app-chat [chat]="selectedChat" (addMessage)="addMessage($event)"></app-chat>
 </div>
