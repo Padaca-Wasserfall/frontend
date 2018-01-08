@@ -3,6 +3,7 @@ import { Bewertung, User } from '../interfaces';
 import { PadacaService } from '../padaca.service';
 import { BewertungComponent } from './bewertung/bewertung.component';
 import { MatDialog } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profil',
@@ -14,7 +15,7 @@ export class ProfilComponent implements OnInit {
   bewertung: number;
   user: User;
   edit: Boolean;
-  constructor(private padaService: PadacaService, private dialog: MatDialog) { }
+  constructor(private padaService: PadacaService, private dialog: MatDialog, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.user = {
@@ -81,7 +82,13 @@ export class ProfilComponent implements OnInit {
     }
     this.bewertung = this.bewertung / this.bewertungen.length;
     this.edit = false;
-    /*let uid = this.padaService.getSession().userID;
+
+
+    /*
+        let uid = this.route.snapshot.params['userID'];
+    if (!uid) {
+      uid = this.padaService.getSession().userID;
+    }
     this.padaService.getUser(uid).subscribe(userres => {
       this.padaService.getBewertungen(userres.data).subscribe(bewertungres => {
         this.bewertungen = bewertungres.data;
