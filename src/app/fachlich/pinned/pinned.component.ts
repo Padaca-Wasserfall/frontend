@@ -3,7 +3,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Reise, User } from '../interfaces';
 import { PadacaService } from '../padaca.service';
-import { read } from 'fs';
 
 @Component({
   selector: 'app-pinned',
