@@ -1,10 +1,14 @@
 <mat-card>
-
-  <div class="sendMessage">
+  <mat-card-header *ngIf="chat">
+    <button mat-raised-button color="primary" (click)="showProfile()">Profil</button>
+  </mat-card-header>
+  <mat-card-content *ngIf="chat" class="messages" id="content">
+    <message *ngFor="let message of chat.messages" [message]="message" (denied)="deny($event)" (permited)="permit($event)"></message>
+  </mat-card-content>
+  <mat-card-footer *ngIf="chat">
     <mat-form-field>
-      <textarea matInput placeholder="Nachricht eingeben"></textarea>
+      <textarea matInput placeholder="Nachricht eingeben" [(ngModel)]="message" (keypress)="keypress($event.keyCode)"></textarea>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="sendMessage()">Senden</button>
-
-  </div>
+    <button mat-raised-button class="send" color="primary" (click)="sendMessage()">Senden</button>
+  </mat-card-footer>
 </mat-card>

@@ -70,6 +70,11 @@ export interface Reise {
     umwegMax?: number; // SOLL --> angeben, KANN --> berechnen, überprüfen
 }
 
+export interface ReiseDatum extends Reise {
+    datum?: string;
+    reisedauer?: string;
+}
+
 export interface Route {
     start?: string;
     ziel?: string;

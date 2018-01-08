@@ -6,3 +6,7 @@ mat-list-item {
     background-color: #418d0f;
     color: white;
 }
+
+mat-card {
+    height: 70vh;
+}
