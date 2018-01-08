@@ -4,15 +4,41 @@
     height: 20vw;
     width: 20vw;
     border-radius: 50%;
+    cursor: default;
 }
-
+.container{
+    width: 30%;
+    text-align: center;
+}
 .star{
     color:darkgoldenrod;
     font-size: 4vw;
     height: 4vw;
     width: 4vw;
+    cursor: default;
 }
 
 .action{
     cursor: pointer;
+}
+
+button{
+    background-color: green;
+    width: 100%;
+    color: white;
+}
+
+@media screen and (max-width: 750px) {
+    .profile-pic{
+        font-size: 50vw;
+        color: green; 
+        height: 1em;
+        width: 1em;
+        border-radius: 50%;
+    }
+    .container{
+        width: 100%;
+        display: block;
+        text-align: center;
+    }
 }
