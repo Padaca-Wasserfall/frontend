@@ -9,4 +9,6 @@
 div {
     padding-left: 2%;
     float: left;
+    margin-top: auto;
+    margin-bottom: auto;
 }
