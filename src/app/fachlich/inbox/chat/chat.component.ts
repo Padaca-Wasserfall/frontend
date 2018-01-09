@@ -16,12 +16,14 @@ export class ChatComponent implements OnInit {
   message: string;
   @Output() addMessage = new EventEmitter<Message>();
 
+  private answeredRequests: number[] = [];
+
   constructor(private padacaService: PadacaService, private router: Router) { }
 
   ngOnInit() { }
 
   public showProfile() {
-    this.router.navigate(['/profil/' + this.chat.chatPartner]);
+    this.router.navigate(['/profil/' + this.chat.chatPartner.userID]);
   }
 
   public sendMessage(info?: string) {
@@ -49,11 +51,22 @@ export class ChatComponent implements OnInit {
 
   public deny(reiseID: number) {
     this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, false).subscribe();
+    this.answeredRequests.push(reiseID);
     this.sendMessage('Die Anfrage wurde abgelehnt.');
   }
 
   public permit(reiseID: number) {
     this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, true).subscribe();
+    this.answeredRequests.push(reiseID);
     this.sendMessage('Die Anfrage wurde angenommen.');
+  }
+
+  public isRequestAnswered(reiseID: number): boolean {
+    for (let i = 0; i < this.answeredRequests.length; i++) {
+      if (this.answeredRequests[i] == reiseID) {
+        return true;
+      }
+    }
+    return false;
   }
 }

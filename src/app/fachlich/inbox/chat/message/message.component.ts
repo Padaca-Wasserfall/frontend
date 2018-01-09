@@ -11,6 +11,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 export class MessageComponent implements OnInit {
 
   @Input() message: Message;
+  @Input() requestAnswered: Message;
   @Output() permited = new EventEmitter<number>();
   @Output() denied = new EventEmitter<number>();
 
