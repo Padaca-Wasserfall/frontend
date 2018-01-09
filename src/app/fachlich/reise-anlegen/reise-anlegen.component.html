@@ -1,88 +1,90 @@
-<table style="width:90%;margin-left:10%">
-  <tr>
-    <th>Start</th>
-    <td>
-      <mat-form-field>
-        <input matInput type="text" [(ngModel)]="start" required>
-      </mat-form-field>
-      <button mat-button (click)="clickMapPunkt('start')">
-        <mat-icon>map</mat-icon>
+<div style="max-height: calc(100vh - 128px); overflow-y: auto">
+  <table style="width:90%;margin-left:10%">
+    <tr>
+      <th>Start</th>
+      <td>
+        <mat-form-field>
+          <input matInput type="text" [(ngModel)]="start" required>
+        </mat-form-field>
+        <button mat-button (click)="clickMapPunkt('start')">
+          <mat-icon>map</mat-icon>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <th>Ziel</th>
+      <td>
+        <mat-form-field>
+          <input matInput type="text" [(ngModel)]="ziel" required>
+        </mat-form-field>
+        <button mat-button (click)="clickMapPunkt('ziel')">
+          <mat-icon>map</mat-icon>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <th>Zeitpunkt</th>
+      <td>
+        <mat-form-field>
+          <input [min]="minDate" matInput [matDatepicker]="dpZeitpunkt" [(ngModel)]="zeitpunkt" disabled>
+          <mat-datepicker-toggle matSuffix [for]="dpZeitpunkt"></mat-datepicker-toggle>
+          <mat-datepicker #dpZeitpunkt disabled="false"></mat-datepicker>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <th>Freie Plätze</th>
+      <td>
+        <mat-form-field>
+          <input matInput type="number" [(ngModel)]="freiePlaetze" required>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <th>Maximaler Umweg (in KM)</th>
+      <td>
+        <mat-form-field>
+          <input matInput type="text" [(ngModel)]="umwegMax" required>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <th>Preis (in Cent)</th>
+      <td>
+        <mat-form-field>
+          <input matInput type="number" [(ngModel)]="preis" required>
+        </mat-form-field>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <th>Beschreibung</th>
+      <td>
+        <mat-form-field style="width:50%">
+          <textarea matInput matTextareaAutosize type="text" [(ngModel)]="beschreibung"></textarea>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <th>Strecke Anzeigen</th>
+      <td>
+        <button mat-button (click)="clickMapStrecke()">
+          <mat-icon>map</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </table>
+  <hr>
+  <table style="width:100%">
+    <td style="width:50%;text-align:center">
+      <button mat-raised-button [color]="'success'" style="width:100%" (click)="clickAnlegen()">
+        Anlegen
       </button>
     </td>
-  </tr>
-  <tr>
-    <th>Ziel</th>
-    <td>
-      <mat-form-field>
-        <input matInput type="text" [(ngModel)]="ziel" required>
-      </mat-form-field>
-      <button mat-button (click)="clickMapPunkt('ziel')">
-        <mat-icon>map</mat-icon>
+    <td style="width:50%">
+      <button mat-raised-button color="warn" style="width:100%" (click)="clickAbbrechen()">
+        Abbrechen & Home
       </button>
     </td>
-  </tr>
-  <tr>
-    <th>Zeitpunkt</th>
-    <td>
-      <mat-form-field>
-        <input [min]="minDate" matInput [matDatepicker]="dpZeitpunkt"  [(ngModel)]="zeitpunkt" disabled>
-        <mat-datepicker-toggle matSuffix [for]="dpZeitpunkt"></mat-datepicker-toggle>
-        <mat-datepicker #dpZeitpunkt disabled="false"></mat-datepicker>
-      </mat-form-field>
-    </td>
-  </tr>
-  <tr>
-    <th>Freie Plätze</th>
-    <td>
-      <mat-form-field>
-        <input matInput type="number" [(ngModel)]="freiePlaetze" required>
-      </mat-form-field>
-    </td>
-  </tr>
-  <tr>
-    <th>Maximaler Umweg (in KM)</th>
-    <td>
-      <mat-form-field>
-        <input matInput type="text" [(ngModel)]="umwegMax" required>
-      </mat-form-field>
-    </td>
-  </tr>
-  <tr>
-    <th>Preis (in Cent)</th>
-    <td>
-      <mat-form-field>
-        <input matInput type="number" [(ngModel)]="preis" required>
-      </mat-form-field>
-    </td>
-    <td></td>
-  </tr>
-  <tr>
-    <th>Beschreibung</th>
-    <td>
-      <mat-form-field style="width:50%">
-        <textarea matInput matTextareaAutosize type="text" [(ngModel)]="beschreibung"></textarea>
-      </mat-form-field>
-    </td>
-  </tr>
-  <tr>
-    <th>Strecke Anzeigen</th>
-    <td>
-      <button mat-button (click)="clickMapStrecke()">
-        <mat-icon>map</mat-icon>
-      </button>
-    </td>
-  </tr>
-</table>
-<hr>
-<table style="width:100%">
-  <td style="width:50%;text-align:center">
-    <button mat-raised-button [color]="'success'" style="width:100%" (click)="clickAnlegen()">
-      Anlegen
-    </button>
-  </td>
-  <td style="width:50%">
-    <button mat-raised-button color="warn" style="width:100%" (click)="clickAbbrechen()">
-      Abbrechen & Home
-    </button>
-  </td>
-</table>
+  </table>
+</div>
