@@ -10,7 +10,8 @@ export class PadacaService {
   private session: Session = {
     userID: 111,
     sessionkey: 'ljdsakfsahf'
-  }; // private session: Session;
+  };
+  // private session: Session;
 
   constructor(private restService: RestService, private router: Router) { }
 
@@ -100,8 +101,8 @@ export class PadacaService {
   /**
    * Liefert die entsprechende Reise zurück.
    */
-  public getReise(reise: Reise): Observable<Response> {
-    return this.restService.getRequest('/reise?reiseID=' + reise.reiseID);
+  public getReise(reiseID: number): Observable<Response> {
+    return this.restService.getRequest('/reise?reiseID=' + reiseID);
   }
 
   /**
@@ -115,7 +116,7 @@ export class PadacaService {
   /**
    * Sagt die Reise ab & benachrichtigt die betroffenen Personen.
    */
-  public postReiseAbsagen(reise: Reise, message: Message) {
+  public postReiseAbsagen(reise: Reise, message: string) {
     return this.restService.postRequest('/reise/absagen?sessionkey=' + this.session.sessionkey, message);
   }
   //#endregion
@@ -143,9 +144,9 @@ export class PadacaService {
   }
 
   /**
-   * Sagt die Reise ab & benachrichtigt die betroffenen Personen.
+   * Meldet einen Mitfahrer von der Reise ab & benachrichtigt die betroffenen Personen.
    */
-  public postReiseAbmelden(reise: Reise, message: Message) {
+  public postReiseAbmelden(reise: Reise, message: string) {
     return this.restService.postRequest('/reise/abmelden?sessionkey=' + this.session.sessionkey + '&reiseID=' + reise.reiseID, message);
   }
   //#endregion

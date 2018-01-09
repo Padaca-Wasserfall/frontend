@@ -17,10 +17,10 @@ export class ReiseAnlegenComponent implements OnInit {
   start: any;
   ziel: any;
   zeitstempel: number;
-  dpZeitpunkt: Date;
   plaetzeMax: number;
   preis: number;
   beschreibung: string;
+  freiePlaetze: number;  
   umwegMax: number;
 
   constructor(private padaService: PadacaService, private router: Router) { }
@@ -30,7 +30,6 @@ export class ReiseAnlegenComponent implements OnInit {
     this.start = '';
     this.ziel = '';
     this.zeitstempel = null;
-    this.dpZeitpunkt = null;
     this.plaetzeMax = null;
     this.preis = null;
     this.beschreibung = '';

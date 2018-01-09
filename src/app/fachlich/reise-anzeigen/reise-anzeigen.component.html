@@ -1,3 +1,69 @@
-<p>
-  reise-anzeigen works!
-</p>
+<div>
+  <table style="margin: auto">
+    <tr>
+      <td rowspan="3">
+        <mat-icon class="profile-pic" (click)="showUserProfile()">account_circle</mat-icon>
+        <br>
+        <span style="cursor: pointer;" (click)="showUserProfile()"> {{ this.reise.fahrer | user }} </span>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="reiseZeitpunkt" disabled>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </td>
+      <td>
+        <button mat-raised-button color="primary" (click)="gesamteReiseAnzeigen()">Gesamte Strecke</button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Start" [value]="reise.start" disabled>
+        </mat-form-field>
+        <button mat-button (click)="showStart()">
+          <mat-icon>map</mat-icon>
+        </button>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Ziel" [value]="reise.ziel" disabled>
+        </mat-form-field>
+        <button mat-button (click)="showZiel()">
+          <mat-icon>map</mat-icon>
+        </button>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="freie Plätze" [value]="freiePlaetze" disabled>
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+          <input matInput placeholder="Preis" [value]="preis" disabled>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <mat-form-field class="beschreibung">
+          <textarea matInput matAutosizeMaxRows="6" placeholder="Beschreibung" [value]="reise.beschreibung" disabled matTextareaAutosize></textarea>
+        </mat-form-field>
+      </td>
+    </tr>
+    <tr *ngIf="!isOwnReise">
+      <td colspan="3" class="actions">
+        <button mat-raised-button color="primary" (click)="anfragen()">Anfragen</button>
+        <button mat-raised-button color="primary" (click)="contact()">Kontaktieren</button>
+      </td>
+    </tr>
+    <tr *ngIf="isOwnReise">
+      <td colspan="3" class="actions">
+        <button mat-raised-button color="primary" (click)="contact()">Alle kontaktieren</button>
+      </td>
+    </tr>
+  </table>
+</div>

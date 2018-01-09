@@ -25,6 +25,7 @@ import { ChatComponent } from './fachlich/inbox/chat/chat.component';
 import { UserPipe } from './fachlich/user.pipe';
 import { BewertungComponent } from './fachlich/profil/bewertung/bewertung.component';
 import { MessageComponent } from './fachlich/inbox/chat/message/message.component';
+import { PricePipe } from './technisch/price.pipe';
 
 const routConfig: Routes = [
   {
@@ -80,7 +81,8 @@ const routConfig: Routes = [
     ChatComponent,
     UserPipe,
     BewertungComponent,
-    MessageComponent
+    MessageComponent,
+    PricePipe
   ],
   imports: [
     BrowserModule,
@@ -106,7 +108,8 @@ const routConfig: Routes = [
     { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
     RestService,
     PadacaService,
-    LoginRouteGuard
+    LoginRouteGuard,
+    PricePipe
   ],
   entryComponents: [
     LoginComponent,
