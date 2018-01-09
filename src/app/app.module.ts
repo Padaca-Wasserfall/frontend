@@ -23,6 +23,7 @@ import { PinnedComponent } from './fachlich/pinned/pinned.component';
 import { ChatPartnerComponent } from './fachlich/inbox/chat-partner/chat-partner.component';
 import { ChatComponent } from './fachlich/inbox/chat/chat.component';
 import { UserPipe } from './fachlich/user.pipe';
+import { BewertungComponent } from './fachlich/profil/bewertung/bewertung.component';
 import { MessageComponent } from './fachlich/inbox/chat/message/message.component';
 
 const routConfig: Routes = [
@@ -78,6 +79,7 @@ const routConfig: Routes = [
     ChatPartnerComponent,
     ChatComponent,
     UserPipe,
+    BewertungComponent,
     MessageComponent
   ],
   imports: [
@@ -111,7 +113,8 @@ const routConfig: Routes = [
     ChangePasswordComponent,
     PinnedComponent,
     SearchComponent,
-    PinnedComponent
+    PinnedComponent,
+    BewertungComponent
   ],
   bootstrap: [AppComponent]
 })

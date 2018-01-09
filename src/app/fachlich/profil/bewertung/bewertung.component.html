@@ -1,0 +1,45 @@
+<h1 mat-dialog-title>
+  Bewertungen</h1>
+<mat-card>
+  <!-- Übersicht der Anzahl der Bewertungen-->
+  <table>
+    <tr *ngFor="let sterne of [1,2,3,4,5]" (click)="filter(sterne)">
+      <td>{{anzahlBewertungen(sterne)}}</td>
+      <td>
+        <ng-container *ngFor="let i of Arr(sterne).fill(1)">
+          <mat-icon class="star">star</mat-icon>
+        </ng-container>
+      </td>
+    </tr>
+  </table>
+</mat-card>
+<br/>
+<mat-dialog-content>
+  <!-- Auflistung der Bewertungen -->
+  <table style="width: 100%">
+    <tr *ngFor="let bewertung of sichtbareBewertungen">
+      <td>
+        <mat-card>
+          <table style="width: 100%"> <!-- Ansicht einer einzelnen Bewertung -->
+            <tr>
+              <td style="width: 30%">{{bewertung.mitfahrer.vorname}}</td>
+              <td style="width: 30%">
+                <ng-container *ngFor=" let i of Arr(bewertung.rating).fill(1)">
+                  <mat-icon class="star" (click)="filter(bewertung.rating)">star</mat-icon>
+                </ng-container>
+              </td>
+              <td style="width: 30%">
+                <a href="#">Reise anzeigen</a>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3" style="width: 100%">
+                {{bewertung.ratingText}}
+              </td>
+            </tr>
+          </table>
+        </mat-card>
+      </td>
+    </tr>
+  </table>
+</mat-dialog-content>

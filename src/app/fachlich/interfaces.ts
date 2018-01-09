@@ -51,7 +51,7 @@ export interface Bewertung {
     fahrer?: User;
     mitfahrer?: User;
     rating?: number;
-    ratingText?: number;
+    ratingText?: String;
 }
 //#endregion
 
