@@ -3,6 +3,7 @@ import { Bewertung, User } from '../interfaces';
 import { PadacaService } from '../padaca.service';
 import { BewertungComponent } from './bewertung/bewertung.component';
 import { MatDialog } from '@angular/material';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-profil',
@@ -10,24 +11,49 @@ import { MatDialog } from '@angular/material';
   styleUrls: ['./profil.component.css']
 })
 export class ProfilComponent implements OnInit {
+
   bewertungen: Array<Bewertung>;
   bewertung: number;
   user: User;
-  edit: Boolean;
-  constructor(private padaService: PadacaService, private dialog: MatDialog) { }
+  edit: boolean;
+  isOwnProfile: boolean;
+
+  constructor(private route: ActivatedRoute, private padacaService: PadacaService, private dialog: MatDialog) { }
 
   ngOnInit() {
-    this.user = {
-      alter: 15,
-      beschreibung: 'Ich fahre gerne Auto... von hier nach da und manchmal auch wieder zurück. Es macht mir einfach Spaß. Aber den Spaß würde ich gerne mit anderen Leuten teilen, indem ich sie mitnehme. Ich habe mich hier bei Padaca registriert, weil Paderborn einfach die beste Stadt in Deutschland ist. asdahgfklasdklfjhasdklfjashdlkfhaskldjhfalskjdhflaksjdhflaksjdhflaksdhjfklajshdfklashjdklfhajsdklfhaslkdhjfaskldhfklasdhjfklashdjfklasjhdflkashdfklasjhdfklhasdklfjhaskldfjhaslkdhjfalskdjhfalskdhjfaskldhfasjkldhflaksjdhflaksjdhflaksjdhfslajkfhldkjhfsakhljfdhjlkasfdhjlfhjkfhjklfhjklfdhjklasdfhjfasdhjklfdasasdfhjfhjklfhjklasdfasdahgfklasdklfjhasdklfjashdlkfhaskldjhfalskjdhflaksjdhflaksjdhflaksdhjfklajshdfklashjdklfhajsdklfhaslkdhjfaskldhfklasdhjfklashdjfklasjhdflkashdfklasjhdfklhasdklfjhaskldfjhaslkdhjfalskdjhfalskdhjfaskldhfasjkldhflaksjdhflaksjdhflaksjdhfslajkfhldkjhfsakhljfdhjlkasfdhjlfhjkfhjklfhjklfdhjklasdfhjfasdhjklfdasasdfhjfhjklfhjklasdfasdahgfklasdklfjhasdklfjashdlkfhaskldjhfalskjdhflaksjdhflaksjdhflaksdhjfklajshdfklashjdklfhajsdklfhaslkdhjfaskldhfklasdhjfklashdjfklasjhdflkashdfklasjhdfklhasdklfjhaskldfjhaslkdhjfalskdjhfalskdhjfaskldhfasjkldhflaksjdhflaksjdhflaksjdhfslajkfhldkjhfsakhljfdhjlkasfdhjlfhjkfhjklfhjklfdhjklasdfhjfasdhjklfdasasdfhjfhjklfhjklasdf',
-      userID: 1,
-      vorname: 'Jeder',
-      nachname: 'Bayer',
-      username: 'Immer',
-      pkw: 'Trabbi'
-    };
+    this.route.params.forEach((params: Params) => {
+      let userID = params['userID'];
+      this.isOwnProfile = false;
+      if (!userID) {
+        userID = this.padacaService.getSession().userID;
+      }
+      if (userID == this.padacaService.getSession().userID) {
+        this.isOwnProfile = true;
+      }
+      this.padacaService.getUser(userID).subscribe(userres => {
+        this.padacaService.getBewertungen(userres.data).subscribe(bewertungres => {
+          this.bewertungen = bewertungres.data;
+          for (let bew of this.bewertungen) {
+            this.bewertung += bew.rating;
+          }
+          this.bewertung = this.bewertung / this.bewertungen.length;
+        });
+      }); // todo
+
+      // MOCK USER
+      this.user = {
+        alter: 15,
+        beschreibung: 'Ich fahre gerne Auto... von hier nach da und manchmal auch wieder zurück. Es macht mir einfach Spaß. Aber den Spaß würde ich gerne mit anderen Leuten teilen, indem ich sie mitnehme. Ich habe mich hier bei Padaca registriert, weil Paderborn einfach die beste Stadt in Deutschland ist. asdahgfklasdklfjhasdklfjashdlkfhaskldjhfalskjdhflaksjdhflaksjdhflaksdhjfklajshdfklashjdklfhajsdklfhaslkdhjfaskldhfklasdhjfklashdjfklasjhdflkashdfklasjhdfklhasdklfjhaskldfjhaslkdhjfalskdjhfalskdhjfaskldhfasjkldhflaksjdhflaksjdhflaksjdhfslajkfhldkjhfsakhljfdhjlkasfdhjlfhjkfhjklfhjklfdhjklasdfhjfasdhjklfdasasdfhjfhjklfhjklasdfasdahgfklasdklfjhasdklfjashdlkfhaskldjhfalskjdhflaksjdhflaksjdhflaksdhjfklajshdfklashjdklfhajsdklfhaslkdhjfaskldhfklasdhjfklashdjfklasjhdflkashdfklasjhdfklhasdklfjhaskldfjhaslkdhjfalskdjhfalskdhjfaskldhfasjkldhflaksjdhflaksjdhflaksjdhfslajkfhldkjhfsakhljfdhjlkasfdhjlfhjkfhjklfhjklfdhjklasdfhjfasdhjklfdasasdfhjfhjklfhjklasdfasdahgfklasdklfjhasdklfjashdlkfhaskldjhfalskjdhflaksjdhflaksjdhflaksdhjfklajshdfklashjdklfhajsdklfhaslkdhjfaskldhfklasdhjfklashdjfklasjhdflkashdfklasjhdfklhasdklfjhaskldfjhaslkdhjfalskdjhfalskdhjfaskldhfasjkldhflaksjdhflaksjdhflaksjdhfslajkfhldkjhfsakhljfdhjlkasfdhjlfhjkfhjklfhjklfdhjklasdfhjfasdhjklfdasasdfhjfhjklfhjklasdf',
+        userID: 1,
+        vorname: 'Jeder',
+        nachname: 'Bayer',
+        username: 'Immer',
+        pkw: 'Trabbi'
+      };
+    });
     this.bewertung = 0;
     this.bewertungen = [];
+    // MOCK Bewertung
     this.bewertungen.push({
       rating: 3,
       reiseID: 1,
@@ -82,8 +108,8 @@ export class ProfilComponent implements OnInit {
     this.bewertung = this.bewertung / this.bewertungen.length;
     this.edit = false;
     /*let uid = this.padaService.getSession().userID;
-    this.padaService.getUser(uid).subscribe(userres => {
-      this.padaService.getBewertungen(userres.data).subscribe(bewertungres => {
+    this.padacaService.getUser(uid).subscribe(userres => {
+      this.padacaService.getBewertungen(userres.data).subscribe(bewertungres => {
         this.bewertungen = bewertungres.data;
         for (let bew of this.bewertungen) {
           this.bewertung += bew.rating;
@@ -97,10 +123,6 @@ export class ProfilComponent implements OnInit {
         reiseID: 1
       });
     });*/
-  }
-
-  private isOwnProfile(): boolean {
-    return true;
   }
 
   private editProfile() {

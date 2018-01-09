@@ -24,20 +24,21 @@ export class HeaderComponent implements OnInit {
   private updateSession() {
     let session = this.padacaService.getSession();
     if (session) {
-      this.padacaService.getUser(session.userID).subscribe((res: Response) => {
-        this.user = res.data;
-      }, (err) => {
-        // this.user = null;
-        this.user = {
-          'userID': 124,
-          'username': 'michi',
-          'vorname': 'Test',
-          'nachname': 'User',
-          'alter': 20,
-          'pkw': 'VW Golf',
-          'beschreibung': 'Kein Essen im Auto'
-        };
-      });
+      // this.padacaService.getUser(session.userID).subscribe((res: Response) => {
+      //   this.user = res.data;
+      // }, (err) => {
+      //   this.user = null;
+      // });
+      // MOCK
+      this.user = {
+        'userID': 124,
+        'username': 'tester',
+        'vorname': 'Test',
+        'nachname': 'User',
+        'alter': 20,
+        'pkw': 'VW Golf',
+        'beschreibung': 'Kein Essen im Auto'
+      };
     }
   }
 

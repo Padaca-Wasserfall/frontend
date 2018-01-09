@@ -50,13 +50,13 @@ export class ChatComponent implements OnInit {
   }
 
   public deny(reiseID: number) {
-    this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, false).subscribe();
+    this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, false).subscribe(); // todo
     this.answeredRequests.push(reiseID);
     this.sendMessage('Die Anfrage wurde abgelehnt.');
   }
 
   public permit(reiseID: number) {
-    this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, true).subscribe();
+    this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, true).subscribe(); // todo
     this.answeredRequests.push(reiseID);
     this.sendMessage('Die Anfrage wurde angenommen.');
   }
