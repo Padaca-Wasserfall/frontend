@@ -26,6 +26,7 @@ import { UserPipe } from './fachlich/user.pipe';
 import { BewertungComponent } from './fachlich/profil/bewertung/bewertung.component';
 import { MessageComponent } from './fachlich/inbox/chat/message/message.component';
 import { PricePipe } from './technisch/price.pipe';
+import { MessageDialogComponent } from './fachlich/message-dialog/message-dialog.component';
 
 const routConfig: Routes = [
   {
@@ -82,7 +83,8 @@ const routConfig: Routes = [
     UserPipe,
     BewertungComponent,
     MessageComponent,
-    PricePipe
+    PricePipe,
+    MessageDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -117,7 +119,8 @@ const routConfig: Routes = [
     PinnedComponent,
     SearchComponent,
     PinnedComponent,
-    BewertungComponent
+    BewertungComponent,
+    MessageDialogComponent
   ],
   bootstrap: [AppComponent]
 })

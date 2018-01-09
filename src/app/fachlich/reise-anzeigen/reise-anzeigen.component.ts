@@ -1,9 +1,11 @@
-import { User } from './../interfaces';
+import { MessageDialogComponent } from './../message-dialog/message-dialog.component';
+import { User, Response } from './../interfaces';
 import { PricePipe } from './../../technisch/price.pipe';
 import { Component, OnInit } from '@angular/core';
 import { Reise } from '../interfaces';
 import { PadacaService } from '../padaca.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MatSnackBar, MatDialog } from '@angular/material';
 
 @Component({
   selector: 'app-reise-anzeigen',
@@ -18,7 +20,8 @@ export class ReiseAnzeigenComponent implements OnInit {
   freiePlaetze: number;
   isOwnReise: boolean;
 
-  constructor(private route: ActivatedRoute, private padacaService: PadacaService, private router: Router, private pricePipe: PricePipe) { }
+  constructor(private route: ActivatedRoute, private padacaService: PadacaService, private router: Router,
+    private pricePipe: PricePipe, private snackbar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
@@ -93,35 +96,51 @@ export class ReiseAnzeigenComponent implements OnInit {
     }
   }
 
-  public contact(message: string) {
-    if (this.isOwnReise) {
-      this.reise.mitfahrer.forEach((mitfahrer: User) => {
-        this.padacaService.putSendMessage({
-          message: message,
-          receiverID: mitfahrer.userID
-        }).subscribe(); // todo
-      });
-    } else {
-      this.padacaService.putSendMessage({
-        message: message,
-        receiverID: this.reise.fahrer.userID
-      }).subscribe(); // todo
-    }
+  public contact() {
+    this.dialog.open(MessageDialogComponent, {
+      disableClose: true
+    }).afterClosed().subscribe((message: string) => {
+      if (message) {
+        if (this.isOwnReise) {
+          this.reise.mitfahrer.forEach((mitfahrer: User) => {
+            this.padacaService.putSendMessage({
+              message: message,
+              receiverID: mitfahrer.userID
+            }).subscribe((result: Response) => { }); // todo
+          });
+        } else {
+          this.padacaService.putSendMessage({
+            message: message,
+            receiverID: this.reise.fahrer.userID
+          }).subscribe((result: Response) => { }); // todo
+        }
+      }
+    });
   }
 
   public anfragen() {
-    this.padacaService.putReiseAnfragen(this.reise).subscribe(); // todo
+    this.padacaService.putReiseAnfragen(this.reise).subscribe((result: Response) => {
+      this.snackbar.open('Die Anfrage wurde versendet.', 'OK', {
+        duration: 5000,
+      });
+    });
   }
 
-  public delete(message: string) {
-    if (this.isOwnReise) {
-      this.padacaService.postReiseAbsagen(this.reise, message).subscribe(); // todo
-    } else {
-      this.padacaService.postReiseAbmelden(this.reise, message).subscribe(); // todo
-    }
+  public delete() {
+    this.dialog.open(MessageDialogComponent, {
+      disableClose: true
+    }).afterClosed().subscribe((message: string) => {
+      if (message) {
+        if (this.isOwnReise) {
+          this.padacaService.postReiseAbsagen(this.reise, message).subscribe((result: Response) => { });
+        } else {
+          this.padacaService.postReiseAbmelden(this.reise, message).subscribe((result: Response) => { });
+        }
+      }
+    });
   }
 
   public pin() {
-    this.padacaService.putPinned(this.reise).subscribe(); // todo
+    this.padacaService.putPinned(this.reise).subscribe((result: Response) => { });
   }
 }
