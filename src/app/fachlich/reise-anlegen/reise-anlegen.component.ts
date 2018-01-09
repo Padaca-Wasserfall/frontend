@@ -17,51 +17,46 @@ export class ReiseAnlegenComponent implements OnInit {
   start: any;
   ziel: any;
   zeitstempel: number;
-  dpZeitpunkt: Date;
   plaetzeMax: number;
   preis: number;
   beschreibung: string;
+  freiePlaetze: number;  
   umwegMax: number;
 
-  constructor(private padaService: PadacaService,private router: Router) { }
+  constructor(private padaService: PadacaService, private router: Router) { }
 
   ngOnInit() {
-    this.zeitpunkt=new Date;
-    this.start = "";
-    this.ziel = "";
+    this.zeitpunkt = new Date;
+    this.start = '';
+    this.ziel = '';
     this.zeitstempel = null;
-    this.dpZeitpunkt = null;
     this.plaetzeMax = null;
     this.preis = null;
-    this.beschreibung = "";
+    this.beschreibung = '';
     this.umwegMax = null;
   }
 
-
-  clickMapPunkt(wert:string) {
-
+  clickMapPunkt(wert: string) {
     /*
     * if start
     *   this.start auf den api call
     * else
     *   this.ziel auf den api call
     */
-
-    console.log("clickMapPunkt mit "+ wert+ " aufgerufen geht!");
+    console.log('clickMapPunkt mit ' + wert + ' aufgerufen geht!');
   }
 
   clickMapStrecke() {
-    console.log("MapStrecke geht");
+    console.log('MapStrecke geht');
   }
 
   clickAnlegen() {
     console.log(this.zeitpunkt);
-    let uid= this.padaService.getSession().userID;
-    this.padaService.getUser(uid).subscribe((data)=>{
-      let tmpFahrer:User= data.data;
+    let uid = this.padaService.getSession().userID;
+    this.padaService.getUser(uid).subscribe((data) => {
+      let tmpFahrer: User = data.data;
 
       this.zeitstempel = this.zeitpunkt.getTime() / 1000;
-
 
       let neueReise: Reise = {
         start: this.start,
@@ -74,20 +69,17 @@ export class ReiseAnlegenComponent implements OnInit {
         umwegMax: this.umwegMax,
         mitfahrer: [],
         fahrer: tmpFahrer
-        
-      }
-      
+      };
 
-    console.log(neueReise);
-    
-    this.padaService.postReiseErstellen(neueReise).subscribe();
+      console.log(neueReise);
+
+      this.padaService.postReiseErstellen(neueReise).subscribe(); // todo
     });
-
-
     this.router.navigate(['/home']);
   }
+
   clickAbbrechen() {
-    console.log("Abbrechen geht");
+    console.log('Abbrechen geht');
     this.router.navigate(['/home']);
   }
 }

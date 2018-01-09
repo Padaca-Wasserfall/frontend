@@ -11,7 +11,7 @@ import { HttpModule } from '@angular/http';
 import { HeaderComponent } from './technisch/header/header.component';
 import { FooterComponent } from './technisch/footer/footer.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatToolbarModule, MatCardModule, MatIconModule, MatNativeDateModule, MatListModule, MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule, MatTabsModule, MAT_DATE_LOCALE } from '@angular/material';
+import { MatToolbarModule, MatCardModule, MatIconModule, MatNativeDateModule, MatListModule, MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule, MatTabsModule, MAT_DATE_LOCALE, MatSnackBarModule } from '@angular/material';
 import { LoginRouteGuard } from './technisch/login-route-guard';
 import { ReiseAnlegenComponent } from './fachlich/reise-anlegen/reise-anlegen.component';
 import { HomeComponent } from './fachlich/home/home.component';
@@ -25,6 +25,8 @@ import { ChatComponent } from './fachlich/inbox/chat/chat.component';
 import { UserPipe } from './fachlich/user.pipe';
 import { BewertungComponent } from './fachlich/profil/bewertung/bewertung.component';
 import { MessageComponent } from './fachlich/inbox/chat/message/message.component';
+import { PricePipe } from './technisch/price.pipe';
+import { MessageDialogComponent } from './fachlich/message-dialog/message-dialog.component';
 
 const routConfig: Routes = [
   {
@@ -80,7 +82,9 @@ const routConfig: Routes = [
     ChatComponent,
     UserPipe,
     BewertungComponent,
-    MessageComponent
+    MessageComponent,
+    PricePipe,
+    MessageDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -98,6 +102,7 @@ const routConfig: Routes = [
     MatInputModule,
     MatMenuModule,
     MatTabsModule,
+    MatSnackBarModule,
     MatNativeDateModule,
     MatListModule
   ],
@@ -105,7 +110,8 @@ const routConfig: Routes = [
     { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
     RestService,
     PadacaService,
-    LoginRouteGuard
+    LoginRouteGuard,
+    PricePipe
   ],
   entryComponents: [
     LoginComponent,
@@ -113,7 +119,8 @@ const routConfig: Routes = [
     PinnedComponent,
     SearchComponent,
     PinnedComponent,
-    BewertungComponent
+    BewertungComponent,
+    MessageDialogComponent
   ],
   bootstrap: [AppComponent]
 })

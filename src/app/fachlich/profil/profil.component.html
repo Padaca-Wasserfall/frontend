@@ -34,11 +34,11 @@
                     </mat-form-field>
                 </td>
                 <td class="container">
-                    <div *ngIf="isOwnProfile()" (click)="editProfile()" class="action">
+                    <div *ngIf="isOwnProfile" (click)="editProfile()" class="action">
                         <mat-icon>settings</mat-icon>
                         <br/> Profil bearbeiten
                     </div>
-                    <div *ngIf="!isOwnProfile()" (click)="sendMessage()" class="action">
+                    <div *ngIf="!isOwnProfile" (click)="sendMessage()" class="action">
                         <mat-icon>chat</mat-icon>
                         <br/> Nachricht schreiben
                     </div>
@@ -49,7 +49,7 @@
     <br/>
     <mat-card>
         <mat-form-field style="width: 100%; height: 100%">
-            <textarea matInput [disabled]="!edit" matTextareaAutosize>{{user.beschreibung}}</textarea>
+            <textarea matInput [disabled]="!edit" matTextareaAutosize [value]="user.beschreibung"></textarea>
         </mat-form-field>
         <button mat-button *ngIf="edit">Speichern</button>
     </mat-card>

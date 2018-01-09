@@ -57,7 +57,7 @@ export class PinnedComponent implements OnInit {
 
   clickEntfernen(reise: Reise, index: number) {
     this.gepinnteReisen.splice(index, 1);
-    this.padaService.deletePinned(reise).subscribe();
+    this.padaService.deletePinned(reise).subscribe(); // todo
   }
 }
 

@@ -1,0 +1,36 @@
+td {
+    padding: 20px;
+}
+
+.profile-pic {
+    font-size: 10vw;
+    color: green;
+    height: 10vw;
+    width: 10vw;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.actions {
+    text-align: center;
+}
+
+.beschreibung {
+    width: 100%;
+    height: 150px;
+}
+
+.fixedActions {
+    position: absolute;
+    top: 10vh;
+    right: 20px;
+}
+
+mat-icon {
+    cursor: pointer;
+    font-size: 30px;
+}
+
+img {
+    cursor: pointer;
+}
