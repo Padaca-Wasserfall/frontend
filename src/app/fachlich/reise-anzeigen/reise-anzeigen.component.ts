@@ -126,6 +126,15 @@ export class ReiseAnzeigenComponent implements OnInit {
     });
   }
 
+  public isAngemeldet(): boolean {
+    for (let i = 0; i < this.reise.mitfahrer.length; i++) {
+      if (this.padacaService.getSession().userID == this.reise.mitfahrer[i].userID) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   public delete() {
     this.dialog.open(MessageDialogComponent, {
       disableClose: true

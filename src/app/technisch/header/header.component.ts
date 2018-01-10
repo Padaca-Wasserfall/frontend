@@ -29,7 +29,7 @@ export class HeaderComponent implements OnInit {
       // }, (err) => {
       //   this.user = null;
       // });
-      // MOCK
+      // MOCK todo
       this.user = {
         'userID': 124,
         'username': 'tester',
