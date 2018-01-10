@@ -1,3 +1,61 @@
-<p>
-  home works!
-</p>
+<div style="max-height: calc(100vh - 128px); overflow-y: auto">
+  <p>
+    home works!
+  </p>
+  <mat-card *ngIf="isLoggedIn()">
+    <mat-card-header>
+      <h2>Mitfahrgelegenheiten</h2>
+    </mat-card-header>
+    <mat-card-content>
+      <h4>Teilnehmen</h4>
+      <table style="width: 100%">
+        <tr>
+          <th>Datum</th>
+          <th>Start</th>
+          <th>Ziel</th>
+          <th>Fahrer</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let teilnahme of teilnahmen" style="text-align: center">
+          <td>{{teilnahme.zeitstempel | date:'dd.MM.yyyy' }}</td>
+          <td>{{teilnahme.start}}</td>
+          <td>{{teilnahme.ziel}}</td>
+          <td>{{teilnahme.fahrer.username}}</td>
+          <td>
+            <button mat-raised-button (click)="reiseAnzeigen(teilnahme)">
+              <mat-icon>remove_red_eye</mat-icon> anzeigen
+            </button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <hr/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="5">
+            <h4>Angebote</h4>
+          </td>
+        </tr>
+        <tr>
+          <th>Datum</th>
+          <th>Start</th>
+          <th>Ziel</th>
+          <th>Fahrer</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let angebot of angebote" style="text-align: center">
+          <td>{{angebot.zeitstempel | date:'dd.MM.yyyy' }}</td>
+          <td>{{angebot.start}}</td>
+          <td>{{angebot.ziel}}</td>
+          <td>{{angebot.fahrer.username}}</td>
+          <td>
+            <button mat-raised-button (click)="reiseAnzeigen(angebot)">
+              <mat-icon>remove_red_eye</mat-icon> anzeigen
+            </button>
+          </td>
+        </tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+</div>

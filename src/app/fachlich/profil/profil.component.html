@@ -1,4 +1,4 @@
-<div>
+<div style="max-height: calc(100vh - 128px); overflow-y: auto">
     <mat-card>
         <table style="margin: auto">
             <tr>
@@ -34,14 +34,14 @@
                     </mat-form-field>
                 </td>
                 <td class="container">
-                    <ng-container *ngIf="isOwnProfile" (click)="editProfile()" class="action">
+                    <div *ngIf="isOwnProfile" (click)="editProfile()" class="action">
                         <mat-icon>settings</mat-icon>
                         <br/> Profil bearbeiten
-                    </ng-container>
-                    <ng-container *ngIf="!isOwnProfile" (click)="sendMessage()" class="action">
+                    </div>
+                    <div *ngIf="!isOwnProfile" (click)="sendMessage()" class="action">
                         <mat-icon>chat</mat-icon>
                         <br/> Nachricht schreiben
-                    </ng-container>
+                    </div>
                 </td>
             </tr>
         </table>
@@ -49,58 +49,8 @@
     <br/>
     <mat-card>
         <mat-form-field style="width: 100%; height: 100%">
-            <textarea matInput [disabled]="!edit" matTextareaAutosize>{{user.beschreibung}}</textarea>
+            <textarea matInput [disabled]="!edit" matTextareaAutosize [value]="user.beschreibung"></textarea>
         </mat-form-field>
         <button mat-button *ngIf="edit">Speichern</button>
     </mat-card>
-
-    <!--<table style="width: 80vw; margin: auto">
-        <tr>
-            <td style="width: 40%">
-                <mat-icon class="profile-pic">account_circle</mat-icon>
-                <br/>
-                <mat-icon *ngIf="bewertung < 0.5" class="star">star_border</mat-icon>
-                <mat-icon *ngIf="bewertung >= 0.5 && bewertung < 1" class="star">star_half</mat-icon>
-                <mat-icon *ngIf="bewertung >= 1" class="star">star</mat-icon>
-                
-                <mat-icon *ngIf="bewertung < 1.5" class="star">star_border</mat-icon>
-                <mat-icon *ngIf="bewertung >= 1.5 && bewertung < 2" class="star">star_half</mat-icon>
-                <mat-icon *ngIf="bewertung >= 2" class="star">star</mat-icon>
-                
-                <mat-icon *ngIf="bewertung < 2.5" class="star">star_border</mat-icon>
-                <mat-icon *ngIf="bewertung >= 2.5 && bewertung < 3" class="star">star_half</mat-icon>
-                <mat-icon *ngIf="bewertung >= 3" class="star">star</mat-icon>
-                
-                <mat-icon *ngIf="bewertung < 3.5" class="star">star_border</mat-icon>
-                <mat-icon *ngIf="bewertung >= 3.5 && bewertung < 4" class="star">star_half</mat-icon>
-                <mat-icon *ngIf="bewertung >= 4" class="star">star</mat-icon>
-                
-                <mat-icon *ngIf="bewertung < 4.5" class="star">star_border</mat-icon>
-                <mat-icon *ngIf="bewertung >= 4.5 && bewertung < 5" class="star">star_half</mat-icon>
-                <mat-icon *ngIf="bewertung >= 5" class="star">star</mat-icon>
-                <br/>
-                <p style="margin-left: 10px;">
-                    {{bewertung | number : '1.2-2' }}/5 - {{bewertungen.length}} Bewertungen
-                </p>
-            </td>
-            <td style="width:40%">
-                <pre style="font-family: Arial">
-                    Name        {{user.vorname}} {{user.nachname}}
-                    
-                    Alter       {{user.alter}}
-                    
-                    PKW         {{user.pkw}}
-                </pre>
-            </td>
-            
-        </tr>
-        <tr>
-            <td colspan="3">
-                <mat-form-field style="width: 100%; height: 100%">
-                    <textarea matInput disabled="true" style="resize: none" matTextareaAutosize>{{user.beschreibung}}</textarea>
-                </mat-form-field>
-            </td>
-        </tr>
-    </table>
--->
 </div>

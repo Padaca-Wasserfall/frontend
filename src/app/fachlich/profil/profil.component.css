@@ -28,12 +28,6 @@ button{
     color: white;
 }
 
-div {
-    margin-top: 10px;
-    overflow: auto;
-    height: 80vh;
-}
-
 @media screen and (max-width: 750px) {
     .profile-pic{
         font-size: 50vw;

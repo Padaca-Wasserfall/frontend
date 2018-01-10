@@ -30,7 +30,7 @@ export class ProfilComponent implements OnInit {
       if (userID == this.padacaService.getSession().userID) {
         this.isOwnProfile = true;
       }
-      this.padacaService.getUser(userID).subscribe(userres => {
+      /*this.padacaService.getUser(userID).subscribe(userres => {
         this.padacaService.getBewertungen(userres.data).subscribe(bewertungres => {
           this.bewertungen = bewertungres.data;
           for (let bew of this.bewertungen) {
@@ -38,7 +38,7 @@ export class ProfilComponent implements OnInit {
           }
           this.bewertung = this.bewertung / this.bewertungen.length;
         });
-      }); // todo
+      });*/ // todo
 
       // MOCK USER
       this.user = {
@@ -107,22 +107,6 @@ export class ProfilComponent implements OnInit {
     }
     this.bewertung = this.bewertung / this.bewertungen.length;
     this.edit = false;
-    /*let uid = this.padaService.getSession().userID;
-    this.padacaService.getUser(uid).subscribe(userres => {
-      this.padacaService.getBewertungen(userres.data).subscribe(bewertungres => {
-        this.bewertungen = bewertungres.data;
-        for (let bew of this.bewertungen) {
-          this.bewertung += bew.rating;
-        }
-        this.bewertung = this.bewertung / this.bewertungen.length;
-      });
-    }, error => {
-      this.bewertungen = [];
-      this.bewertungen.push({
-        rating: 10,
-        reiseID: 1
-      });
-    });*/
   }
 
   private editProfile() {
