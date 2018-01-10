@@ -1,19 +1,38 @@
-<div>
-  <mat-form-field class="txt-full-width">
-    <textarea class="txtStart" matInput placeholder="Start" [(ngModel)]="Start"></textarea>
-  </mat-form-field>
-  <br>
-  <mat-form-field class="txt-full-width">
-    <textarea class="txtZiel" matInput placeholder="Ziel" [(ngModel)]="Ziel"></textarea>
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="Datum" disabled>
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker disabled="false"></mat-datepicker>
-  </mat-form-field>
-</div>
+<h2>Reise suchen</h2>
+<table>
+  <tr>
+    <td>
+      <mat-form-field>
+        <input matInput placeholder="Start" [(ngModel)]="start" disabled>
+      </mat-form-field>
+      <mat-icon (click)="setStart()">map</mat-icon>
+    </td>
+    <td>
+      <mat-form-field>
+        <input matInput placeholder="Ziel" [(ngModel)]="ziel" disabled>
+      </mat-form-field>
+      <mat-icon (click)="setZiel()">map</mat-icon>
+    </td>
+    <td>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Datum auswählen" [(ngModel)]="datum" disabled>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker disabled="false"></mat-datepicker>
+      </mat-form-field>
+    </td>
+  </tr>
+</table>
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> Suchergebnisse </mat-panel-title>
+    </mat-expansion-panel-header>
+    <search-results [searchResults]="suchergebnisse"></search-results>
+  </mat-expansion-panel>
+</mat-accordion>
 
 <div class="divSearch">
-  <button class="btnSearch" mat-raised-button color="primary" (click)="Search()">Suchen</button>
+  <button class="btnSearch" mat-raised-button color="primary" (click)="search()">Suchen</button>
+  <button class="btnSearch" mat-raised-button color="warn" (click)="close()">Schließen</button>
 </div>

@@ -1,0 +1,24 @@
+<table>
+  <tr>
+    <th>Fahrer</th>
+    <th>Start</th>
+    <th>Ziel</th>
+    <th>Mitfahrer</th>
+    <th>PKW</th>
+    <th></th>
+  </tr>
+  <tr *ngFor="let reise of searchResults">
+    <td>
+      <button mat-raised-button (click)="userAnzeigen(reise.fahrer)"> {{ reise.fahrer | user }} </button>
+    </td>
+    <td> {{ reise.start }} </td>
+    <td> {{ reise.ziel }} </td>
+    <td> {{ getAnzahlMitfahrer(reise) }} </td>
+    <td> {{ reise.fahrer.pkw }} </td>
+    <td>
+      <button mat-raised-button (click)="reiseAnzeigen(reise)">
+        <mat-icon>remove_red_eye</mat-icon> anzeigen
+      </button>
+    </td>
+  </tr>
+</table>

@@ -11,7 +11,7 @@ import { HttpModule } from '@angular/http';
 import { HeaderComponent } from './technisch/header/header.component';
 import { FooterComponent } from './technisch/footer/footer.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { MatToolbarModule, MatCardModule, MatIconModule, MatNativeDateModule, MatListModule, MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule, MatTabsModule, MAT_DATE_LOCALE, MatSnackBarModule } from '@angular/material';
+import { MatToolbarModule, MatCardModule, MatIconModule, MatNativeDateModule, MatListModule, MatButtonModule, MatDialogModule, MatDatepickerModule, MatInputModule, MatMenuModule, MatTabsModule, MAT_DATE_LOCALE, MatSnackBarModule, MatExpansionModule } from '@angular/material';
 import { LoginRouteGuard } from './technisch/login-route-guard';
 import { ReiseAnlegenComponent } from './fachlich/reise-anlegen/reise-anlegen.component';
 import { HomeComponent } from './fachlich/home/home.component';
@@ -27,6 +27,7 @@ import { BewertungComponent } from './fachlich/profil/bewertung/bewertung.compon
 import { MessageComponent } from './fachlich/inbox/chat/message/message.component';
 import { PricePipe } from './technisch/price.pipe';
 import { MessageDialogComponent } from './fachlich/message-dialog/message-dialog.component';
+import { SearchResultsComponent } from './fachlich/search/search-results/search-results.component';
 
 const routConfig: Routes = [
   {
@@ -84,7 +85,8 @@ const routConfig: Routes = [
     BewertungComponent,
     MessageComponent,
     PricePipe,
-    MessageDialogComponent
+    MessageDialogComponent,
+    SearchResultsComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +106,8 @@ const routConfig: Routes = [
     MatTabsModule,
     MatSnackBarModule,
     MatNativeDateModule,
-    MatListModule
+    MatListModule,
+    MatExpansionModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },

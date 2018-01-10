@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig, MatDialogClose } from '@angular/material';
 import { Router } from '@angular/router';
 import { ChangePasswordComponent } from '../change-password/change-password.component';
-import { Response, User } from '../../fachlich/interfaces';
+import { Response, User, Reise } from '../../fachlich/interfaces';
 
 @Component({
   selector: 'app-header',
@@ -31,7 +31,7 @@ export class HeaderComponent implements OnInit {
       // });
       // MOCK todo
       this.user = {
-        'userID': 124,
+        'userID': 111,
         'username': 'tester',
         'vorname': 'Test',
         'nachname': 'User',
@@ -88,7 +88,7 @@ export class HeaderComponent implements OnInit {
     let dialogRef = this.dialog.open(PinnedComponent, {
       width: '95%',
       height: 'auto'
-    }).afterClosed().subscribe(reiseID => {
+    }).afterClosed().subscribe((reiseID: number) => {
       if (reiseID) {
         this.router.navigate(['/reiseAnzeigen/' + reiseID]);
       }
@@ -97,13 +97,17 @@ export class HeaderComponent implements OnInit {
 
   public openSearch() {
     this.dialog.open(SearchComponent, {
-      // disableClose:  true
+      disableClose: true
+    }).afterClosed().subscribe((reiseID: number) => {
+      if (reiseID) {
+        this.router.navigate(['/reiseAnzeigen/' + reiseID]);
+      }
     });
   }
 
   public openChangePassword() {
     this.dialog.open(ChangePasswordComponent, {
-      // disableClose:  true
+      disableClose: true
     });
   }
 }

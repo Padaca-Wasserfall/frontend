@@ -22,17 +22,13 @@
         <mat-form-field>
           <input matInput placeholder="Start" [value]="reise.start" disabled>
         </mat-form-field>
-        <button mat-button (click)="showStart()">
-          <mat-icon>map</mat-icon>
-        </button>
+        <mat-icon (click)="showStart()">map</mat-icon>
       </td>
       <td>
         <mat-form-field>
           <input matInput placeholder="Ziel" [value]="reise.ziel" disabled>
         </mat-form-field>
-        <button mat-button (click)="showZiel()">
-          <mat-icon>map</mat-icon>
-        </button>
+        <mat-icon (click)="showZiel()">map</mat-icon>
       </td>
     </tr>
     <tr>
@@ -56,9 +52,9 @@
     </tr>
     <tr *ngIf="!isOwnReise">
       <td colspan="3" class="actions">
-          <button mat-raised-button color="primary" (click)="contact()">Kontaktieren</button>
-          <button mat-raised-button *ngIf="!isAngemeldet()" color="primary" (click)="anfragen()">Anfragen</button>
-          <button mat-raised-button *ngIf="isAngemeldet()" color="warn" (click)="delete()">Abmelden</button>
+        <button mat-raised-button color="primary" (click)="contact()">Kontaktieren</button>
+        <button mat-raised-button *ngIf="!isAngemeldet()" color="primary" (click)="anfragen()">Anfragen</button>
+        <button mat-raised-button *ngIf="isAngemeldet()" color="warn" (click)="delete()">Abmelden</button>
       </td>
     </tr>
     <tr *ngIf="isOwnReise">
