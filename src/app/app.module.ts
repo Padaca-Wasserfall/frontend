@@ -5,6 +5,7 @@ import { ProfilComponent } from './fachlich/profil/profil.component';
 import { RestService } from './technisch/rest.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AgmCoreModule } from '@agm/core';
 import { AppComponent } from './app.component';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
@@ -107,7 +108,11 @@ const routConfig: Routes = [
     MatSnackBarModule,
     MatNativeDateModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCj1t_DyxaGKTN1yqufTp7ORfPS4mZ0h30',
+      libraries: ['places']
+    })
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },

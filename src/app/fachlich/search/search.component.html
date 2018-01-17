@@ -3,13 +3,15 @@
   <tr>
     <td>
       <mat-form-field>
-        <input matInput placeholder="Start" [(ngModel)]="start" disabled>
+        <!-- <input matInput placeholder="Start" [(ngModel)]="start" disabled> -->
+        <input matInput placeholder="Start" [(ngModel)]="start" disabled autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #searchStart [formControl]="searchControlStart">
       </mat-form-field>
       <mat-icon (click)="setStart()">map</mat-icon>
     </td>
     <td>
       <mat-form-field>
-        <input matInput placeholder="Ziel" [(ngModel)]="ziel" disabled>
+        <!-- <input matInput placeholder="Ziel" [(ngModel)]="ziel" disabled> -->
+        <input matInput placeholder="Ziel" [(ngModel)]="ziel" disabled autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #searchStop [formControl]="searchControlStop">
       </mat-form-field>
       <mat-icon (click)="setZiel()">map</mat-icon>
     </td>
