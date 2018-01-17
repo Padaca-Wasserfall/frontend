@@ -140,16 +140,17 @@ export class HomeComponent implements OnInit {
   }
 
   public isBewertet(reise: Reise): boolean { // muss noch getestet werden
-    if (reise.fahrer.userID != this.user.userID) {
-      this.padacaService.getBewertungen(reise.fahrer).subscribe((res: Response) => {
-        let bewertungen: Bewertung[] = res.data.result;
-        bewertungen.forEach((bew: Bewertung) => {
-          if (bew.reiseID == reise.reiseID && bew.mitfahrer.userID == this.user.userID) {
-            return true;
-          }
-        });
-        return false;
-      });
+    if (reise.fahrer.userID != this.user.userID) { // todo
+      // this.padacaService.getBewertungen(reise.fahrer).subscribe((res: Response) => {
+      //   let bewertungen: Bewertung[] = res.data.result;
+      //   bewertungen.forEach((bew: Bewertung) => {
+      //     if (bew.reiseID == reise.reiseID && bew.mitfahrer.userID == this.user.userID) {
+      //       return true;
+      //     }
+      //   });
+      //   return false;
+      // });
+      return false;
     } else {
       return true; // man kann sich nicht selbst bewerten
     }
