@@ -57,20 +57,21 @@ export class HeaderComponent implements OnInit {
 
   public login() {
     this.dialog.open(LoginComponent, {
-      disableClose: true
+      disableClose: true,
+      data: { popupType: 'login' }
     }).afterClosed().subscribe((success: boolean) => {
       if (success) {
         this.updateSession();
+        this.padacaService.loggedIn.emit();
       }
     });
   }
 
   public logout() {
     this.user = null;
-    this.padacaService.getLogout().subscribe((res: Response) => {
-      this.user = null;
-      this.padacaService.removeSession();
-    });
+    this.padacaService.loggedOut.emit();
+    this.padacaService.removeSession();
+    this.padacaService.getLogout().subscribe((res: Response) => { });
   }
 
   public navigateToHome() {

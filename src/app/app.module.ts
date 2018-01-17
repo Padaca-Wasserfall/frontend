@@ -1,3 +1,4 @@
+//#region Imports
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReiseAnzeigenComponent } from './fachlich/reise-anzeigen/reise-anzeigen.component';
 import { InboxComponent } from './fachlich/inbox/inbox.component';
@@ -29,6 +30,8 @@ import { MessageComponent } from './fachlich/inbox/chat/message/message.componen
 import { PricePipe } from './technisch/price.pipe';
 import { MessageDialogComponent } from './fachlich/message-dialog/message-dialog.component';
 import { SearchResultsComponent } from './fachlich/search/search-results/search-results.component';
+import { BewertungSchreibenComponent } from './fachlich/bewertung-schreiben/bewertung-schreiben.component';
+//#endregion
 
 const routConfig: Routes = [
   {
@@ -87,7 +90,8 @@ const routConfig: Routes = [
     MessageComponent,
     PricePipe,
     MessageDialogComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    BewertungSchreibenComponent
   ],
   imports: [
     BrowserModule,
@@ -128,7 +132,8 @@ const routConfig: Routes = [
     SearchComponent,
     PinnedComponent,
     BewertungComponent,
-    MessageDialogComponent
+    MessageDialogComponent,
+    BewertungSchreibenComponent
   ],
   bootstrap: [AppComponent]
 })

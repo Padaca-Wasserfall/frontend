@@ -7,6 +7,8 @@ import { RestService } from '../technisch/rest.service';
 @Injectable()
 export class PadacaService {
 
+  @Output() loggedIn = new EventEmitter<any>();
+  @Output() loggedOut = new EventEmitter<any>();
   @Output() sessionUpdated = new EventEmitter<any>();
 
   private session: Session = {

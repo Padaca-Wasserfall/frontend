@@ -30,17 +30,19 @@
 
   <!-- Eingeloggt -->
   <mat-card *ngIf="isLoggedIn()">
-    <mat-card-header>
-      <h2>Mitfahrgelegenheiten</h2>
-    </mat-card-header>
     <mat-card-content>
-      <h4>Teilnehmen</h4>
       <table style="width: 100%">
+        <tr>
+          <td colspan="6">
+            <h3>Kommende Teilnahmen:</h3>
+          </td>
+        </tr>
         <tr>
           <th>Datum</th>
           <th>Start</th>
           <th>Ziel</th>
           <th>Fahrer</th>
+          <th></th>
           <th></th>
         </tr>
         <tr *ngFor="let teilnahme of teilnahmen" style="text-align: center">
@@ -49,19 +51,20 @@
           <td>{{teilnahme.ziel}}</td>
           <td>{{teilnahme.fahrer.username}}</td>
           <td>
-            <button mat-raised-button (click)="reiseAnzeigen(teilnahme)">
-              <mat-icon>remove_red_eye</mat-icon> anzeigen
+            <button mat-raised-button color="primary" (click)="reiseAnzeigen(teilnahme)">
+              <mat-icon>remove_red_eye</mat-icon> Anzeigen
             </button>
           </td>
+          <td></td>
         </tr>
         <tr>
-          <td colspan="5">
-            <hr/>
+          <td colspan="6">
+            <hr>
           </td>
         </tr>
         <tr>
-          <td colspan="5">
-            <h4>Angebote</h4>
+          <td colspan="6">
+            <h3>Eigene Angebote:</h3>
           </td>
         </tr>
         <tr>
@@ -70,6 +73,7 @@
           <th>Ziel</th>
           <th>Fahrer</th>
           <th></th>
+          <th></th>
         </tr>
         <tr *ngFor="let angebot of angebote" style="text-align: center">
           <td>{{angebot.zeitstempel | date:'dd.MM.yyyy' }}</td>
@@ -77,8 +81,43 @@
           <td>{{angebot.ziel}}</td>
           <td>{{angebot.fahrer.username}}</td>
           <td>
-            <button mat-raised-button (click)="reiseAnzeigen(angebot)">
-              <mat-icon>remove_red_eye</mat-icon> anzeigen
+            <button mat-raised-button color="primary" (click)="reiseAnzeigen(angebot)">
+              <mat-icon>remove_red_eye</mat-icon> Anzeigen
+            </button>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <hr>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6">
+            <h3>Archivierte Reisen:</h3>
+          </td>
+        </tr>
+        <tr>
+          <th>Datum</th>
+          <th>Start</th>
+          <th>Ziel</th>
+          <th>Fahrer</th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let reise of archivierte" style="text-align: center">
+          <td>{{reise.zeitstempel | date:'dd.MM.yyyy' }}</td>
+          <td>{{reise.start}}</td>
+          <td>{{reise.ziel}}</td>
+          <td>{{reise.fahrer.username}}</td>
+          <td>
+            <button mat-raised-button color="primary" (click)="reiseAnzeigen(reise)">
+              <mat-icon>remove_red_eye</mat-icon> Anzeigen
+            </button>
+          </td>
+          <td>
+            <button *ngIf="!isBewertet(reise)" mat-raised-button color="primary" (click)="bewerten(reise)">
+              <mat-icon>star</mat-icon> Bewerten
             </button>
           </td>
         </tr>
