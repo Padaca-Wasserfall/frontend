@@ -19,7 +19,12 @@ export class HeaderComponent implements OnInit {
 
   constructor(private dialog: MatDialog, private router: Router, private padacaService: PadacaService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.updateSession();
+    this.padacaService.sessionUpdated.subscribe(data => {
+      this.updateSession();
+    });
+  }
 
   private updateSession() {
     let session = this.padacaService.getSession();

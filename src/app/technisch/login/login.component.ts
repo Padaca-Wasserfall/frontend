@@ -1,22 +1,35 @@
 import { PadacaService } from './../../fachlich/padaca.service';
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, AfterViewInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LoginDTO, Response, RegisterDTO } from '../../fachlich/interfaces';
+import { MatTabGroup } from '@angular/material';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit {
+
+  @ViewChild(MatTabGroup) matTab: MatTabGroup;
 
   public username: string;
   public password: string;
   public passwordSubmit: string;
+  private popupType: string; // Standard --> Login; andernfalls --> Registrieren
 
   public msgFailed: string;
 
-  constructor(public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) data: any, private padacaService: PadacaService) { }
+  constructor(public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) data: any,
+    private padacaService: PadacaService) {
+      this.popupType = data;
+    }
+
+  ngAfterViewInit() {
+    if (this.popupType == 'register') {
+      this.matTab.selectedIndex = 1;
+    }
+  }
 
   public cancel() {
     this.dialogRef.close(false);

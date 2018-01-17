@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PadacaService } from '../padaca.service';
-import { Reise, Response, User } from '../interfaces';
+import { Reise, Response, User, Session } from '../interfaces';
 import { Router } from '@angular/router';
+import { LoginComponent } from '../../technisch/login/login.component';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,8 @@ export class HomeComponent implements OnInit {
   teilnahmen: Reise[] = [];
   angebote: Reise[] = [];
   user: User;
-  constructor(private padacaService: PadacaService, private router: Router) { }
+  
+  constructor(private padacaService: PadacaService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
     let session = this.padacaService.getSession();
@@ -75,10 +78,32 @@ export class HomeComponent implements OnInit {
   }
 
   private isLoggedIn(): boolean {
-    return true;
+    return false;
+    // return this.user ? true : false;
   }
 
   private reiseAnzeigen(reise: Reise) {
     this.router.navigate(['/reiseAnzeigen/' + reise.reiseID]);
+  }
+
+  public login() {
+    this.dialog.open(LoginComponent, {
+      disableClose: true
+    }).afterClosed().subscribe((success: boolean) => {
+      if (success) {
+        this.padacaService.sessionUpdated.emit();
+      }
+    });
+  }
+
+  private register() {
+    this.dialog.open(LoginComponent, {
+      disableClose: true,
+      data: 'register'
+    }).afterClosed().subscribe((success: boolean) => {
+      if (success) {
+        this.padacaService.sessionUpdated.emit();
+      }
+    });
   }
 }
