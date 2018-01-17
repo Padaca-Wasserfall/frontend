@@ -15,10 +15,21 @@ export class HomeComponent implements OnInit {
   teilnahmen: Reise[] = [];
   angebote: Reise[] = [];
   user: User;
-  
+
   constructor(private padacaService: PadacaService, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
+    this.updateSession();
+    // Listen to Login & Logout
+    this.padacaService.loggedIn.subscribe(data => {
+      this.updateSession();
+    });
+    this.padacaService.loggedOut.subscribe(data => {
+      this.user = null;
+    });
+  }
+
+  private updateSession() {
     let session = this.padacaService.getSession();
     if (session) {
       this.padacaService.getUser(session.userID).subscribe((res: Response) => {
@@ -33,7 +44,7 @@ export class HomeComponent implements OnInit {
         this.angebote.sort((a1, a2) => a2.zeitstempel - a1.zeitstempel);
       }, (err) => {
         // this.user = null;
-        this.user = {
+        this.user = { // todo
           'userID': 124,
           'username': 'michi',
           'vorname': 'Test',
@@ -42,35 +53,38 @@ export class HomeComponent implements OnInit {
           'pkw': 'VW Golf',
           'beschreibung': 'Kein Essen im Auto'
         };
-        this.teilnahmen.push({
-          reiseID: 123,
-          fahrer: { username: 'Jonny Bleifuß' },
-          start: 'Paderborn',
-          ziel: 'Buxtehude',
-          zeitstempel: 123456789
-        });
-        this.teilnahmen.push({
-          reiseID: 456,
-          fahrer: { username: 'Renate Rastnicht' },
-          start: 'Magdeburg',
-          ziel: 'Sonstwo',
-          zeitstempel: Date.now()
-        });
-
-        this.angebote.push({
-          reiseID: 456,
-          fahrer: { username: 'Renate Rastnicht' },
-          start: 'Magdeburg',
-          ziel: 'Sonstwo',
-          zeitstempel: Date.now()
-        });
-        this.angebote.push({
-          reiseID: 123,
-          fahrer: { username: 'Jonny Bleifuß' },
-          start: 'Paderborn',
-          ziel: 'Buxtehude',
-          zeitstempel: 123456789
-        });
+        this.teilnahmen = [
+          {
+            reiseID: 123,
+            fahrer: { username: 'Jonny Bleifuß' },
+            start: 'Paderborn',
+            ziel: 'Buxtehude',
+            zeitstempel: 123456789
+          },
+          {
+            reiseID: 456,
+            fahrer: { username: 'Renate Rastnicht' },
+            start: 'Magdeburg',
+            ziel: 'Sonstwo',
+            zeitstempel: Date.now()
+          }
+        ];
+        this.angebote = [
+          {
+            reiseID: 456,
+            fahrer: { username: 'Renate Rastnicht' },
+            start: 'Magdeburg',
+            ziel: 'Sonstwo',
+            zeitstempel: Date.now()
+          },
+          {
+            reiseID: 123,
+            fahrer: { username: 'Jonny Bleifuß' },
+            start: 'Paderborn',
+            ziel: 'Buxtehude',
+            zeitstempel: 123456789
+          }
+        ];
         this.teilnahmen.sort((a1, a2) => a2.zeitstempel - a1.zeitstempel);
         this.angebote.sort((a1, a2) => a2.zeitstempel - a1.zeitstempel);
       });
@@ -78,8 +92,7 @@ export class HomeComponent implements OnInit {
   }
 
   private isLoggedIn(): boolean {
-    return false;
-    // return this.user ? true : false;
+    return this.user ? true : false;
   }
 
   private reiseAnzeigen(reise: Reise) {
@@ -88,7 +101,8 @@ export class HomeComponent implements OnInit {
 
   public login() {
     this.dialog.open(LoginComponent, {
-      disableClose: true
+      disableClose: true,
+      data: { popupType: 'login' }
     }).afterClosed().subscribe((success: boolean) => {
       if (success) {
         this.padacaService.sessionUpdated.emit();
@@ -99,7 +113,7 @@ export class HomeComponent implements OnInit {
   private register() {
     this.dialog.open(LoginComponent, {
       disableClose: true,
-      data: 'register'
+      data: { popupType: 'register' }
     }).afterClosed().subscribe((success: boolean) => {
       if (success) {
         this.padacaService.sessionUpdated.emit();

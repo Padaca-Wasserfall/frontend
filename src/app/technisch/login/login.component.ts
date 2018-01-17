@@ -11,7 +11,7 @@ import { MatTabGroup } from '@angular/material';
 })
 export class LoginComponent implements AfterViewInit {
 
-  @ViewChild(MatTabGroup) matTab: MatTabGroup;
+  @ViewChild(MatTabGroup) matTabGroup: MatTabGroup;
 
   public username: string;
   public password: string;
@@ -20,15 +20,17 @@ export class LoginComponent implements AfterViewInit {
 
   public msgFailed: string;
 
-  constructor(public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) data: any,
-    private padacaService: PadacaService) {
-      this.popupType = data;
+  constructor(public dialogRef: MatDialogRef<LoginComponent>, @Inject(MAT_DIALOG_DATA) data: any, private padacaService: PadacaService) {
+      this.popupType = data.popupType;
     }
 
   ngAfterViewInit() {
-    if (this.popupType == 'register') {
-      this.matTab.selectedIndex = 1;
-    }
+    console.log(this.popupType);
+    setTimeout(data => {
+      if (this.popupType == 'register') {
+        this.matTabGroup.selectedIndex = 1;
+      }
+    }, 500);
   }
 
   public cancel() {
