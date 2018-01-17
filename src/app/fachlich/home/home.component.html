@@ -1,4 +1,34 @@
 <div style="max-height: calc(100vh - 128px); overflow-y: auto">
+  <!-- Ausgeloggt -->
+  <ng-container *ngIf="!isLoggedIn()">
+    <div class="left">
+      <img src="/assets/PaDaCa.png" width="250px" height="250px" style="margin: 30px;">
+    </div>
+    <div class="right">
+      <mat-card class="loggedOut">
+        <mat-card-header>
+          <h2>Was ist Padaca?</h2>
+        </mat-card-header>
+        <mat-card-content>
+            <p>Gemeinsam fahren mit PaDaCa ist die Zukunft des Reisens.</p>
+            
+            <p>Warum solltest du zuerst zu einem Bahnhof fahren, wenn deine Reise doch ganz in deiner Nähe losgehen kann?
+              <br>Warum solltest du ins Stadtzentrum müssen, wenn du eigentlich an den Strand willst?
+              <br>Warum solltest du allein in deinem Auto sitzen?</p>
+            
+            <p>Zusammen fahren bedeutet, dass Menschen gemeinsam in kleinen Gruppen reisen.
+              <br>Das spart Zeit. Das spart Geld.
+              <br>Und oft ist es die schönste Art dorthin zu kommen, wo man hin will.</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="buttons">
+      <button mat-raised-button color="primary" (click)="register()">Registrieren</button>
+      <button mat-raised-button color="primary" (click)="login()">Login</button>
+    </div>
+  </ng-container>
+
+  <!-- Eingeloggt -->
   <mat-card *ngIf="isLoggedIn()">
     <mat-card-header>
       <h2>Mitfahrgelegenheiten</h2>

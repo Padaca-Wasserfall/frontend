@@ -1,11 +1,13 @@
 import { Router } from '@angular/router';
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Response, Reise, User, Route, LoginDTO, ChangePasswordDTO, RegisterDTO, Message, Bewertung, Session } from './interfaces';
 import { RestService } from '../technisch/rest.service';
 
 @Injectable()
 export class PadacaService {
+
+  @Output() sessionUpdated = new EventEmitter<any>();
 
   private session: Session = {
     userID: 111,
