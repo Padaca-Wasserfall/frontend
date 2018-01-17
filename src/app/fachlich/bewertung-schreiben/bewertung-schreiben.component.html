@@ -1,0 +1,15 @@
+<h3>Bewertung:
+  <ng-container *ngFor="let index of indices">
+    <mat-icon *ngIf="bewertung < index" class="star" (click)="setBewertung(index)">star_border</mat-icon>
+    <mat-icon *ngIf="bewertung >= index" class="star" (click)="setBewertung(index)">star</mat-icon>
+  </ng-container>
+</h3>
+<h3>Bitte eine Nachricht verfassen:</h3>
+<div>
+  <mat-form-field class="beschreibung">
+    <textarea matInput matAutosizeMinRows="4" placeholder="Nachricht" [(ngModel)]="message" matTextareaAutosize></textarea>
+  </mat-form-field>
+  <br>
+  <button mat-raised-button color="primary" (click)="send()" [disabled]="!isCorrect()">Bewertung Senden</button>
+  <button mat-raised-button color="warn" (click)="cancel()">Abbrechen</button>
+</div>

@@ -1,9 +1,10 @@
 import { MatDialog } from '@angular/material';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PadacaService } from '../padaca.service';
-import { Reise, Response, User, Session } from '../interfaces';
+import { Reise, Response, User, Session, Bewertung } from '../interfaces';
 import { Router } from '@angular/router';
 import { LoginComponent } from '../../technisch/login/login.component';
+import { BewertungSchreibenComponent } from '../bewertung-schreiben/bewertung-schreiben.component';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +15,7 @@ export class HomeComponent implements OnInit {
 
   teilnahmen: Reise[] = [];
   angebote: Reise[] = [];
+  archivierte: Reise[] = [];
   user: User;
 
   constructor(private padacaService: PadacaService, private router: Router, private dialog: MatDialog) { }
@@ -85,6 +87,22 @@ export class HomeComponent implements OnInit {
             zeitstempel: 123456789
           }
         ];
+        this.archivierte = [
+          {
+            reiseID: 456,
+            fahrer: { username: 'Renate Rastnicht' },
+            start: 'Magdeburg',
+            ziel: 'Sonstwo',
+            zeitstempel: Date.now()
+          },
+          {
+            reiseID: 123,
+            fahrer: { username: 'Jonny Bleifuß' },
+            start: 'Paderborn',
+            ziel: 'Buxtehude',
+            zeitstempel: 123456789
+          }
+        ];
         this.teilnahmen.sort((a1, a2) => a2.zeitstempel - a1.zeitstempel);
         this.angebote.sort((a1, a2) => a2.zeitstempel - a1.zeitstempel);
       });
@@ -117,6 +135,32 @@ export class HomeComponent implements OnInit {
     }).afterClosed().subscribe((success: boolean) => {
       if (success) {
         this.padacaService.sessionUpdated.emit();
+      }
+    });
+  }
+
+  public isBewertet(reise: Reise): boolean { // muss noch getestet werden
+    if (reise.fahrer.userID != this.user.userID) {
+      this.padacaService.getBewertungen(reise.fahrer).subscribe((res: Response) => {
+        let bewertungen: Bewertung[] = res.data.result;
+        bewertungen.forEach((bew: Bewertung) => {
+          if (bew.reiseID == reise.reiseID && bew.mitfahrer.userID == this.user.userID) {
+            return true;
+          }
+        });
+        return false;
+      });
+    } else {
+      return true; // man kann sich nicht selbst bewerten
+    }
+  }
+
+  public bewerten(reise: Reise) {
+    this.dialog.open(BewertungSchreibenComponent, {
+      disableClose: true,
+      data: {
+        reise: reise,
+        user: this.user
       }
     });
   }
