@@ -80,8 +80,8 @@ export class SearchComponent implements OnInit, AfterViewInit {
   public search() {
     console.log(this.datum);
     let geplanteRoute: Route = {
-      start: this.addressToCity(this.start).trim(),
-      ziel: this.addressToCity(this.ziel).trim(),
+      start: this.addressToCity(this.start),
+      ziel: this.addressToCity(this.ziel),
       zeitstempel: this.datum.getTime()
     };
     console.log(geplanteRoute);
@@ -100,7 +100,17 @@ export class SearchComponent implements OnInit, AfterViewInit {
   addressToCity(address: string) {
     const split = address.split(',');
     if (split.length > 1) {
-      return split[1];
+      const city = split[1].trim();
+      if (city.split(' ').length > 1 && Number(city.split(' ')[0]) != null) {
+        let shiftedCity = '';
+        let splittedCity = city.split(' ');
+        for (let i = 1; i < splittedCity.length; i++) {
+          shiftedCity += splittedCity[i] + ' ';
+        }
+        return shiftedCity.trim();
+      } else {
+        return city;
+      }
     } else {
       return address;
     }
