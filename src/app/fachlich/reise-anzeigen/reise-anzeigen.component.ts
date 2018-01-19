@@ -6,6 +6,7 @@ import { Reise } from '../interfaces';
 import { PadacaService } from '../padaca.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatSnackBar, MatDialog } from '@angular/material';
+import { GoogleMapsService } from '../googlemaps.service';
 
 @Component({
   selector: 'app-reise-anzeigen',
@@ -21,13 +22,15 @@ export class ReiseAnzeigenComponent implements OnInit {
   isOwnReise: boolean;
 
   constructor(private route: ActivatedRoute, private padacaService: PadacaService, private router: Router,
-    private pricePipe: PricePipe, private snackbar: MatSnackBar, private dialog: MatDialog) { }
+    private pricePipe: PricePipe, private snackbar: MatSnackBar, private dialog: MatDialog, 
+    private googleMaps: GoogleMapsService) { }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
       let reiseID = params['reiseID'];
       if (reiseID) {
-        this.padacaService.getReise(reiseID).subscribe(); // todo
+        // TODO
+        // this.padacaService.getReise(reiseID).subscribe(); 
         // MOCK-Reise
         this.reise = {
           reiseID: reiseID,
@@ -72,9 +75,17 @@ export class ReiseAnzeigenComponent implements OnInit {
         this.reiseZeitpunkt = new Date(this.reise.zeitstempel);
         this.preis = this.pricePipe.transform(this.reise.preis);
         this.freiePlaetze = this.reise.mitfahrer ? this.reise.plaetzeMax - this.reise.mitfahrer.length : this.reise.plaetzeMax;
+      
+        // this.determineLocation();      
       } else {
         this.router.navigate(['/home']);
       }
+    });
+  }
+
+  public determineLocation() {
+    this.googleMaps.getLocationOfCity(this.reise.start).subscribe((data) => {
+      console.log(data);
     });
   }
 

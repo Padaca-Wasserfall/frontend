@@ -31,6 +31,7 @@ import { PricePipe } from './technisch/price.pipe';
 import { MessageDialogComponent } from './fachlich/message-dialog/message-dialog.component';
 import { SearchResultsComponent } from './fachlich/search/search-results/search-results.component';
 import { BewertungSchreibenComponent } from './fachlich/bewertung-schreiben/bewertung-schreiben.component';
+import { GoogleMapsService } from './fachlich/googlemaps.service';
 //#endregion
 
 const routConfig: Routes = [
@@ -122,6 +123,7 @@ const routConfig: Routes = [
     { provide: MAT_DATE_LOCALE, useValue: 'de-DE' },
     RestService,
     PadacaService,
+    GoogleMapsService,
     LoginRouteGuard,
     PricePipe
   ],
