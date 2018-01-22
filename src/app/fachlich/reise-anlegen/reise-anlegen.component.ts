@@ -20,7 +20,6 @@ export class ReiseAnlegenComponent implements OnInit {
   plaetzeMax: number;
   preis: number;
   beschreibung: string;
-  freiePlaetze: number;  
   umwegMax: number;
 
   constructor(private padaService: PadacaService, private router: Router) { }
@@ -71,7 +70,7 @@ export class ReiseAnlegenComponent implements OnInit {
         mitfahrer: [],
         fahrer: tmpFahrer
       };
-      console.log(neueReise);
+      console.log('neueReise', neueReise);
       this.padaService.postReiseErstellen(neueReise).subscribe((res2: Response) => {
         console.log('reiseErstellen', res2);
       }, (err) => {
