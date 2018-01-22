@@ -12,9 +12,15 @@ import { ActivatedRoute, Params } from '@angular/router';
 })
 export class ProfilComponent implements OnInit {
 
-  bewertungen: Array<Bewertung>;
+  bewertungen: Bewertung[] = [];
   bewertung: number;
-  user: User;
+  user: User = {
+    nachname: null,
+    vorname: null,
+    alter: null,
+    pkw: null,
+    beschreibung: null
+  };
   edit: boolean;
   isOwnProfile: boolean;
 
