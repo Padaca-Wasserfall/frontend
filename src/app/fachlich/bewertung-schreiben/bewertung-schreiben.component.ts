@@ -30,7 +30,10 @@ export class BewertungSchreibenComponent {
       ratingText: this.message
     };
     this.padacaService.putBewertenAlsMitfahrer(bew).subscribe((res: Response) => {
+      console.log('Mitfahrer bewertet Fahrer', res);
       this.dialogRef.close();
+    }, (err) => {
+      console.log('Mitfahrer bewertet Fahrer', err);
     });
   }
 

@@ -11,11 +11,11 @@ export class PadacaService {
   @Output() loggedOut = new EventEmitter<any>();
   @Output() sessionUpdated = new EventEmitter<any>();
 
-  private session: Session = {
-    userID: 111,
-    sessionkey: 'ljdsakfsahf'
-  };
-  // private session: Session;
+  // private session: Session = {
+  //   userID: 111,
+  //   sessionkey: 'ljdsakfsahf'
+  // };
+  private session: Session;
 
   constructor(private restService: RestService, private router: Router) { }
 
@@ -42,7 +42,7 @@ export class PadacaService {
    * Führt den Registrierungsprozess für einen User aus.
    */
   public getRegister(dto: RegisterDTO): Observable<Response> {
-    return this.restService.postRequest('/register', dto);
+    return this.restService.getRequest('/register?username=' + dto.username + '&password=' + dto.password);
   }
 
   /**
@@ -159,8 +159,8 @@ export class PadacaService {
   /**
    * Speichert die Reise unter den angepinnten Reisen.
    */
-  public getPinned(reise: Reise): Observable<Response> {
-    return this.restService.getRequest('/pinned?sessionkey=' + this.session.sessionkey + '&reiseID=' + reise.reiseID);
+  public getPinned(): Observable<Response> {
+    return this.restService.getRequest('/pinned?sessionkey=' + this.session.sessionkey);
   }
 
   /**
@@ -196,8 +196,8 @@ export class PadacaService {
   /**
    * Liefert alle von anderen Usern erhaltene Ratings zurück.
    */
-  public getBewertungen(user: User): Observable<Response> {
-    return this.restService.getRequest('/bewertungen?sessionkey=' + this.session.sessionkey + '&userID=' + user.userID);
+  public getBewertungen(userID: number): Observable<Response> {
+    return this.restService.getRequest('/bewertungen?sessionkey=' + this.session.sessionkey + '&userID=' + userID);
   }
 
   /**

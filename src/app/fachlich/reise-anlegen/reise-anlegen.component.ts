@@ -1,4 +1,4 @@
-import { Mitfahrer } from './../interfaces';
+import { Mitfahrer, Response } from './../interfaces';
 import { Component, OnInit } from '@angular/core';
 import { Reise, User } from '../interfaces';
 import { PadacaService } from '../padaca.service';
@@ -36,7 +36,7 @@ export class ReiseAnlegenComponent implements OnInit {
     this.umwegMax = null;
   }
 
-  clickMapPunkt(wert: string) {
+  public clickMapPunkt(wert: string) {
     /*
     * if start
     *   this.start auf den api call
@@ -46,18 +46,19 @@ export class ReiseAnlegenComponent implements OnInit {
     console.log('clickMapPunkt mit ' + wert + ' aufgerufen geht!');
   }
 
-  clickMapStrecke() {
+  public clickMapStrecke() {
     console.log('MapStrecke geht');
   }
 
-  clickAnlegen() {
+  public clickAnlegen() {
     console.log(this.zeitpunkt);
     let uid = this.padaService.getSession().userID;
-    this.padaService.getUser(uid).subscribe((data) => {
-      let tmpFahrer: User = data.data;
+    this.padaService.getUser(uid).subscribe((res1: Response) => {
+      console.log('user', res1);
 
+      let tmpFahrer: User = res1.data;
       this.zeitstempel = this.zeitpunkt.getTime() / 1000;
-
+      
       let neueReise: Reise = {
         start: this.start,
         ziel: this.ziel,
@@ -70,15 +71,19 @@ export class ReiseAnlegenComponent implements OnInit {
         mitfahrer: [],
         fahrer: tmpFahrer
       };
-
       console.log(neueReise);
-
-      this.padaService.postReiseErstellen(neueReise).subscribe(); // todo
+      this.padaService.postReiseErstellen(neueReise).subscribe((res2: Response) => {
+        console.log('reiseErstellen', res2);
+      }, (err) => {
+        console.log('reiseErstellen', err);        
+      });
+    }, (err) => {      
+      console.log('user', err);
     });
     this.router.navigate(['/home']);
   }
 
-  clickAbbrechen() {
+  public clickAbbrechen() {
     console.log('Abbrechen geht');
     this.router.navigate(['/home']);
   }

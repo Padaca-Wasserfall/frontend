@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Bewertung, User } from '../interfaces';
+import { Bewertung, User, Response } from '../interfaces';
 import { PadacaService } from '../padaca.service';
 import { BewertungComponent } from './bewertung/bewertung.component';
 import { MatDialog } from '@angular/material';
@@ -30,78 +30,29 @@ export class ProfilComponent implements OnInit {
       if (userID == this.padacaService.getSession().userID) {
         this.isOwnProfile = true;
       }
-      /*this.padacaService.getUser(userID).subscribe(userres => {
-        this.padacaService.getBewertungen(userres.data).subscribe(bewertungres => {
-          this.bewertungen = bewertungres.data;
-          for (let bew of this.bewertungen) {
-            this.bewertung += bew.rating;
-          }
-          this.bewertung = this.bewertung / this.bewertungen.length;
-        });
-      });*/ // todo
 
-      // MOCK USER
-      this.user = {
-        alter: 15,
-        beschreibung: 'Ich fahre gerne Auto... von hier nach da und manchmal auch wieder zurück. Es macht mir einfach Spaß. Aber den Spaß würde ich gerne mit anderen Leuten teilen, indem ich sie mitnehme. Ich habe mich hier bei Padaca registriert, weil Paderborn einfach die beste Stadt in Deutschland ist. asdahgfklasdklfjhasdklfjashdlkfhaskldjhfalskjdhflaksjdhflaksjdhflaksdhjfklajshdfklashjdklfhajsdklfhaslkdhjfaskldhfklasdhjfklashdjfklasjhdflkashdfklasjhdfklhasdklfjhaskldfjhaslkdhjfalskdjhfalskdhjfaskldhfasjkldhflaksjdhflaksjdhflaksjdhfslajkfhldkjhfsakhljfdhjlkasfdhjlfhjkfhjklfhjklfdhjklasdfhjfasdhjklfdasasdfhjfhjklfhjklasdfasdahgfklasdklfjhasdklfjashdlkfhaskldjhfalskjdhflaksjdhflaksjdhflaksdhjfklajshdfklashjdklfhajsdklfhaslkdhjfaskldhfklasdhjfklashdjfklasjhdflkashdfklasjhdfklhasdklfjhaskldfjhaslkdhjfalskdjhfalskdhjfaskldhfasjkldhflaksjdhflaksjdhflaksjdhfslajkfhldkjhfsakhljfdhjlkasfdhjlfhjkfhjklfhjklfdhjklasdfhjfasdhjklfdasasdfhjfhjklfhjklasdfasdahgfklasdklfjhasdklfjashdlkfhaskldjhfalskjdhflaksjdhflaksjdhflaksdhjfklajshdfklashjdklfhajsdklfhaslkdhjfaskldhfklasdhjfklashdjfklasjhdflkashdfklasjhdfklhasdklfjhaskldfjhaslkdhjfalskdjhfalskdhjfaskldhfasjkldhflaksjdhflaksjdhflaksjdhfslajkfhldkjhfsakhljfdhjlkasfdhjlfhjkfhjklfhjklfdhjklasdfhjfasdhjklfdasasdfhjfhjklfhjklasdf',
-        userID: 1,
-        vorname: 'Jeder',
-        nachname: 'Bayer',
-        username: 'Immer',
-        pkw: 'Trabbi'
-      };
+      this.padacaService.getUser(userID).subscribe((res1: Response) => {
+        console.log('user', res1);
+        let user: User = res1.data;
+        if (res1.data) {
+          this.padacaService.getBewertungen(user.userID).subscribe((res2: Response) => {
+        console.log('getBewertungen', res2);
+        this.bewertungen = res2.data;
+            for (let bew of this.bewertungen) {
+              this.bewertung += bew.rating;
+            }
+            this.bewertung = this.bewertung / this.bewertungen.length;
+          }, (err) => {
+            console.log('getBewertungen', err);
+          });
+        }
+      }, (err) => {
+        console.log('user', err);
+      });
     });
     this.bewertung = 0;
     this.bewertungen = [];
-    // MOCK Bewertung
-    this.bewertungen.push({
-      rating: 3,
-      reiseID: 1,
-      mitfahrer: {
-        vorname: 'Jochen'
-      },
-      ratingText: 'Das Auto hatte keine Massagesitze...',
-    });
-    this.bewertungen.push({
-      rating: 5,
-      reiseID: 2,
-      mitfahrer: {
-        vorname: 'Hans'
-      },
-      ratingText: 'Geilstes Auto aller Zeiten!!!'
-    });
-    this.bewertungen.push({
-      rating: 5,
-      reiseID: 3,
-      mitfahrer: {
-        vorname: 'Betsi'
-      },
-      ratingText: 'Super Fahrt!'
-    });
-    this.bewertungen.push({
-      rating: 4,
-      reiseID: 4,
-      mitfahrer: {
-        vorname: 'Löli'
-      },
-      ratingText: 'Sehr angenehme Fahrt, nur das Auto war etwas zu laut.'
-    });
-    this.bewertungen.push({
-      rating: 2,
-      reiseID: 5,
-      mitfahrer: {
-        vorname: 'Bill'
-      },
-      ratingText: 'Er ist nicht schneller als 60 gefahren, was für ein Weichei... Deswegen habe ich das Brunchen mit meiner Oma verpasst...'
-    });
-    this.bewertungen.push({
-      rating: 1,
-      reiseID: 1,
-      mitfahrer: {
-        vorname: 'Angela'
-      },
-      ratingText: 'Ständig musste er eine Pinkelpause machen. Dann ist noch ein Reifen geplatzt und eine Tür ist abgefallen...'
-    });
+
     for (let bew of this.bewertungen) {
       this.bewertung += bew.rating;
     }

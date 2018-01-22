@@ -35,76 +35,26 @@ export class HomeComponent implements OnInit {
     let session = this.padacaService.getSession();
     if (session) {
       this.padacaService.getUser(session.userID).subscribe((res: Response) => {
+        console.log('user', res);
         this.user = res.data;
         this.padacaService.getReisenAlsMitfahrer(this.user).subscribe((res2: Response) => {
+          console.log('teilnahmen', res2);
           this.teilnahmen = res.data;
+        }, (err) => {
+          console.log('teilnahmen', err);
+          this.teilnahmen = [];
         });
         this.padacaService.getReisenAlsFahrer(this.user).subscribe((res3: Response) => {
+          console.log('angebote', res3);
           this.angebote = res.data;
+        }, (err) => {
+          console.log('angebote', err);
+          this.angebote = [];
         });
         this.teilnahmen.sort((a1, a2) => a2.zeitstempel - a1.zeitstempel);
         this.angebote.sort((a1, a2) => a2.zeitstempel - a1.zeitstempel);
       }, (err) => {
-        // this.user = null;
-        this.user = { // todo
-          'userID': 124,
-          'username': 'michi',
-          'vorname': 'Test',
-          'nachname': 'User',
-          'alter': 20,
-          'pkw': 'VW Golf',
-          'beschreibung': 'Kein Essen im Auto'
-        };
-        this.teilnahmen = [
-          {
-            reiseID: 123,
-            fahrer: { username: 'Jonny Bleifuß' },
-            start: 'Paderborn',
-            ziel: 'Buxtehude',
-            zeitstempel: 123456789
-          },
-          {
-            reiseID: 456,
-            fahrer: { username: 'Renate Rastnicht' },
-            start: 'Magdeburg',
-            ziel: 'Sonstwo',
-            zeitstempel: Date.now()
-          }
-        ];
-        this.angebote = [
-          {
-            reiseID: 456,
-            fahrer: { username: 'Renate Rastnicht' },
-            start: 'Magdeburg',
-            ziel: 'Sonstwo',
-            zeitstempel: Date.now()
-          },
-          {
-            reiseID: 123,
-            fahrer: { username: 'Jonny Bleifuß' },
-            start: 'Paderborn',
-            ziel: 'Buxtehude',
-            zeitstempel: 123456789
-          }
-        ];
-        this.archivierte = [
-          {
-            reiseID: 456,
-            fahrer: { username: 'Renate Rastnicht' },
-            start: 'Magdeburg',
-            ziel: 'Sonstwo',
-            zeitstempel: Date.now()
-          },
-          {
-            reiseID: 123,
-            fahrer: { username: 'Jonny Bleifuß' },
-            start: 'Paderborn',
-            ziel: 'Buxtehude',
-            zeitstempel: 123456789
-          }
-        ];
-        this.teilnahmen.sort((a1, a2) => a2.zeitstempel - a1.zeitstempel);
-        this.angebote.sort((a1, a2) => a2.zeitstempel - a1.zeitstempel);
+        console.log('user', err);
       });
     }
   }
@@ -140,17 +90,19 @@ export class HomeComponent implements OnInit {
   }
 
   public isBewertet(reise: Reise): boolean { // muss noch getestet werden
-    if (reise.fahrer.userID != this.user.userID) { // todo
-      // this.padacaService.getBewertungen(reise.fahrer).subscribe((res: Response) => {
-      //   let bewertungen: Bewertung[] = res.data.result;
-      //   bewertungen.forEach((bew: Bewertung) => {
-      //     if (bew.reiseID == reise.reiseID && bew.mitfahrer.userID == this.user.userID) {
-      //       return true;
-      //     }
-      //   });
-      //   return false;
-      // });
-      return false;
+    if (reise.fahrer.userID != this.user.userID) {
+      this.padacaService.getBewertungen(reise.fahrer.userID).subscribe((res: Response) => {
+        console.log('getBewertungen', res);
+        let bewertungen: Bewertung[] = res.data;
+        bewertungen.forEach((bew: Bewertung) => {
+          if (bew.reiseID == reise.reiseID && bew.mitfahrer.userID == this.user.userID) {
+            return true;
+          }
+        });
+        return false;
+      }, (err) => {        
+        console.log('getBewertungen', err);
+      });
     } else {
       return true; // man kann sich nicht selbst bewerten
     }

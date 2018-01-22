@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { PadacaService } from './../../padaca.service';
-import { Message, Chat } from './../../interfaces';
+import { Message, Chat, Response } from './../../interfaces';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { MatCardContent } from '@angular/material';
 
@@ -50,15 +50,23 @@ export class ChatComponent implements OnInit {
   }
 
   public deny(reiseID: number) {
-    this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, false).subscribe(); // todo
-    this.answeredRequests.push(reiseID);
-    this.sendMessage('Die Anfrage wurde abgelehnt.');
+    this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, false).subscribe((res: Response) => {
+      console.log('Mitfahrt ablehnen', res);
+      this.answeredRequests.push(reiseID);
+      this.sendMessage('Die Anfrage wurde abgelehnt.');
+    }, (err) => {
+      console.log('Mitfahrt ablehnen', err);
+    });
   }
 
   public permit(reiseID: number) {
-    this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, true).subscribe(); // todo
-    this.answeredRequests.push(reiseID);
-    this.sendMessage('Die Anfrage wurde angenommen.');
+    this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, true).subscribe((res: Response) => {
+      console.log('Mitfahrt bestätigen', res);
+      this.answeredRequests.push(reiseID);
+      this.sendMessage('Die Anfrage wurde angenommen.');
+    }, (err) => {
+      console.log('Mitfahrt bestätigen', err);
+    });
   }
 
   public isRequestAnswered(reiseID: number): boolean {

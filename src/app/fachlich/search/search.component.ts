@@ -85,16 +85,15 @@ export class SearchComponent implements OnInit, AfterViewInit {
       zeitstempel: this.datum.getTime()
     };
     console.log(geplanteRoute);
-    // TODO
-    // this.padacaService.getSucheReise(geplanteRoute).subscribe((result: Response) => {
-    //   this.suchergebnisse = result.data;
-    // }, (err) => {
-    //   // fehlerhafte Eingaben   
-    // });
-    this.suchergebnisse = this.getResults(geplanteRoute);
-    if (!this.expander.expanded) {
-      this.expander.toggle();
-    }
+    this.padacaService.getSucheReise(geplanteRoute).subscribe((res: Response) => {
+      console.log('sucheReise', res);
+      this.suchergebnisse = res.data;
+      if (!this.expander.expanded) {
+        this.expander.toggle();
+      }
+    }, (err) => {
+      console.log('sucheReise', err);
+    });
   }
 
   addressToCity(address: string) {
@@ -131,89 +130,4 @@ export class SearchComponent implements OnInit, AfterViewInit {
   public setZiel() {
     // todo Maps api
   }
-
-  // nur für Mock
-  private getResults(route: Route): Reise[] {
-    return [
-      {
-        reiseID: 123,
-        fahrer: {
-          userID: 126,
-          username: 'jonny',
-          vorname: 'Jonas',
-          nachname: 'Hammerschmidt',
-          alter: 21,
-          pkw: '---',
-          beschreibung: 'Bin echt lieb.'
-        },
-        mitfahrer: [
-          {
-            'userID': 111,
-            'username': 'tester',
-            'vorname': 'Mr.',
-            'nachname': 'Test',
-            'alter': 20,
-            'pkw': 'VW Golf',
-            'beschreibung': 'Kein Essen im Auto'
-          },
-          {
-            'userID': 125,
-            'username': 'larsi',
-            'vorname': 'Lars',
-            'nachname': 'Schoepke',
-            'alter': 21,
-            'pkw': '---',
-            'beschreibung': 'Bin echt lieb.'
-          },
-        ],
-        start: 'Paderborn',
-        ziel: 'München',
-        zeitstempel: 1218823687123,
-        plaetzeMax: 4,
-        preis: 1000,
-        beschreibung: 'Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht.',
-        umwegMax: 50
-      },
-      {
-        reiseID: 456,
-        fahrer: {
-          'userID': 125,
-          'username': 'larsi',
-          'vorname': 'Lars',
-          'nachname': 'Schoepke',
-          'alter': 21,
-          'pkw': '---',
-          'beschreibung': 'Bin echt lieb.'
-        },
-        mitfahrer: [
-          {
-            'userID': 111,
-            'username': 'tester',
-            'vorname': 'Mr.',
-            'nachname': 'Test',
-            'alter': 20,
-            'pkw': 'VW Golf',
-            'beschreibung': 'Kein Essen im Auto'
-          },
-          {
-            userID: 126,
-            username: 'jonny',
-            vorname: 'Jonas',
-            nachname: 'Hammerschmidt',
-            alter: 21,
-            pkw: '---',
-            beschreibung: 'Bin echt lieb.'
-          }
-        ],
-        start: 'Paderborn',
-        ziel: 'München',
-        zeitstempel: 1218823687123,
-        plaetzeMax: 7,
-        preis: 800,
-        beschreibung: 'Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht.',
-        umwegMax: 50
-      }
-    ];
-  }
-
 }

@@ -44,21 +44,20 @@ export class LoginComponent implements AfterViewInit {
         username: this.username,
         password: this.password
       };
-      console.log(dto);
       this.padacaService.getLogin(dto).subscribe((res: Response) => {
-        this.padacaService.setSession(res.data);
-        this.dialogRef.close(true);
-      }, (err: Response) => {
-        this.msgFailed = err.message;
+        if (res.success) {
+          this.padacaService.setSession(res.data);
+          console.log('login', res);
+          if (res.success) {
+            this.dialogRef.close(true);
+          }
+        } else {
+          this.msgFailed = 'Login fehlgeschlagen.';
+        }
+      }, (err) => {
+        console.log('login', err);
+        this.msgFailed = 'Login fehlgeschlagen.';
       });
-    } else {
-      // MOCK
-      this.padacaService.setSession({
-        userID: 111,
-        sessionkey: 'ljdsakfsahf'
-      });
-      this.dialogRef.close(true);
-      this.msgFailed = 'Eingaben unvollständig.';
     }
   }
 
@@ -78,9 +77,16 @@ export class LoginComponent implements AfterViewInit {
           username: this.username,
           password: this.password
         };
-        this.padacaService.getRegister(dto).subscribe((data: Response) => {
-          console.log(data);
-        }, (err: Response) => {
+        console.log('registerDTO', dto);
+        this.padacaService.getRegister(dto).subscribe((res: Response) => {
+          console.log('register', res);
+          if (res.success) {
+            this.dialogRef.close(true);
+          } else {
+            this.msgFailed = 'Registrierung fehlgeschlagen.';
+          }
+        }, (err) => {
+          console.log('register', err);
           this.msgFailed = err.message;
         });
       } else {

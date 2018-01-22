@@ -1,3 +1,4 @@
+import { Response } from './../../fachlich/interfaces';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { PadacaService } from '../../fachlich/padaca.service';
@@ -25,17 +26,14 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit() { }
 
   public changePassword() {
-    // todo --> verschlüsseln?
-    let oldEncrypt = this.password;
-    let newEncrypt = this.newPassword;
     if (this.inputsValid()) {
       let dto: ChangePasswordDTO = {
-        old: oldEncrypt.toString(),
-        new: newEncrypt.toString()
+        old: this.password,
+        new: this.newPassword
       };
-      this.padacaService.getChangePassword(dto).subscribe((data) => {
-        console.error(data);
-        if (data.success == true) {
+      this.padacaService.getChangePassword(dto).subscribe((res: Response) => {
+        console.error('changePassword', res);
+        if (res.success == true) {
           this.changeFailed = false;
           this.password = '';
           this.newPassword = '';
@@ -46,6 +44,8 @@ export class ChangePasswordComponent implements OnInit {
         } else {
           this.changeFailed = true;
         }
+      }, (err) => {
+        console.error('changePassword', err);        
       });
     }
   }

@@ -28,22 +28,15 @@ export class HeaderComponent implements OnInit {
 
   private updateSession() {
     let session = this.padacaService.getSession();
+    console.log('session', session);
     if (session) {
-      // this.padacaService.getUser(session.userID).subscribe((res: Response) => {
-      //   this.user = res.data;
-      // }, (err) => {
-      //   this.user = null;
-      // });
-      // MOCK todo
-      this.user = {
-        'userID': 111,
-        'username': 'tester',
-        'vorname': 'Test',
-        'nachname': 'User',
-        'alter': 20,
-        'pkw': 'VW Golf',
-        'beschreibung': 'Kein Essen im Auto'
-      };
+      this.padacaService.getUser(session.userID).subscribe((res: Response) => {
+        console.log('user', res);
+        this.user = res.data;
+      }, (err) => {
+        console.log('user', err);
+        this.user = null;
+      });
     }
   }
 
@@ -71,7 +64,11 @@ export class HeaderComponent implements OnInit {
     this.user = null;
     this.padacaService.loggedOut.emit();
     this.padacaService.removeSession();
-    this.padacaService.getLogout().subscribe((res: Response) => { });
+    this.padacaService.getLogout().subscribe((res: Response) => {
+      console.log('logout', res);
+    }, (err) => {
+      console.log('logout', err);
+    });
   }
 
   public navigateToHome() {

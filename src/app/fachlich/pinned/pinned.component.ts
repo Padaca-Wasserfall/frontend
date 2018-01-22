@@ -1,3 +1,4 @@
+import { Response } from './../interfaces';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Reise, User, ReiseDatum } from '../interfaces';
@@ -16,38 +17,25 @@ export class PinnedComponent implements OnInit {
   ngOnInit() {
     this.gepinnteReisen = [];
 
-    this.gepinnteReisen.push({
-      reiseID: 123,
-      fahrer: { username: 'Jonny Bleifuß' },
-      start: 'Paderborn',
-      ziel: 'Buxtehude',
-      zeitstempel: 123456789
-    });
+    this.padaService.getPinned().subscribe((res: Response) => {
+      console.log('getPinned', res);
+      this.gepinnteReisen = res.data;
 
-    this.gepinnteReisen.push({
-      reiseID: 456,
-      fahrer: { username: 'Renate Rastnicht' },
-      start: 'Magdeburg',
-      ziel: 'Sonstwo',
-      zeitstempel: Date.now()
-    });
-
-    // TODO schnittstelle umbauen
-    // this.padaService.getPinned().subscribe(pinnedRes =>{
-    //  this.gepinnteReisen = pinnedRes.data;
-    // });
-
-    this.gepinnteReisen.forEach(reise => {
-      let d = new Date(reise.zeitstempel);
-      reise.datum = d.toLocaleDateString();
-      reise.reisedauer = this.berechenFahrzeit(reise);
+      this.gepinnteReisen.forEach(reise => {
+        let d = new Date(reise.zeitstempel);
+        reise.datum = d.toLocaleDateString();
+        reise.reisedauer = this.berechenFahrzeit(reise);
+      });
+    }, (err) => {
+      console.log('getPinned', err);
+      this.gepinnteReisen = [];
     });
   }
 
   berechenFahrzeit(reise: ReiseDatum): string {
     let url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=' + reise.start + '&destinations=' + reise.ziel + '&key=YOUR_API_KEY';
     let response = 'So und so lange';
-    
+
     return response;
   }
 
@@ -57,7 +45,11 @@ export class PinnedComponent implements OnInit {
 
   clickEntfernen(reise: Reise, index: number) {
     this.gepinnteReisen.splice(index, 1);
-    this.padaService.deletePinned(reise).subscribe(); // todo
+    this.padaService.deletePinned(reise).subscribe((res: Response) => {
+      console.log('deletePinned', res);
+    }, (err) => {
+      console.log('deletePinned', err);
+    });
   }
 }
 

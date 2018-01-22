@@ -29,54 +29,19 @@ export class ReiseAnzeigenComponent implements OnInit {
     this.route.params.forEach((params: Params) => {
       let reiseID = params['reiseID'];
       if (reiseID) {
-        // TODO
-        // this.padacaService.getReise(reiseID).subscribe(); 
-        // MOCK-Reise
-        this.reise = {
-          reiseID: reiseID,
-          fahrer: {
-            userID: 126,
-            username: 'jonny',
-            vorname: 'Jonas',
-            nachname: 'Hammerschmidt',
-            alter: 21,
-            pkw: '---',
-            beschreibung: 'Bin echt lieb.'
-          },
-          mitfahrer: [
-            {
-              'userID': 111,
-              'username': 'tester',
-              'vorname': 'Mr.',
-              'nachname': 'Test',
-              'alter': 20,
-              'pkw': 'VW Golf',
-              'beschreibung': 'Kein Essen im Auto'
-            },
-            {
-              'userID': 125,
-              'username': 'larsi',
-              'vorname': 'Lars',
-              'nachname': 'Schoepke',
-              'alter': 21,
-              'pkw': '---',
-              'beschreibung': 'Bin echt lieb.'
-            },
-          ],
-          start: 'Paderborn',
-          ziel: 'München',
-          zeitstempel: 1218823687123,
-          plaetzeMax: 4,
-          preis: 1000,
-          beschreibung: 'Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht. Die Sonne scheint, der Himmel lacht, nie hat mir programmieren so viel Spaß gemacht.',
-          umwegMax: 50
-        };
+        this.padacaService.getReise(reiseID).subscribe((res: Response) => {
+          console.log('reiseAnzeigen', res);
+          this.reise = res.data;
+        }, (err) => {
+          console.log('reiseAnzeigen', err);
+        });
+        
         this.isOwnReise = this.reise.fahrer.userID == this.padacaService.getSession().userID ? true : false;
         this.reiseZeitpunkt = new Date(this.reise.zeitstempel);
         this.preis = this.pricePipe.transform(this.reise.preis);
         this.freiePlaetze = this.reise.mitfahrer ? this.reise.plaetzeMax - this.reise.mitfahrer.length : this.reise.plaetzeMax;
       
-        // this.determineLocation();      
+        // this.determineLocation(); // todo
       } else {
         this.router.navigate(['/home']);
       }
@@ -117,23 +82,34 @@ export class ReiseAnzeigenComponent implements OnInit {
             this.padacaService.putSendMessage({
               message: message,
               receiverID: mitfahrer.userID
-            }).subscribe((result: Response) => { }); // todo
+            }).subscribe((res: Response) => {
+              console.log('sendMessage', res);
+            }, (err) => {
+              console.log('sendMessage', err);              
+            });
           });
         } else {
           this.padacaService.putSendMessage({
             message: message,
             receiverID: this.reise.fahrer.userID
-          }).subscribe((result: Response) => { }); // todo
+          }).subscribe((res: Response) => {
+            console.log('sendMessage', res);
+          }, (err) => {
+            console.log('sendMessage', err);              
+          });
         }
       }
     });
   }
 
   public anfragen() {
-    this.padacaService.putReiseAnfragen(this.reise).subscribe((result: Response) => {
+    this.padacaService.putReiseAnfragen(this.reise).subscribe((res: Response) => {
+      console.log('reiseAnfragen', res);
       this.snackbar.open('Die Anfrage wurde versendet.', 'OK', {
         duration: 5000,
       });
+    }, (err) => {
+      console.log('reiseAnfragen', err);      
     });
   }
 
@@ -152,15 +128,27 @@ export class ReiseAnzeigenComponent implements OnInit {
     }).afterClosed().subscribe((message: string) => {
       if (message) {
         if (this.isOwnReise) {
-          this.padacaService.postReiseAbsagen(this.reise, message).subscribe((result: Response) => { });
+          this.padacaService.postReiseAbsagen(this.reise, message).subscribe((res: Response) => {
+            console.log('reiseAbsagen', res);
+          }, (err) => {
+            console.log('reiseAbsagen', err);
+          });
         } else {
-          this.padacaService.postReiseAbmelden(this.reise, message).subscribe((result: Response) => { });
+          this.padacaService.postReiseAbmelden(this.reise, message).subscribe((res: Response) => {
+            console.log('reiseAbmelden', res);
+          }, (err) => {
+            console.log('reiseAbmelden', err);
+          });
         }
       }
     });
   }
 
   public pin() {
-    this.padacaService.putPinned(this.reise).subscribe((result: Response) => { });
+    this.padacaService.putPinned(this.reise).subscribe((res: Response) => {
+      console.log('putPinned', res);
+    }, (err) => {
+      console.log('putPinned', err);
+    });
   }
 }

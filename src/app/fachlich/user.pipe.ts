@@ -7,6 +7,11 @@ import { User } from './interfaces';
 export class UserPipe implements PipeTransform {
 
   transform(user: User): string {
-    return user ? user.vorname + ' ' + user.nachname : '';
+    console.log('userpipe', user);
+    if (user) {
+      return (user.vorname && user.nachname) ? user.vorname + ' ' + user.nachname : user.username;
+    } else {
+      return '';
+    }
   }
 }
