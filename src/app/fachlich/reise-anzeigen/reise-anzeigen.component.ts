@@ -32,15 +32,17 @@ export class ReiseAnzeigenComponent implements OnInit {
         this.padacaService.getReise(reiseID).subscribe((res: Response) => {
           console.log('reiseAnzeigen', res);
           this.reise = res.data;
+          if (this.padacaService.getSession() == null) {
+            this.isOwnReise = false;
+          } else {
+            this.isOwnReise = this.reise.fahrer.userID == this.padacaService.getSession().userID ? true : false;
+          }
+          this.reiseZeitpunkt = new Date(this.reise.zeitstempel);
+          this.preis = this.pricePipe.transform(this.reise.preis);
+          this.freiePlaetze = this.reise.mitfahrer ? this.reise.plaetzeMax - this.reise.mitfahrer.length : this.reise.plaetzeMax;
         }, (err) => {
           console.log('reiseAnzeigen', err);
         });
-        
-        this.isOwnReise = this.reise.fahrer.userID == this.padacaService.getSession().userID ? true : false;
-        this.reiseZeitpunkt = new Date(this.reise.zeitstempel);
-        this.preis = this.pricePipe.transform(this.reise.preis);
-        this.freiePlaetze = this.reise.mitfahrer ? this.reise.plaetzeMax - this.reise.mitfahrer.length : this.reise.plaetzeMax;
-      
         // this.determineLocation(); // todo
       } else {
         this.router.navigate(['/home']);
@@ -114,6 +116,9 @@ export class ReiseAnzeigenComponent implements OnInit {
   }
 
   public isAngemeldet(): boolean {
+    if (this.reise == null || this.reise.mitfahrer == null) {
+      return false;
+    }
     for (let i = 0; i < this.reise.mitfahrer.length; i++) {
       if (this.padacaService.getSession().userID == this.reise.mitfahrer[i].userID) {
         return true;

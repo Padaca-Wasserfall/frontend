@@ -63,12 +63,9 @@ export class ReiseAnlegenComponent implements OnInit {
         ziel: this.ziel,
         zeitstempel: this.zeitstempel,
         plaetzeMax: this.plaetzeMax,
-        platzeFrei: this.plaetzeMax,
         preis: this.preis,
         beschreibung: this.beschreibung,
-        umwegMax: this.umwegMax,
-        mitfahrer: [],
-        fahrer: tmpFahrer
+        umwegMax: this.umwegMax
       };
       console.log('neueReise', neueReise);
       this.padaService.postReiseErstellen(neueReise).subscribe((res2: Response) => {

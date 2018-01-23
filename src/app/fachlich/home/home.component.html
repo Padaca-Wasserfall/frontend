@@ -81,7 +81,6 @@
           <th>Datum</th>
           <th>Start</th>
           <th>Ziel</th>
-          <th>Fahrer</th>
           <th></th>
           <th></th>
         </tr>
@@ -89,7 +88,6 @@
           <td>{{angebot.zeitstempel | date:'dd.MM.yyyy' }}</td>
           <td>{{angebot.start}}</td>
           <td>{{angebot.ziel}}</td>
-          <td>{{angebot.fahrer.username}}</td>
           <td>
             <button mat-raised-button color="primary" (click)="reiseAnzeigen(angebot)">
               <mat-icon>remove_red_eye</mat-icon> Anzeigen

@@ -39,14 +39,22 @@ export class HomeComponent implements OnInit {
         this.user = res.data;
         this.padacaService.getReisenAlsMitfahrer(this.user).subscribe((res2: Response) => {
           console.log('teilnahmen', res2);
-          this.teilnahmen = res.data;
+          if (res2.data != null) {
+            this.teilnahmen = res2.data.result;
+          } else {
+            this.teilnahmen = [];
+          }
         }, (err) => {
           console.log('teilnahmen', err);
           this.teilnahmen = [];
         });
         this.padacaService.getReisenAlsFahrer(this.user).subscribe((res3: Response) => {
           console.log('angebote', res3);
-          this.angebote = res.data;
+          if (res3.data != null) {
+            this.angebote = res3.data.result;
+          } else {
+            this.angebote = [];
+          }
         }, (err) => {
           console.log('angebote', err);
           this.angebote = [];

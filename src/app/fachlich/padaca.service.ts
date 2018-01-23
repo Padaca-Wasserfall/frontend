@@ -92,7 +92,7 @@ export class PadacaService {
    * Erstellt eine Reise.
    */
   public postReiseErstellen(reise: Reise): Observable<Response> {
-    return this.restService.postRequest('/reise/erstellen?sessionkey=' + this.session.sessionkey, reise);
+    return this.restService.putRequest('/reise?sessionkey=' + this.session.sessionkey, reise);
   }
 
   /**
@@ -183,7 +183,7 @@ export class PadacaService {
    * Liefert den entsprechenden User mit allen Infos zurück.
    */
   public getUser(userID: number): Observable<Response> {
-    return this.restService.getRequest('/profil?sessionkey=' + this.session.sessionkey + '&userID=' + userID);
+    return this.restService.getRequest('/profil?userID=' + userID);
   }
 
   /**
