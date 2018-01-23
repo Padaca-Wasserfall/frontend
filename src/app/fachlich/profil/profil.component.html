@@ -18,17 +18,21 @@
                 </td>
                 <td class="container">
                     <mat-form-field>
+                        <input matInput placeholder="Username" [value]="user.username" [disabled]="true">
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field>
                         <input matInput placeholder="Name" [value]="user.nachname" [disabled]="!edit">
                     </mat-form-field>
-                    <br/>
+                    <br>
                     <mat-form-field>
                         <input matInput placeholder="Vorname" [value]="user.vorname" [disabled]="!edit">
                     </mat-form-field>
-                    <br/>
+                    <br>
                     <mat-form-field>
                         <input matInput placeholder="Alter" [value]="user.alter" [disabled]="!edit">
                     </mat-form-field>
-                    <br/>
+                    <br>
                     <mat-form-field>
                         <input matInput placeholder="PKW" [value]="user.pkw" [disabled]="!edit">
                     </mat-form-field>
@@ -36,11 +40,11 @@
                 <td class="container">
                     <div *ngIf="isOwnProfile" (click)="editProfile()" class="action">
                         <mat-icon>settings</mat-icon>
-                        <br/> Profil bearbeiten
+                        <span>Profil bearbeiten</span>
                     </div>
                     <div *ngIf="!isOwnProfile" (click)="sendMessage()" class="action">
                         <mat-icon>chat</mat-icon>
-                        <br/> Nachricht schreiben
+                        <span>Nachricht schreiben</span>
                     </div>
                 </td>
             </tr>
@@ -51,6 +55,6 @@
         <mat-form-field style="width: 100%; height: 100%">
             <textarea matInput [disabled]="!edit" matTextareaAutosize [value]="user.beschreibung"></textarea>
         </mat-form-field>
-        <button mat-button *ngIf="edit">Speichern</button>
+        <button mat-button *ngIf="edit" (click)="saveProfile()">Speichern</button>
     </mat-card>
 </div>
