@@ -50,12 +50,10 @@ export class ReiseAnlegenComponent implements OnInit {
   }
 
   public clickAnlegen() {
-    console.log(this.zeitpunkt);
-    
     let neueReise: Reise = {
       start: this.start,
       ziel: this.ziel,
-      zeitstempel: this.zeitstempel,
+      zeitstempel: this.zeitpunkt.getTime(),
       plaetzeMax: this.plaetzeMax,
       preis: this.preis,
       beschreibung: this.beschreibung,
@@ -64,11 +62,10 @@ export class ReiseAnlegenComponent implements OnInit {
     console.log('neueReise', neueReise);
     this.padaService.postReiseErstellen(neueReise).subscribe((res2: Response) => {
       console.log('reiseErstellen', res2);
+      this.router.navigate(['/home']);
     }, (err) => {
-      console.log('reiseErstellen', err);        
+      console.log('reiseErstellen', err); 
     });
-    
-    this.router.navigate(['/home']);
   }
 
   public clickAbbrechen() {

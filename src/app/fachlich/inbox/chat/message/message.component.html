@@ -1,5 +1,5 @@
 <div [ngClass]="{'sender' : isSender()}">
-  <span> {{ getTimeStamp() }} </span>
+  <span> {{ time | date:'dd.MM.yyyy HH:mm:ss'  }} </span>
   <br> <p> {{ message.message }} </p>
   <ng-container *ngIf="message.reiseID >= 0">
       <button mat-raised-button (click)="reiseAnzeigen()">Reise anzeigen</button>

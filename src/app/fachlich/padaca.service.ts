@@ -79,11 +79,11 @@ export class PadacaService {
    * Liefert das Chat-Objekt zu einem Chatpartner zurück, dass alle Nachrichten enthält.
    */
   public getChat(userID: number): Observable<Response> {
-    return this.restService.getRequest('/inbox?sessionkey=' + this.session.sessionkey + '&userID=' + userID);
+    return this.restService.getRequest('/messages?sessionkey=' + this.session.sessionkey + '&userID=' + userID);
   }
 
   public putSendMessage(message: Message): Observable<Response> {
-    return this.restService.putRequest('/inbox?sessionkey=' + this.session.sessionkey, message);
+    return this.restService.putRequest('/messages?sessionkey=' + this.session.sessionkey, message);
   }
   //#endregion
 

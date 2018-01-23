@@ -1,28 +1,29 @@
 import { ChatComponent } from './chat/chat.component';
 import { Response, Message } from './../interfaces';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild } from '@angular/core';
 import { Chat, User } from '../interfaces';
 import { PadacaService } from '../padaca.service';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-inbox',
   templateUrl: './inbox.component.html',
   styleUrls: ['./inbox.component.css']
 })
-export class InboxComponent implements OnInit {
+export class InboxComponent implements AfterViewInit {
 
-  @ViewChild('app-chat') chatView: ChatComponent;
+  @ViewChild('appChat') chatView: ChatComponent;
   userList: User[];
   selectedChat: Chat;
 
   constructor(private padacaService: PadacaService, private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.padacaService.getChatPartner().subscribe((res: Response) => {
       console.log('chatPartner', res);
       if (res.success) {
-        this.userList = res.data;
+        this.userList = res.data.result;
         if (this.userList.length > 0) {
           this.showChat(this.userList[0].userID);
           this.chatView.selectChat(this.userList[0]);
@@ -39,6 +40,9 @@ export class InboxComponent implements OnInit {
       let userID = params['userID'];
       if (userID) {
         this.showChat(userID);
+        if (this.selectedChat != null) {
+          const newobs = Observable.interval(10000).subscribe(() => this.showChat(this.selectedChat.chatPartner.userID));
+        }
       }
     });
   }
@@ -65,10 +69,9 @@ export class InboxComponent implements OnInit {
   public addMessage(message: Message) {
     this.padacaService.putSendMessage(message).subscribe((res: Response) => {
       console.log('sendMessage', res);
-      this.selectedChat = res.data;
+      this.showChat(this.selectedChat.chatPartner.userID);
     }, (err) => {
       console.log('sendMessage', err);
     });
-    this.showChat(this.selectedChat.chatPartner.userID);
   }
 }

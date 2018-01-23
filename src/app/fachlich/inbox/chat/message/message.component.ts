@@ -15,9 +15,27 @@ export class MessageComponent implements OnInit {
   @Output() permited = new EventEmitter<number>();
   @Output() denied = new EventEmitter<number>();
 
+  private time = '';
+
+  epochTicks = 621355968000000000;
+  ticksPerMillisecond = 10000;
+  maxDateMilliseconds = 8640000000000000;
+
   constructor(private padacaService: PadacaService, private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    const date: Date = this.ticksToDateString(this.message.zeitstempel);
+    date.setHours(date.getHours() - 1);
+    this.time = date.toISOString();
+  }
+
+  ticksToDateString(ticks) {
+    const ticksSinceEpoch = ticks - this.epochTicks;
+    const millisecondsSinceEpoch = ticksSinceEpoch / this.ticksPerMillisecond;
+ 
+    return new Date(millisecondsSinceEpoch);
+  }
+
 
   public isSender() {
     if (this.padacaService.getSession().userID == this.message.receiverID) {
@@ -27,12 +45,12 @@ export class MessageComponent implements OnInit {
     }
   }
 
-  public getTimeStamp(): string {
-    let date = new Date(this.message.zeitstempel);
-    return date.toLocaleDateString('de-DE', {
-      hour: '2-digit', minute: '2-digit'
-    }) + '  Uhr';
-  }
+  // public getTimeStamp(): string {
+  //   let date = new Date(this.message.zeitstempel);
+  //   return date.toLocaleDateString('de-DE', {
+  //     hour: '2-digit', minute: '2-digit'
+  //   }) + '  Uhr';
+  // }
 
   public reiseAnzeigen()  {
     this.router.navigate(['/reiseAnzeigen/' + this.message.reiseID]);

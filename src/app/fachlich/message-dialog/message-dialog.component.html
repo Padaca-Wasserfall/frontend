@@ -1,7 +1,7 @@
 <div>
   <h3>Bitte eine Nachricht verfassen:</h3>
   <mat-form-field class="beschreibung">
-    <textarea matInput matAutosizeMinRows="4" placeholder="Nachricht" [value]="message" matTextareaAutosize></textarea>
+    <textarea matInput matAutosizeMinRows="4" placeholder="Nachricht" [(ngModel)]="message" matTextareaAutosize></textarea>
   </mat-form-field>
   <br>
   <button mat-raised-button color="primary" (click)="send()">Senden</button>
