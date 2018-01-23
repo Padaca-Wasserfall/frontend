@@ -60,6 +60,11 @@ const routConfig: Routes = [
     canActivate: [LoginRouteGuard]
   },
   {
+    path: 'inbox/:userID',
+    component: InboxComponent,
+    canActivate: [LoginRouteGuard]
+  },
+  {
     path: 'reiseAnlegen',
     component: ReiseAnlegenComponent,
     canActivate: [LoginRouteGuard]

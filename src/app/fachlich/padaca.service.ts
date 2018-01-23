@@ -78,8 +78,8 @@ export class PadacaService {
   /**
    * Liefert das Chat-Objekt zu einem Chatpartner zurück, dass alle Nachrichten enthält.
    */
-  public getChat(chatPartner: User): Observable<Response> {
-    return this.restService.getRequest('/inbox?sessionkey=' + this.session.sessionkey + '&userID=' + chatPartner.userID);
+  public getChat(userID: number): Observable<Response> {
+    return this.restService.getRequest('/inbox?sessionkey=' + this.session.sessionkey + '&userID=' + userID);
   }
 
   public putSendMessage(message: Message): Observable<Response> {

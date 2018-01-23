@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { PadacaService } from './../../padaca.service';
-import { Message, Chat, Response } from './../../interfaces';
+import { Message, Chat, Response, User } from './../../interfaces';
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { MatCardContent } from '@angular/material';
 
@@ -76,5 +76,9 @@ export class ChatComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  public selectChat(chatPartner: User) {
+
   }
 }

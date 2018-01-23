@@ -3,7 +3,7 @@ import { Bewertung, User, Response } from '../interfaces';
 import { PadacaService } from '../padaca.service';
 import { BewertungComponent } from './bewertung/bewertung.component';
 import { MatDialog } from '@angular/material';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profil',
@@ -15,6 +15,7 @@ export class ProfilComponent implements OnInit {
   bewertungen: Bewertung[] = [];
   bewertung: number;
   user: User = {
+    username: null,
     nachname: null,
     vorname: null,
     alter: null,
@@ -24,7 +25,7 @@ export class ProfilComponent implements OnInit {
   edit: boolean;
   isOwnProfile: boolean;
 
-  constructor(private route: ActivatedRoute, private padacaService: PadacaService, private dialog: MatDialog) { }
+  constructor(private route: ActivatedRoute, private padacaService: PadacaService, private dialog: MatDialog, private router: Router) { }
 
   ngOnInit() {
     this.route.params.forEach((params: Params) => {
@@ -40,24 +41,26 @@ export class ProfilComponent implements OnInit {
       this.padacaService.getUser(userID).subscribe((res1: Response) => {
         console.log('user', res1);
         let user: User = res1.data;
-        if (res1.data) {
+        if (user) {
+          this.user = user;
           this.padacaService.getBewertungen(user.userID).subscribe((res2: Response) => {
-        console.log('getBewertungen', res2);
-        this.bewertungen = res2.data;
+            console.log('getBewertungen', res2);
+            this.bewertung = 0;
+            this.bewertungen = res2.data;
             for (let bew of this.bewertungen) {
               this.bewertung += bew.rating;
             }
             this.bewertung = this.bewertung / this.bewertungen.length;
           }, (err) => {
             console.log('getBewertungen', err);
+            this.bewertung = 0;
+            this.bewertungen = [];
           });
         }
       }, (err) => {
         console.log('user', err);
       });
     });
-    this.bewertung = 0;
-    this.bewertungen = [];
 
     for (let bew of this.bewertungen) {
       this.bewertung += bew.rating;
@@ -67,17 +70,26 @@ export class ProfilComponent implements OnInit {
   }
 
   private editProfile() {
-    this.edit = true;
+    this.edit = !this.edit;
     console.log('Edit Profile');
   }
   private sendMessage() {
     console.log('Send Message');
+    this.router.navigate(['/inbox/' + this.user.userID]);
   }
 
   private showReviews() {
     let dialogRef = this.dialog.open(BewertungComponent, {
       data: { user: this.user, bewertungen: this.bewertungen },
       width: '100%',
+    });
+  }
+
+  public saveProfile() {
+    this.padacaService.postChangeProfile(this.user).subscribe((res: Response) => {
+      console.log('changeProfile', res);
+    }, (err) => {
+      console.log('changeProfile', err);
     });
   }
 }
