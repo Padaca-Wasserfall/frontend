@@ -87,7 +87,7 @@ export class SearchComponent implements OnInit, AfterViewInit {
     console.log(geplanteRoute);
     this.padacaService.getSucheReise(geplanteRoute).subscribe((res: Response) => {
       console.log('sucheReise', res);
-      this.suchergebnisse = res.data;
+      this.suchergebnisse = res.data.result;
       if (!this.expander.expanded) {
         this.expander.toggle();
       }

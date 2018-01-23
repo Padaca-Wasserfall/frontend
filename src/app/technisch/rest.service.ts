@@ -7,7 +7,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class RestService {
 
-  public BASEPATH = 'http://h2756861.stratoserver.net:8081';
+  // public BASEPATH = 'http://h2756861.stratoserver.net:8081';
+  public BASEPATH = 'http://localhost:8081';
 
   constructor(private http: Http) { }
 

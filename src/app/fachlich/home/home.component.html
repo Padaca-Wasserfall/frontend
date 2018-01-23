@@ -1,6 +1,6 @@
 <div style="max-height: calc(100vh - 128px); overflow-y: auto">
   <!-- Ausgeloggt -->
-  <ng-container *ngIf="!isLoggedIn()">
+  <ng-container *ngIf="!loggedIn">
     <div class="left">
       <img src="/assets/PaDaCa.png" width="250px" height="250px" style="margin: 30px;">
     </div>
@@ -29,7 +29,7 @@
   </ng-container>
 
   <!-- Eingeloggt -->
-  <mat-card *ngIf="isLoggedIn()">
+  <mat-card *ngIf="loggedIn">
     <mat-card-content>
       <table style="width: 100%">
         <tr>

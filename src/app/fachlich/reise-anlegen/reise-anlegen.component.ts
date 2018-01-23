@@ -51,31 +51,23 @@ export class ReiseAnlegenComponent implements OnInit {
 
   public clickAnlegen() {
     console.log(this.zeitpunkt);
-    let uid = this.padaService.getSession().userID;
-    this.padaService.getUser(uid).subscribe((res1: Response) => {
-      console.log('user', res1);
-
-      let tmpFahrer: User = res1.data;
-      this.zeitstempel = this.zeitpunkt.getTime() / 1000;
-      
-      let neueReise: Reise = {
-        start: this.start,
-        ziel: this.ziel,
-        zeitstempel: this.zeitstempel,
-        plaetzeMax: this.plaetzeMax,
-        preis: this.preis,
-        beschreibung: this.beschreibung,
-        umwegMax: this.umwegMax
-      };
-      console.log('neueReise', neueReise);
-      this.padaService.postReiseErstellen(neueReise).subscribe((res2: Response) => {
-        console.log('reiseErstellen', res2);
-      }, (err) => {
-        console.log('reiseErstellen', err);        
-      });
-    }, (err) => {      
-      console.log('user', err);
+    
+    let neueReise: Reise = {
+      start: this.start,
+      ziel: this.ziel,
+      zeitstempel: this.zeitstempel,
+      plaetzeMax: this.plaetzeMax,
+      preis: this.preis,
+      beschreibung: this.beschreibung,
+      umwegMax: this.umwegMax
+    };
+    console.log('neueReise', neueReise);
+    this.padaService.postReiseErstellen(neueReise).subscribe((res2: Response) => {
+      console.log('reiseErstellen', res2);
+    }, (err) => {
+      console.log('reiseErstellen', err);        
     });
+    
     this.router.navigate(['/home']);
   }
 

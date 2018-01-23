@@ -98,8 +98,8 @@ export class PadacaService {
   /**
    * Liefert alle Reisen eines Users als Fahrer zurück.
    */
-  public getReisenAlsFahrer(user: User): Observable<Response> {
-    return this.restService.getRequest('/reise/fahrer?sessionkey=' + this.session.sessionkey + '&userID=' + user.userID);
+  public getReisenAlsFahrer(): Observable<Response> {
+    return this.restService.getRequest('/reise/fahrer?sessionkey=' + this.session.sessionkey);
   }
 
   /**
@@ -136,8 +136,8 @@ export class PadacaService {
   /**
    * Liefert alle Reisen eines Users als Mitfahrer zurück.
    */
-  public getReisenAlsMitfahrer(user: User): Observable<Response> {
-    return this.restService.getRequest('/reise/mitfahrer?sessionkey=' + this.session.sessionkey + '&userID=' + user.userID);
+  public getReisenAlsMitfahrer(): Observable<Response> {
+    return this.restService.getRequest('/reise/mitfahrer?sessionkey=' + this.session.sessionkey);
   }
 
   /**
@@ -197,7 +197,7 @@ export class PadacaService {
    * Liefert alle von anderen Usern erhaltene Ratings zurück.
    */
   public getBewertungen(userID: number): Observable<Response> {
-    return this.restService.getRequest('/bewertungen?sessionkey=' + this.session.sessionkey + '&userID=' + userID);
+    return this.restService.getRequest('/bewertungen?userID=' + userID);
   }
 
   /**
