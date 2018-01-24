@@ -19,7 +19,7 @@ export class PinnedComponent implements OnInit {
 
     this.padaService.getPinned().subscribe((res: Response) => {
       console.log('getPinned', res);
-      this.gepinnteReisen = res.data;
+      this.gepinnteReisen = res.data.result;
 
       this.gepinnteReisen.forEach(reise => {
         let d = new Date(reise.zeitstempel);

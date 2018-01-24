@@ -28,10 +28,12 @@ export class PadacaService {
   }
 
   public setSession(session: Session) {
+    this.session = session;
     localStorage.setItem('session', JSON.stringify(session));
   }
 
   public removeSession() {
+    this.session = null;
     localStorage.removeItem('session');
     this.router.navigate(['/home']);
   }
@@ -144,14 +146,14 @@ export class PadacaService {
    * Fragt bei dem Fahrer an, ob man mitfahren darf.
    */
   public putReiseAnfragen(reise: Reise): Observable<Response> {
-    return this.restService.putRequest('/reise/anfragen?sessionkey=' + this.session.sessionkey + '&reiseID=' + reise.reiseID, {});
+    return this.restService.postRequest('/reise/anfragen?sessionkey=' + this.session.sessionkey + '&reiseID=' + reise.reiseID, {});
   }
 
   /**
    * Meldet einen Mitfahrer von der Reise ab & benachrichtigt die betroffenen Personen.
    */
   public postReiseAbmelden(reise: Reise, message: string) {
-    return this.restService.postRequest('/reise/abmelden?sessionkey=' + this.session.sessionkey + '&reiseID=' + reise.reiseID, message);
+    return this.restService.postRequest('/reise/abmelden?sessionkey=' + this.session.sessionkey + '&reiseID=' + reise.reiseID, JSON.stringify({message: message}));
   }
   //#endregion
 
@@ -160,21 +162,21 @@ export class PadacaService {
    * Speichert die Reise unter den angepinnten Reisen.
    */
   public getPinned(): Observable<Response> {
-    return this.restService.getRequest('/pinned?sessionkey=' + this.session.sessionkey);
+    return this.restService.getRequest('/reise/pin?sessionkey=' + this.session.sessionkey);
   }
 
   /**
    * Speichert die Reise unter den angepinnten Reisen.
    */
   public putPinned(reise: Reise): Observable<Response> {
-    return this.restService.putRequest('/pinned?sessionkey=' + this.session.sessionkey + '&reiseID=' + reise.reiseID, {});
+    return this.restService.putRequest('/reise/pin?sessionkey=' + this.session.sessionkey + '&reiseID=' + reise.reiseID, {});
   }
 
   /**
    * Löscht die Reise aus den angepinnten Reisen.
    */
   public deletePinned(reise: Reise): Observable<Response> {
-    return this.restService.deleteRequest('/pinned?sessionkey=' + this.session.sessionkey + '&reiseID=' + reise.reiseID);
+    return this.restService.deleteRequest('/reise/pin?sessionkey=' + this.session.sessionkey + '&reiseID=' + reise.reiseID);
   }
   //#endregion
 

@@ -14,11 +14,7 @@ export class ChatPartnerComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    if (this.userList && this.userList.length > 0) {
-      this.changeUser(this.userList[0]);
-    }
-  }
+  ngOnInit() { }
 
   public changeUser(user: User) {
     this.selectedUser = user;
@@ -31,5 +27,9 @@ export class ChatPartnerComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  public setUserSelected (user) {
+    this.selectedUser = user;
   }
 }

@@ -20,7 +20,9 @@ export class ChatComponent implements OnInit {
 
   constructor(private padacaService: PadacaService, private router: Router) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+
+  }
 
   public showProfile() {
     this.router.navigate(['/profil/' + this.chat.chatPartner.userID]);
@@ -41,6 +43,13 @@ export class ChatComponent implements OnInit {
     console.log(objDiv.scrollTop, objDiv.scrollHeight);
     objDiv.scrollTop = objDiv.scrollHeight + 100;
     console.log(objDiv.scrollTop, objDiv.scrollHeight);
+    // this.scrollToBottom();
+  }
+
+  public scrollToBottom() {
+    try {
+      this.content.nativeElement.scrollTop = this.content.nativeElement.scrollHeight;
+    } catch (err) { }
   }
 
   public keypress(keycode) {

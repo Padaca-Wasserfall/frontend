@@ -61,13 +61,14 @@ export class HeaderComponent implements OnInit {
   }
 
   public logout() {
-    this.user = null;
-    this.padacaService.loggedOut.emit();
-    this.padacaService.removeSession();
     this.padacaService.getLogout().subscribe((res: Response) => {
       console.log('logout', res);
     }, (err) => {
       console.log('logout', err);
+    }, () => {      
+      this.user = null;
+      this.padacaService.removeSession();
+      this.padacaService.loggedOut.emit();
     });
   }
 

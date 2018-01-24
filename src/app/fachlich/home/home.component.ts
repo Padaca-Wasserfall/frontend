@@ -26,11 +26,13 @@ export class HomeComponent implements OnInit {
     this.updateSession();
     // Listen to Login & Logout
     this.padacaService.loggedIn.subscribe(data => {
-      this.loggedIn = this.isLoggedIn();
+      this.loggedIn = true;
       this.updateSession();
+      console.log('login home');
     });
     this.padacaService.loggedOut.subscribe(data => {
-      this.loggedIn = this.isLoggedIn();
+      this.loggedIn = false;
+      console.log('logout home');
     });
   }
 

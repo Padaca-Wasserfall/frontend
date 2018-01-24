@@ -4,6 +4,7 @@ import { PadacaService } from '../padaca.service';
 import { BewertungComponent } from './bewertung/bewertung.component';
 import { MatDialog } from '@angular/material';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MessageDialogComponent } from '../message-dialog/message-dialog.component';
 
 @Component({
   selector: 'app-profil',
@@ -74,8 +75,21 @@ export class ProfilComponent implements OnInit {
     console.log('Edit Profile');
   }
   private sendMessage() {
-    console.log('Send Message');
-    this.router.navigate(['/inbox/' + this.user.userID]);
+    this.dialog.open(MessageDialogComponent, {
+      disableClose: true
+    }).afterClosed().subscribe((message: string) => {
+      if (message) {
+        this.padacaService.putSendMessage({
+          message: message,
+          receiverID: this.user.userID
+        }).subscribe((res: Response) => {
+          console.log('sendMessage', res);
+          this.router.navigate(['/inbox']);
+        }, (err) => {
+          console.log('sendMessage', err);
+        });
+      }
+    });
   }
 
   private showReviews() {

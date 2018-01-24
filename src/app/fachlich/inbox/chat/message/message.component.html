@@ -1,6 +1,11 @@
 <div [ngClass]="{'sender' : isSender()}">
+  <br> 
   <span> {{ time | date:'dd.MM.yyyy HH:mm:ss'  }} </span>
-  <br> <p> {{ message.message }} </p>
+  <br> 
+  <!-- <p>{{ message.message }}</p> -->
+  <span style="white-space: pre-line; font-size: 14px">{{ message.message }}</span>
+  <br> 
+  <br> 
   <ng-container *ngIf="message.reiseID >= 0">
       <button mat-raised-button (click)="reiseAnzeigen()">Reise anzeigen</button>
       <button *ngIf="!requestAnswered" mat-raised-button color="primary" (click)="annehmen()">Annehmen</button>
