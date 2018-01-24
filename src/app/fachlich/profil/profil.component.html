@@ -12,8 +12,10 @@
                     </ng-container>
                     <br/>
                     <p style="margin-left: 10px;">
-                        {{bewertung | number : '1.2-2' }}/5 - {{bewertungen.length}}
-                        <a (click)="showReviews()">Bewertungen</a>
+                        {{bewertung | number : '1.2-2' }}/5.00
+                        <br>
+                        {{bewertungen.length}}
+                        <a (click)="showReviews()" >{{(bewertungen.length == 1)?'Bewertung':'Bewertungen'}}</a>
                     </p>
                 </td>
                 <td class="container">

@@ -14,14 +14,11 @@ export class BewertungComponent {
   filterid: number;
   Arr = Array;
 
-  allSterne: number[] = [1, 2, 3, 4, 5];
-
   constructor( @Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<BewertungComponent>) {
     this.user = data.user;
     this.bewertungen = data.bewertungen;
     this.sichtbareBewertungen = this.bewertungen;
     this.filterid = 0;
-    console.log('BewertungComponent constructor');
   }
 
   private anzahlBewertungen(sterne: number): Number {
