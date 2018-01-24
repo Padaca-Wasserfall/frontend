@@ -41,7 +41,16 @@ export class HomeComponent implements OnInit {
       this.padacaService.getReisenAlsMitfahrer().subscribe((res2: Response) => {
         console.log('teilnahmen', res2);
         if (res2.data != null) {
+          for (let reise of res2.data.result) {
+            if (reise.zeitstempel < new Date(Date.now()).getTime()) {
+              reise.bewertbar = this.isBewertet(reise);
+              this.archivierte.push(reise);
+            } else {
+              this.teilnahmen.push(reise);
+            }
+          }
           this.teilnahmen = res2.data.result;
+
         } else {
           this.teilnahmen = [];
         }
@@ -100,15 +109,18 @@ export class HomeComponent implements OnInit {
     if (reise.fahrer.userID != this.padacaService.getSession().userID) {
       this.padacaService.getBewertungen(reise.fahrer.userID).subscribe((res: Response) => {
         console.log('getBewertungen', res);
-        let bewertungen: Bewertung[] = res.data;
-        bewertungen.forEach((bew: Bewertung) => {
-          if (bew.reiseID == reise.reiseID && bew.mitfahrer.userID == this.padacaService.getSession().userID) {
-            return true;
-          }
-        });
+        let bewertungen: Bewertung[] = res.data.result;
+        if (bewertungen != null) {
+          bewertungen.forEach((bew: Bewertung) => {
+            if (bew.reiseID == reise.reiseID && bew.mitfahrer.userID == this.padacaService.getSession().userID) {
+              return true;
+            }
+          });
+        }        
         return false;
       }, (err) => {        
         console.log('getBewertungen', err);
+        return false;
       });
     } else {
       return true; // man kann sich nicht selbst bewerten

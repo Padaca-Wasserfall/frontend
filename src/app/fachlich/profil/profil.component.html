@@ -13,28 +13,28 @@
                     <br/>
                     <p style="margin-left: 10px;">
                         {{bewertung | number : '1.2-2' }}/5 - {{bewertungen.length}}
-                        <a href="#/profil" (click)="showReviews()">Bewertungen</a>
+                        <a (click)="showReviews()">Bewertungen</a>
                     </p>
                 </td>
                 <td class="container">
                     <mat-form-field>
-                        <input matInput placeholder="Username" [value]="user.username" [disabled]="true">
+                        <input matInput placeholder="Username" [(ngModel)]="user.username" [disabled]="true">
                     </mat-form-field>
                     <br>
                     <mat-form-field>
-                        <input matInput placeholder="Name" [value]="user.nachname" [disabled]="!edit">
+                        <input matInput placeholder="Name" [(ngModel)]="user.nachname" [disabled]="!edit">
                     </mat-form-field>
                     <br>
                     <mat-form-field>
-                        <input matInput placeholder="Vorname" [value]="user.vorname" [disabled]="!edit">
+                        <input matInput placeholder="Vorname" [(ngModel)]="user.vorname" [disabled]="!edit">
                     </mat-form-field>
                     <br>
                     <mat-form-field>
-                        <input matInput placeholder="Alter" [value]="user.alter" [disabled]="!edit">
+                        <input matInput placeholder="Alter" [(ngModel)]="user.alter" [disabled]="!edit">
                     </mat-form-field>
                     <br>
                     <mat-form-field>
-                        <input matInput placeholder="PKW" [value]="user.pkw" [disabled]="!edit">
+                        <input matInput placeholder="PKW" [(ngModel)]="user.pkw" [disabled]="!edit">
                     </mat-form-field>
                 </td>
                 <td class="container">
@@ -53,7 +53,7 @@
     <br/>
     <mat-card>
         <mat-form-field style="width: 100%; height: 100%">
-            <textarea matInput [disabled]="!edit" matTextareaAutosize [value]="user.beschreibung"></textarea>
+            <textarea matInput [disabled]="!edit" matTextareaAutosize [(ngModel)]="user.beschreibung"></textarea>
         </mat-form-field>
         <button mat-button *ngIf="edit" (click)="saveProfile()">Speichern</button>
     </mat-card>

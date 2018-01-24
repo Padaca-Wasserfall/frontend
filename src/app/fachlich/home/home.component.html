@@ -129,7 +129,7 @@
             </button>
           </td>
           <td>
-            <button *ngIf="!isBewertet(reise)" mat-raised-button color="primary" (click)="bewerten(reise)">
+            <button *ngIf="!reise.bewertbar" mat-raised-button color="primary" (click)="bewerten(reise)">
               <mat-icon>star</mat-icon> Bewerten
             </button>
           </td>

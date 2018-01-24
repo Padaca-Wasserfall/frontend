@@ -199,28 +199,29 @@ export class PadacaService {
    * Liefert alle von anderen Usern erhaltene Ratings zurück.
    */
   public getBewertungen(userID: number): Observable<Response> {
-    return this.restService.getRequest('/bewertungen?userID=' + userID);
+    return this.restService.getRequest('/bewertungen?sessionkey=' + this.session.sessionkey + '&userID=' + userID);
   }
 
   /**
    * Erstellt eine Bewertung von einem Fahrer für einen Mitfahrer.
    */
-  public putBewertenAlsFahrer(bewertung: Bewertung): Observable<Response> {
-    return this.restService.putRequest('/bewertungen?sessionkey=' + this.session.sessionkey, {
-      userID: bewertung.mitfahrer ? bewertung.mitfahrer.userID : null,
-      rating: bewertung.rating,
-      ratingText: bewertung.ratingText
-    });
-  }
+  // public putBewertenAlsFahrer(bewertung: Bewertung): Observable<Response> {
+  //   return this.restService.putRequest('/bewertungen?sessionkey=' + this.session.sessionkey, {
+  //     userID: bewertung.mitfahrer ? bewertung.mitfahrer.userID : null,
+  //     rating: bewertung.rating,
+  //     ratingText: bewertung.ratingText
+  //   });
+  // }
 
   /**
    * Erstellt eine Bewertung von einem Mitfahrer für einen Fahrer.
    */
   public putBewertenAlsMitfahrer(bewertung: Bewertung): Observable<Response> {
     return this.restService.putRequest('/bewertungen?sessionkey=' + this.session.sessionkey, {
-      userID: bewertung.fahrer ? bewertung.fahrer.userID : null,
+      userID: bewertung.fahrer ? bewertung.fahrer.userID : -1,
       rating: bewertung.rating,
-      ratingText: bewertung.ratingText
+      ratingText: bewertung.ratingText,
+      reiseID: bewertung.reiseID
     });
   }
   //#endregion

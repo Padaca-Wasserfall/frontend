@@ -47,7 +47,7 @@ export class ProfilComponent implements OnInit {
           this.padacaService.getBewertungen(user.userID).subscribe((res2: Response) => {
             console.log('getBewertungen', res2);
             this.bewertung = 0;
-            this.bewertungen = res2.data;
+            this.bewertungen = res2.data.result;
             for (let bew of this.bewertungen) {
               this.bewertung += bew.rating;
             }
@@ -93,15 +93,17 @@ export class ProfilComponent implements OnInit {
   }
 
   private showReviews() {
-    let dialogRef = this.dialog.open(BewertungComponent, {
+    console.log('showReviews');
+    this.dialog.open(BewertungComponent, {
       data: { user: this.user, bewertungen: this.bewertungen },
-      width: '100%',
+      width: '100%'
     });
   }
 
   public saveProfile() {
     this.padacaService.postChangeProfile(this.user).subscribe((res: Response) => {
       console.log('changeProfile', res);
+      this.edit = false;
     }, (err) => {
       console.log('changeProfile', err);
     });

@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Bewertung, User } from '../../interfaces';
 
 @Component({
@@ -9,15 +9,19 @@ import { Bewertung, User } from '../../interfaces';
 })
 export class BewertungComponent {
   user: User;
-  bewertungen: Bewertung[];
-  sichtbareBewertungen: Bewertung[];
+  bewertungen: Bewertung[] = [];
+  sichtbareBewertungen: Bewertung[] = [];
   filterid: number;
   Arr = Array;
-  constructor( @Inject(MAT_DIALOG_DATA) public data: any) {
+
+  allSterne: number[] = [1, 2, 3, 4, 5];
+
+  constructor( @Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<BewertungComponent>) {
     this.user = data.user;
     this.bewertungen = data.bewertungen;
     this.sichtbareBewertungen = this.bewertungen;
     this.filterid = 0;
+    console.log('BewertungComponent constructor');
   }
 
   private anzahlBewertungen(sterne: number): Number {
