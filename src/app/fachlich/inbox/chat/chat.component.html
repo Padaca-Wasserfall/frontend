@@ -4,7 +4,7 @@
   </mat-card-header>
   <mat-card-content #scrollMe *ngIf="chat" class="messages" id="content">
     <message *ngFor="let message of chat.messages" class="message" [message]="message"
-      [requestAnswered]="isRequestAnswered(message.reiseID)" (denied)="deny($event)" (permited)="permit($event)"></message>
+      [requestAnswerable]="isRequestAnswerable(message.reiseID)" (denied)="deny($event)" (permited)="permit($event)"></message>
     <br>
     </mat-card-content>
   <mat-card-footer *ngIf="chat">

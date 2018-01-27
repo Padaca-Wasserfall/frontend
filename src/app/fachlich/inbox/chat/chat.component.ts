@@ -61,8 +61,14 @@ export class ChatComponent implements OnInit {
   public deny(reiseID: number) {
     this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, false).subscribe((res: Response) => {
       console.log('Mitfahrt ablehnen', res);
-      this.answeredRequests.push(reiseID);
-      this.sendMessage('Die Anfrage wurde abgelehnt.');
+      this.chat.messages.push({
+        message: 'Kannst leider nicht mitfahren',
+        zeitstempel: 0,
+        receiverID: this.chat.chatPartner.userID,
+        reiseID: reiseID
+      });
+      // this.answeredRequests.push(reiseID);
+      // this.sendMessage('Die Anfrage wurde abgelehnt.');
     }, (err) => {
       console.log('Mitfahrt ablehnen', err);
     });
@@ -71,23 +77,35 @@ export class ChatComponent implements OnInit {
   public permit(reiseID: number) {
     this.padacaService.postMitfahrtBestätigen(reiseID, this.chat.chatPartner.userID, true).subscribe((res: Response) => {
       console.log('Mitfahrt bestätigen', res);
-      this.answeredRequests.push(reiseID);
-      this.sendMessage('Die Anfrage wurde angenommen.');
+      this.chat.messages.push({
+        message: 'Kannst mitfahren',
+        zeitstempel: 0,
+        receiverID: this.chat.chatPartner.userID,
+        reiseID: reiseID
+      });
+      // this.answeredRequests.push(reiseID);
+      // this.sendMessage('Die Anfrage wurde angenommen.');
     }, (err) => {
       console.log('Mitfahrt bestätigen', err);
     });
   }
 
-  public isRequestAnswered(reiseID: number): boolean {
-    for (let i = 0; i < this.answeredRequests.length; i++) {
-      if (this.answeredRequests[i] == reiseID) {
-        return true;
+  public isRequestAnswerable(reiseID: number): boolean {
+    let count = 0;
+    let singleId = -1;
+    for (let i = 0; i < this.chat.messages.length; i++) {
+      if (this.chat.messages[i].reiseID == reiseID) {
+        count++;
+        singleId = i;
       }
+    }
+    if (count == 1 && this.chat.messages[singleId].receiverID == this.chat.user.userID) {
+      return true;
     }
     return false;
   }
 
   public selectChat(chatPartner: User) {
-
+    
   }
 }
