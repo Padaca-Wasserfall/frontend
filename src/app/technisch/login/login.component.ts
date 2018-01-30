@@ -3,6 +3,7 @@ import { Component, Inject, AfterViewInit, ViewChild } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { LoginDTO, Response, RegisterDTO } from '../../fachlich/interfaces';
 import { MatTabGroup } from '@angular/material';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-login',
@@ -42,7 +43,7 @@ export class LoginComponent implements AfterViewInit {
     if (this.username && this.password) {
       let dto: LoginDTO = {
         username: this.username,
-        password: this.password
+        password: Md5.hashStr(this.password).toString()
       };
       this.padacaService.getLogin(dto).subscribe((res: Response) => {
         if (res.success) {
@@ -75,7 +76,7 @@ export class LoginComponent implements AfterViewInit {
       if (this.password === this.passwordSubmit) {
         let dto: RegisterDTO = {
           username: this.username,
-          password: this.password
+          password: Md5.hashStr(this.password).toString()
         };
         console.log('registerDTO', dto);
         this.padacaService.getRegister(dto).subscribe((res: Response) => {
