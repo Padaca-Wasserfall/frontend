@@ -26,8 +26,8 @@ export class HomeComponent implements OnInit {
     this.updateSession();
     // Listen to Login & Logout
     this.padacaService.loggedIn.subscribe(data => {
-      this.loggedIn = true;
       this.updateSession();
+      this.loggedIn = this.isLoggedIn();
       console.log('login home');
     });
     this.padacaService.loggedOut.subscribe(data => {
