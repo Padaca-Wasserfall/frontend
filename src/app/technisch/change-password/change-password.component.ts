@@ -3,6 +3,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { PadacaService } from '../../fachlich/padaca.service';
 import { ChangePasswordDTO } from '../../fachlich/interfaces';
+import { Md5 } from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-change-password',
@@ -27,9 +28,9 @@ export class ChangePasswordComponent implements OnInit {
 
   public changePassword() {
     if (this.inputsValid()) {
-      let dto: ChangePasswordDTO = {
-        old: this.password,
-        new: this.newPassword
+      let dto: ChangePasswordDTO = { 
+        old: Md5.hashStr(this.password).toString(),
+        new: Md5.hashStr(this.newPassword).toString()
       };
       this.padacaService.getChangePassword(dto).subscribe((res: Response) => {
         console.error('changePassword', res);
@@ -41,6 +42,7 @@ export class ChangePasswordComponent implements OnInit {
           this.snackbar.open('Passwort wurde erfolgreich geändert!', 'OK', {
             duration: 5000,
           });
+          this.dialogRef.close();
         } else {
           this.changeFailed = true;
         }
