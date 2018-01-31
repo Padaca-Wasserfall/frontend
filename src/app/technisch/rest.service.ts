@@ -12,6 +12,15 @@ export class RestService {
 
   constructor(private http: Http) { }
 
+
+  public getRequestForMaps(ressourceAPI: string) {
+    return this.http.get(ressourceAPI).map(data => data.json()).catch((e) => {
+      if (e.status >= 400) {
+        return Observable.throw(e);
+      }
+    });
+  }
+
   public getRequest(ressourceAPI: string) {
     return this.http.get(this.BASEPATH + ressourceAPI).map(data => data.json()).catch((e) => {
       if (e.status >= 400) {

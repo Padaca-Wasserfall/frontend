@@ -34,3 +34,8 @@ mat-icon {
 img, mat-icon {
     cursor: pointer;
 }
+
+#map-canvas {
+    width: 300px;
+    height: 300px;
+}

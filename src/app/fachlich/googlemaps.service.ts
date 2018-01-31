@@ -11,9 +11,7 @@ export class GoogleMapsService {
   constructor (private restService: RestService) {}
 
   public getLocationOfCity(city: string): Observable<any> {
-    const path = this.BASEPATH + '/geocode/json?address=' + city + '&key=AIzaSyCj1t_DyxaGKTN1yqufTp7ORfPS4mZ0h30';
-    console.log(path);
-    return this.restService.getRequest(path);
+    return this.restService.getRequestForMaps(this.BASEPATH + '/geocode/json?address=' + city + '&key=AIzaSyCj1t_DyxaGKTN1yqufTp7ORfPS4mZ0h30');;
   }
 
 }

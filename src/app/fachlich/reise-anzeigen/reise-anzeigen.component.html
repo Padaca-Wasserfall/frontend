@@ -16,19 +16,24 @@
       <td>
         <button mat-raised-button color="primary" (click)="gesamteReiseAnzeigen()">Gesamte Strecke</button>
       </td>
+      <td rowspan="4">
+        <agm-map id="map-canvas" [latitude]="lat" [longitude]="lng" [zoom]="zoom">
+          <agm-marker *ngFor="let marker of paths" [latitude]="marker.lat" [longitude]="marker.lng"></agm-marker>
+        </agm-map>
+      </td>
     </tr>
     <tr>
       <td>
         <mat-form-field>
           <input matInput placeholder="Start" [value]="reise.start" disabled>
         </mat-form-field>
-        <mat-icon (click)="showStart()">map</mat-icon>
+        <!-- <mat-icon (click)="showStart()">map</mat-icon> -->
       </td>
       <td>
         <mat-form-field>
           <input matInput placeholder="Ziel" [value]="reise.ziel" disabled>
         </mat-form-field>
-        <mat-icon (click)="showZiel()">map</mat-icon>
+        <!-- <mat-icon (click)="showZiel()">map</mat-icon> -->
       </td>
     </tr>
     <tr>
