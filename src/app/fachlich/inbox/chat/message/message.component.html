@@ -1,14 +1,17 @@
 <div [ngClass]="{'sender' : isSender()}">
-  <br> 
-  <span> {{ time | date:'dd.MM.yyyy HH:mm:ss'  }} </span>
-  <br> 
-  <!-- <p>{{ message.message }}</p> -->
-  <span style="white-space: pre-line; font-size: 14px">{{ message.message }}</span>
-  <br> 
-  <br> 
+  <br>
+  <span> {{ time | date:'dd.MM.yyyy HH:mm:ss' }} </span>
+  <br>
+  <div *ngIf="message.reiseID < 0" >
+    <!-- <p>{{ message.message }}</p> -->
+    <span style="white-space: pre-line; font-size: 14px">{{ message.message }}</span>
+    <br>
+  </div>
+  <br>
+
   <ng-container *ngIf="message.reiseID >= 0">
-      <button mat-raised-button (click)="reiseAnzeigen()">Reise anzeigen</button>
-      <button *ngIf="requestAnswerable" mat-raised-button color="primary" (click)="annehmen()">Annehmen</button>
-      <button *ngIf="requestAnswerable" mat-raised-button color="warn" (click)="ablehnen()">Ablehnen</button>
+    <button mat-raised-button (click)="reiseAnzeigen()">Reise anzeigen</button>
+    <button *ngIf="requestAnswerable" mat-raised-button color="primary" (click)="annehmen()">Annehmen</button>
+    <button *ngIf="requestAnswerable" mat-raised-button color="warn" (click)="ablehnen()">Ablehnen</button>
   </ng-container>
 </div>

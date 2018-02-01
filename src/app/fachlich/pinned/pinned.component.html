@@ -7,7 +7,7 @@
       <th>Datum</th>
       <th>Start</th>
       <th>Ziel</th>
-      <th>Zeit</th>
+      <!-- <th>Zeit</th> -->
       <th>Fahrer</th>
       <th></th>
       <th></th>
@@ -16,8 +16,8 @@
       <td>{{reise.datum}}</td>
       <td>{{reise.start}}</td>
       <td>{{reise.ziel}}</td>
-      <td>{{reise.reisedauer}}</td>
-      <td>{{reise.fahrer.username}}</td>
+      <!-- <td>{{reise.reisedauer}}</td> -->
+      <td>{{reise.fahrer | user}}</td>
       <td>
         <button mat-button (click)="clickAnzeigen(reise)">
           <mat-icon>info</mat-icon>Anzeigen</button>

@@ -4,19 +4,20 @@
             <tr>
                 <td class="container">
                     <mat-icon class="profile-pic">account_circle</mat-icon>
+                    <div style="cursor: pointer;" (click)="showReviews()">
                     <br/>
-                    <ng-container *ngFor="let number of [1,2,3,4,5]">
-                        <mat-icon *ngIf="bewertung < (number-1 + 0.5)" class="star">star_border</mat-icon>
-                        <mat-icon *ngIf="bewertung >= (number-1 + 0.5) && bewertung < number" class="star">star_half</mat-icon>
-                        <mat-icon *ngIf="bewertung >= number" class="star">star</mat-icon>
-                    </ng-container>
-                    <br/>
-                    <p style="margin-left: 10px;">
-                        {{bewertung | number : '1.2-2' }}/5.00
-                        <br>
-                        {{bewertungen.length}}
-                        <a (click)="showReviews()" >{{(bewertungen.length == 1)?'Bewertung':'Bewertungen'}}</a>
-                    </p>
+                        <ng-container *ngFor="let number of [1,2,3,4,5]">
+                            <mat-icon *ngIf="bewertung < (number-1 + 0.5)" class="star">star_border</mat-icon>
+                            <mat-icon *ngIf="bewertung >= (number-1 + 0.5) && bewertung < number" class="star">star_half</mat-icon>
+                            <mat-icon *ngIf="bewertung >= number" class="star">star</mat-icon>
+                        </ng-container>
+                        <br/>
+                        <p style="margin-left: 10px;">
+                            {{bewertung | number : '1.2-2' }}/5.00
+                            <br> {{bewertungen.length}}
+                            <a>{{(bewertungen.length == 1)?'Bewertung':'Bewertungen'}}</a>
+                        </p>
+                    </div>
                 </td>
                 <td class="container">
                     <mat-form-field>

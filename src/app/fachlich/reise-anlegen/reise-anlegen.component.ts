@@ -20,7 +20,7 @@ export class ReiseAnlegenComponent implements OnInit {
   plaetzeMax: number;
   preis: number;
   beschreibung: string;
-  umwegMax: number;
+  umwegMax = 0;
 
   constructor(private padaService: PadacaService, private router: Router) { }
 

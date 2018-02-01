@@ -7,7 +7,7 @@
           <input matInput type="text" [(ngModel)]="start" required>
         </mat-form-field>
         <button mat-button (click)="clickMapPunkt('start')">
-          <mat-icon>map</mat-icon>
+          <!-- <mat-icon>map</mat-icon> -->
         </button>
       </td>
     </tr>
@@ -18,7 +18,7 @@
           <input matInput type="text" [(ngModel)]="ziel" required>
         </mat-form-field>
         <button mat-button (click)="clickMapPunkt('ziel')">
-          <mat-icon>map</mat-icon>
+          <!-- <mat-icon>map</mat-icon> -->
         </button>
       </td>
     </tr>
@@ -40,14 +40,14 @@
         </mat-form-field>
       </td>
     </tr>
-    <tr>
+    <!-- <tr>
       <th>Maximaler Umweg (in KM)</th>
       <td>
         <mat-form-field>
           <input matInput type="text" [(ngModel)]="umwegMax" required>
         </mat-form-field>
       </td>
-    </tr>
+    </tr> -->
     <tr>
       <th>Preis (in Cent)</th>
       <td>
@@ -65,14 +65,14 @@
         </mat-form-field>
       </td>
     </tr>
-    <tr>
+    <!-- <tr>
       <th>Strecke Anzeigen</th>
       <td>
         <button mat-button (click)="clickMapStrecke()">
           <mat-icon>map</mat-icon>
         </button>
       </td>
-    </tr>
+    </tr> -->
   </table>
   <hr>
   <table width="100%">
